@@ -1,3 +1,9 @@
+/**
+ * Request.java
+ * 
+ * Wrapper class that handles sending GET, POST, PUT and DELETE requests over
+ * http.
+ */
 package rentalcar.web;
 
 import java.net.URL;
@@ -17,7 +23,7 @@ public class Request {
       URL url = new URL(SERVER + _url);
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
       conn.setRequestMethod("GET");
-      String response = conn.getResponseMessage(); // throws IOException
+      String response = conn.getResponseMessage();
       conn.disconnect();
       return response.toString();
     } catch (MalformedURLException e) {
@@ -53,7 +59,37 @@ public class Request {
   //   return response.toString();
   // }
 
-  // public PUT (String url) {}
-  // public DELETE (String url) {}
-
+  public String PUT (String _url) {
+    try {
+      URL url = new URL(SERVER + _url);
+      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+      conn.setRequestMethod("PUT");
+      String response = conn.getResponseMessage();
+      conn.disconnect();
+      return response.toString();
+    } catch (MalformedURLException e) {
+      System.out.println("x MalformedURLException: " + e.getMessage());
+      return "";
+    } catch (IOException e) {
+      System.out.println("x IOException: " + e.getMessage());
+      return "";
+    }
+  }
+  
+  public String DELETE (String _url) {
+    try {
+      URL url = new URL(SERVER + _url);
+      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+      conn.setRequestMethod("DELETE");
+      String response = conn.getResponseMessage();
+      conn.disconnect();
+      return response.toString();
+    } catch (MalformedURLException e) {
+      System.out.println("x MalformedURLException: " + e.getMessage());
+      return "";
+    } catch (IOException e) {
+      System.out.println("x IOException: " + e.getMessage());
+      return "";
+    }
+  }
 };
