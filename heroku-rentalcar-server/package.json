@@ -9,7 +9,7 @@
     {"name": "Grant Hays",         "email": "granthays@gmail.com" },
     {"name": "Jackson Montgomery", "email": "j573m923@ku.edu" },
     {"name": "Lei Wang",           "email": "l290w868@gmail.com"},
-    {"name": "Greg Pregulman",     "email": "gpregulman@gmail.com"},
+    {"name": "Greg Pregulman",     "email": "gpregulman@gmail.com"}
   ],
   "bin": {},
   "scripts": {},
@@ -24,6 +24,7 @@
   "keywords": [],
   "dependencies": {
     "express": ">=4.11.2",
+		"mysql":   ">=2.5.4"
   },
   "private": true,
   "analyze": true
