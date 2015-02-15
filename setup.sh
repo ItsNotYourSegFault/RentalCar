@@ -1,2 +1,2 @@
-# Add libraries to java classpath
-export CLASSPATH=$(pwd)/src:$CLASSPATH
+# Add rentalcar source libraries and extra libraries to classpath
+export CLASSPATH=$(pwd)/src:$(pwd)/lib:$CLASSPATH

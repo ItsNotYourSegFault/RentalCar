@@ -1,10 +1,13 @@
-/**
- * Request.java
- * 
- * Wrapper class that handles sending GET, POST, PUT and DELETE requests over
- * http.
- */
 package rentalcar.web;
+
+/*
+  Request.java
+  --
+  Kendal Harland <kendaljharland@gmail.com>
+  --
+  Wrapper class that handles sending GET, POST, PUT and DELETE requests over
+  http.
+ */
 
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -34,30 +37,6 @@ public class Request {
       return "";
     }
   }
-
-  // public static String POST (String url, String params) {
-  //   URL url = URL(SERVER + url);
-  //   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-  //   conn.setRequestMethod("GET");
-  //   // write data
-  //   conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-  //   conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
-  //   DataOutputStream ostream = new DataOutputStream(conn.getOutputStream());
-  //   ostream.writeBytes(params);
-  //   ostream.flush();
-  //   ostream.close();
-  //   // get response
-  //   InputStream instream = conn.getInputStream();
-  //   BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
-  //   String line;
-  //   StringBuffer response = new StringBuffer();
-  //   while ((line = reader.readline()) != null) {
-  //     response.append(line);
-  //     response.append('\r');
-  //   }
-  //   reader.close();
-  //   return response.toString();
-  // }
 
   public String PUT (String _url) {
     try {
@@ -92,4 +71,28 @@ public class Request {
       return "";
     }
   }
+  
+  // public static String POST (String url, String params) {
+  //   URL url = URL(SERVER + url);
+  //   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+  //   conn.setRequestMethod("GET");
+  //   // write data
+  //   conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+  //   conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
+  //   DataOutputStream ostream = new DataOutputStream(conn.getOutputStream());
+  //   ostream.writeBytes(params);
+  //   ostream.flush();
+  //   ostream.close();
+  //   // get response
+  //   InputStream instream = conn.getInputStream();
+  //   BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+  //   String line;
+  //   StringBuffer response = new StringBuffer();
+  //   while ((line = reader.readline()) != null) {
+  //     response.append(line);
+  //     response.append('\r');
+  //   }
+  //   reader.close();
+  //   return response.toString();
+  // }
 };
