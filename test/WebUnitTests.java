@@ -3,7 +3,7 @@ import rentalcar.web.JSONRequest;
 
 
 /*
-  RentalCar.java
+  WebUnitTests.java
   --
   Kendal Harland <kendaljharland@gmail.com>
   Siddhant Sethi <siddhant.sethi91@gmail.com>
@@ -16,7 +16,7 @@ import rentalcar.web.JSONRequest;
   Main RentalCar application file.
  */
   
-public class RentalCar {
+public class WebUnitTests {
   public static void main(String[] args) {
     JSONRequest jreq = new JSONRequest();
     Request req = new Request();
