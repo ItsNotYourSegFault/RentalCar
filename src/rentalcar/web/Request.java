@@ -19,8 +19,8 @@ import java.io.IOException;
 
 public class Request {
 
-  //private static final String SERVER = "https://rentalcar.herokuapp.com/";
-  private static final String SERVER = "http://localhost:3000/";
+  private static final String SERVER = "https://rentalcar.herokuapp.com/";
+  //private static final String SERVER = "http://localhost:3000/";
 
   private static void _handleHTTPError(int code) {
     System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
@@ -51,7 +51,7 @@ public class Request {
   }
 
   public Request() {}
-  
+
   public String GET (String _url)  {
     String response = _request(_url, "GET");
     return response;
