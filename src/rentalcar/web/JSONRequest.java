@@ -9,6 +9,7 @@ package rentalcar.web;
  */
 
 import rentalcar.web.Request;
+import org.json.JSONTokener;
 import org.json.JSONObject;
 
 public class JSONRequest {
@@ -17,30 +18,22 @@ public class JSONRequest {
 
   public static JSONObject GET (String url) {
     Request request = new Request();
-    String response = request.GET(url);
-    jsonObject = new JSONObject();
-    // parse the object ...
-    return jsonObject;
+    return new JSONObject(new JSONTokener(request.GET(url)));
   }
 
   public static JSONObject PUT (String url) {
     Request request = new Request();
-    String response = request.PUT(url);
-    jsonObject = new JSONObject();
-    // parse the object ...
-    return jsonObject;
+    return new JSONObject(new JSONTokener(request.PUT(url)));
   }
   
   public static JSONObject DELETE (String url) {
     Request request = new Request();
-    String response = request.DELETE(url);
-    jsonObject = new JSONObject();
-    // parse the object ...
-    return jsonObject; 
+    return new JSONObject(new JSONTokener(request.DELETE(url)));
   }
 
   // public static JSONObject POST (String url, String params) {
   //   Request request = new Request();
-  //   String response = request.GET(url, params);
+  //   String response = request.GET(url);
+  //   return new JSONObject(new JSONTokener(request.GET(url)));
   // }
 };

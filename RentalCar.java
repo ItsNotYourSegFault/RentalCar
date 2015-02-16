@@ -1,5 +1,3 @@
-import rentalcar.web.Request;
-import rentalcar.web.JSONRequest;
 
 /*
   RentalCar.java
@@ -17,8 +15,5 @@ import rentalcar.web.JSONRequest;
   
 public class RentalCar {
   public static void main(String[] args) {
-    JSONRequest jreq = null;
-    Request req = new Request();
-    System.out.println(req.GET("hello/world/"));
   }
 }

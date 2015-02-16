@@ -13,22 +13,34 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class Request {
 
-  private static final String SERVER = "https://rentalcar.herokuapp.com/";
+  //private static final String SERVER = "https://rentalcar.herokuapp.com/";
+  private static final String SERVER = "http://localhost:3000/";
 
-  public Request() {}
+  private static void _handleHTTPError(int code) {
+    System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
+  }
 
-  public String GET (String _url)  {
+  private String _request(String _url, String _method) {
     try {
       URL url = new URL(SERVER + _url);
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-      conn.setRequestMethod("GET");
-      String response = conn.getResponseMessage();
+      conn.setRequestMethod(_method);
+      int status = conn.getResponseCode();
+      if (status != 200)
+        _handleHTTPError(status);
+      InputStreamReader reader = new InputStreamReader(conn.getInputStream());
+      int data;
+      String response = "";
+      while ((data = reader.read()) > 0)
+        response += (char)data;
       conn.disconnect();
-      return response.toString();
+      return response;
     } catch (MalformedURLException e) {
       System.out.println("x MalformedURLException: " + e.getMessage());
       return "";
@@ -36,46 +48,29 @@ public class Request {
       System.out.println("x IOException: " + e.getMessage());
       return "";
     }
+  }
+
+  public Request() {}
+  
+  public String GET (String _url)  {
+    String response = _request(_url, "GET");
+    return response;
   }
 
   public String PUT (String _url) {
-    try {
-      URL url = new URL(SERVER + _url);
-      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-      conn.setRequestMethod("PUT");
-      String response = conn.getResponseMessage();
-      conn.disconnect();
-      return response.toString();
-    } catch (MalformedURLException e) {
-      System.out.println("x MalformedURLException: " + e.getMessage());
-      return "";
-    } catch (IOException e) {
-      System.out.println("x IOException: " + e.getMessage());
-      return "";
-    }
-  }
-  
+    String response = _request(_url, "PUT");
+    return response;
+  } 
+
   public String DELETE (String _url) {
-    try {
-      URL url = new URL(SERVER + _url);
-      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-      conn.setRequestMethod("DELETE");
-      String response = conn.getResponseMessage();
-      conn.disconnect();
-      return response.toString();
-    } catch (MalformedURLException e) {
-      System.out.println("x MalformedURLException: " + e.getMessage());
-      return "";
-    } catch (IOException e) {
-      System.out.println("x IOException: " + e.getMessage());
-      return "";
-    }
+    String response = _request(_url, "DELETE");
+    return response;
   }
   
   // public static String POST (String url, String params) {
   //   URL url = URL(SERVER + url);
   //   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-  //   conn.setRequestMethod("GET");
+  //   conn.setRequestMethod("POST");
   //   // write data
   //   conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
   //   conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
