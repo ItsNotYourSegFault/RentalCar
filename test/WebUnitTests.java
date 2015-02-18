@@ -1,6 +1,7 @@
 import rentalcar.web.Request;
 import rentalcar.web.JSONRequest;
-
+import rentalcar.web.APIClient;
+import rentalcar.data.Reservation;
 
 /*
   WebUnitTests.java
@@ -13,7 +14,7 @@ import rentalcar.web.JSONRequest;
   Lei Wang <l290w868@gmail.com>
   Greg Pregulman <gpregulman@gmail.com>
   --
-  Main RentalCar application file.
+  Unit tests for the rentalcar.web package
  */
   
 public class WebUnitTests {
@@ -24,8 +25,13 @@ public class WebUnitTests {
     System.out.println("req.GET:    " + req.GET("json/test/"));
     System.out.println("req.PUT:    " + req.PUT("json/test/"));
     System.out.println("req.DELETE: " + req.DELETE("json/test/"));
+    System.out.println("req.POST:   " + req.POST("json/test", ""));
     System.out.println("jreq.GET:   " + jreq.GET("json/test/"));
     System.out.println("jreq.PUT:   " + jreq.PUT("json/test/"));
     System.out.println("jreq.DELETE:" + jreq.DELETE("json/test/"));
+    System.out.println("jreq.POST:  " + jreq.POST("json/test", ""));
+    APIClient client = new APIClient();
+    Reservation res = new Reservation();
+    client.CreateReservation(res);
   }
 }

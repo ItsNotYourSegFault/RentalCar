@@ -7,7 +7,7 @@ package rentalcar.web;
   --
   Wrapper class that handles sending GET, POST, PUT and DELETE requests over
   http.
- */
+*/
 
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Request {
@@ -67,27 +68,33 @@ public class Request {
     return response;
   }
   
-  // public static String POST (String url, String params) {
-  //   URL url = URL(SERVER + url);
-  //   HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-  //   conn.setRequestMethod("POST");
-  //   // write data
-  //   conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-  //   conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
-  //   DataOutputStream ostream = new DataOutputStream(conn.getOutputStream());
-  //   ostream.writeBytes(params);
-  //   ostream.flush();
-  //   ostream.close();
-  //   // get response
-  //   InputStream instream = conn.getInputStream();
-  //   BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
-  //   String line;
-  //   StringBuffer response = new StringBuffer();
-  //   while ((line = reader.readline()) != null) {
-  //     response.append(line);
-  //     response.append('\r');
-  //   }
-  //   reader.close();
-  //   return response.toString();
-  // }
+  public static String POST (String _url, String params) {
+    try {
+      URL url = new URL(SERVER + _url);
+      HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+      conn.setDoOutput(true);
+      conn.setRequestMethod("POST");
+      conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+      conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
+      DataOutputStream ostream = new DataOutputStream(conn.getOutputStream());
+      String reqstr = params;//"foo=bar&bar=baz&baz=foo";
+      System.out.println("Requsting: " + reqstr);
+      ostream.writeBytes(reqstr);
+      ostream.flush();
+      ostream.close();
+      InputStreamReader reader = new InputStreamReader(conn.getInputStream());
+      int data;
+      String response = "";
+      while ((data = reader.read()) > 0)
+        response += (char)data;
+      reader.close();
+      return response;
+    } catch (MalformedURLException e) {
+      System.out.println("x MalformedURLException: " + e.getMessage());
+      return "";
+    } catch (IOException e) {
+      System.out.println("x IOException: " + e.getMessage());
+      return "";
+    }
+  }
 };
