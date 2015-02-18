@@ -19,7 +19,7 @@ public class APIClient {
   public APIClient() {}
 
   /*
-   createReservation
+   JSONObject CreateReservation
    @desc  POST the server to create a new vehicle reservation
    @param res  The reservation to create
   */
