@@ -12,7 +12,7 @@ package rentalcar.web;
 
 import org.json.JSONObject;
 import rentalcar.web.JSONRequest;
-import rentalcar.data.Reservation;
+import rentalcar.data.FormObject;
 
 public class APIClient {
 
@@ -21,10 +21,10 @@ public class APIClient {
   /*
    JSONObject CreateReservation
    @desc  POST the server to create a new vehicle reservation
-   @param res  The reservation to create
+   @param reservation  The reservation to create
   */
-  public static JSONObject CreateReservation(Reservation res) {
+  public static JSONObject CreateReservation(FormObject reservation) {
     JSONRequest request = new JSONRequest();
-    return request.POST("create/reservation/", res.ToQueryString());
+    return request.POST("create/reservation/", reservation.ToQueryString());
   }
 };
