@@ -20,13 +20,13 @@ public class FormObject {
   
   // The fields this form object contains
   protected HashMap<String,String> fields = new HashMap<String,String>();
-
+  
   public FormObject() {}
 
   /* 
     String ToQueryString
     @desc  Serialize the form object into a list of url parameters
-   */
+  */
   public String ToQueryString() {
     String queryString = "";
     Iterator it = fields.entrySet().iterator();
@@ -38,5 +38,21 @@ public class FormObject {
       queryString += "&";
     }
     return queryString;
+  }
+
+  /*
+    void Set
+    @desc  Map a key from keys to a value in the fields HashMap
+  */
+  public void Set(String key, String value) {
+    fields.put(key, value);
+  }
+
+  /* 
+   String Get
+   @desc  Get the value associated with a key
+  */
+  public String Get(String key) {
+    return fields.get(key);
   }
 }
