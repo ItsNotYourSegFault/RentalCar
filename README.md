@@ -10,7 +10,7 @@ java classpath and including any submodules used in the project.
 ```sh
 javac RentalCar.java
 java RentalCar
-
+```
 
 # Quick Data References
 
