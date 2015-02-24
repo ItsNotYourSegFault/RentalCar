@@ -11,10 +11,10 @@ package rentalcar.web;
 */
 
 import org.json.JSONObject;
-import org.json.JSONArray; // delete
+import org.json.JSONArray;
 import java.util.List;
 import java.util.ArrayList;
-import rentalcar.web.Request; // delete
+import rentalcar.web.Request;
 import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 
