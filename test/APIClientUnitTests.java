@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+import org.json.JSONObject;
 import rentalcar.data.FormObject;
 import rentalcar.web.APIClient;
 
@@ -20,14 +23,20 @@ public class APIClientUnitTests {
     APIClient client = new APIClient();
     // Test create fake reservation
     FormObject reservation = new FormObject();
-    reservation.Set("vin",        "123456");
+    reservation.Set("vehicleid",  "123456");
+    reservation.Set("locationid", "1");
     reservation.Set("customerid", "1");
     reservation.Set("salesid",    "1");
     reservation.Set("totalcost",  "4999.99");
     reservation.Set("startmiles", "1000");
     reservation.Set("endmiles",   "2000");
-    reservation.Set("services",   "5");
-    reservation.Set("equipment",  "5");
     client.CreateReservation(reservation);
+
+    // Test retrieve list of vehicles
+    List<JSONObject> vehicles = client.GetVehiclesByLocation(51);
+    System.out.println("VEHICLES: ");
+    for (int i=0; i<vehicles.size(); i++) {
+      System.out.println(vehicles.get(i); // JSON Object prints as unparsed string
+    }
   }
 }
