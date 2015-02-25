@@ -31,3 +31,11 @@ java RentalCar
 | 101 | Topeka |
 | 111 | Warrensburg |
 
+### Users by type
+
+| permission | usertype |
+| :--------: | :------- |
+| 1 | Admin |
+| 2 | Customer |
+| 3 | Sales Rep |
+| 4 | Service Rep |
