@@ -4,12 +4,163 @@ import rentalcar.ui.Display;
 
 
 public class CustomerUIMain {
-
+	// Instantiating Display window
 	static Display window = new Display();
 	
+	/*
+	 * Reservation System
+	 * Asks for vehicle and services
+	 * Vehicles are strings
+	 * Services are int - 1 = yes, 0 = no
+	 */
 	public static void reserve()
 	{
-		Display.println("RESERVATION");
+		String vehicleList[] = new String[7];
+		vehicleList[0] = "Economy car";
+		vehicleList[1] = "Compact car";
+		vehicleList[2] = "Standard car";
+		vehicleList[3] = "Premium car";
+		vehicleList[4] = "Small SUV";
+		vehicleList[5] = "Standard SUV";
+		vehicleList[6] = "Minivan";
+		
+		int vehicleChoiceInt = 0;
+		String vehicleChoice = "";
+		
+		int GPS, childSeat, KTAG, roadsideAsst, lossIns, personalIns;
+		
+		int month = 0;
+		int day = 0;
+		int year = 0;
+		
+		char yesOrNo = 'x';
+		
+		Display.println("**** Reservation - Vehicle ****");
+		Display.println(" ");
+		Display.println("Please, select a vehicle class: ");
+		for (int i = 0; i < 7; i++) {
+			Display.print(i + 1);
+			Display.print(".\t");
+			Display.println(vehicleList[i]);
+		}
+		Display.println(" ");
+		Display.println(" ");
+		
+		vehicleChoiceInt = Display.inputInt() - 1;
+		vehicleChoice = vehicleList[vehicleChoiceInt];
+		
+		Display.println("**** Reservation - Services ****");
+		Display.println(" ");
+		
+		// GPS
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
+			Display.println("GPS Reciever? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			GPS = 1;
+		} else {
+			GPS = 0;
+		}
+		yesOrNo = 'x';
+		
+		
+		//Child Seat
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
+			Display.println("Child Seat? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			childSeat = 1;
+		} else {
+			childSeat = 0;
+		}
+		yesOrNo = 'x';
+		
+		
+		// K-TAG Rental
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
+			Display.println("K-TAG Rental? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			KTAG = 1;
+		} else {
+			KTAG = 0;
+		}
+		yesOrNo = 'x';
+			
+		
+		//Roadside Assistance
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
+			Display.println("Roadside Assistance? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			roadsideAsst = 1;
+		} else {
+			roadsideAsst = 0;
+		}
+		yesOrNo = 'x';
+		
+		
+		//Loss Damage Waiver Insurance
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
+			Display.println("Loss Damage Waiver Insurance? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			lossIns = 1;
+		} else {
+			lossIns = 0;
+		}
+		yesOrNo = 'x';
+		
+		
+		//Personal Accident Insurance
+		while((yesOrNo != 'y') && (yesOrNo != 'n')) {
+			Display.println("Personal Roadside Assistance? (y/n)");
+			yesOrNo = Display.inputChar();
+		}
+		if(yesOrNo == 'y') {
+			personalIns = 1;
+		} else {
+			personalIns = 0;
+		}
+		yesOrNo = 'x';
+		
+		// Gather date info
+		while((month < 1) || (month > 12)) {
+			Display.println("Please enter the number of the month for this reservation: ");
+			month = Display.inputInt();
+		}
+		while((day < 1) || (day > 31)) {
+			Display.println("Please enter the number of the day for this reservation: ");
+			day = Display.inputInt();
+		}
+		while((year < 2015) || (month > 2017)) {
+			Display.println("Please enter the number of the month for this reservation: ");
+			year = Display.inputInt();
+		}
+		
+		Display.println(" ");
+		Display.println(" ");
+		Display.print("Thank you. Your reservation for a ");
+		Display.print(vehicleChoice);
+		Display.print(" is set for ");
+		Display.print(day);
+		Display.print("-");
+		Display.print(month);
+		Display.print("-");
+		Display.print(year);
+		
+		
+		
+		Display.println(" ");
+		Display.println(" ");
+		Display.println(" ");
+		
+		
 	}
 	
 	public static void  vehicles() {
