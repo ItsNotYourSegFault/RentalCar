@@ -32,7 +32,6 @@ public class FormObject {
     while (true) {
       Map.Entry pair = (Map.Entry)it.next();
       queryString += pair.getKey() + "=" + pair.getValue();
-      it.remove();
       if (!it.hasNext()) break;
       queryString += "&";
     }
