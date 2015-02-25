@@ -20,13 +20,27 @@ import rentalcar.web.User;
 
 public class UserUnitTests {
   public static void main(String[] args) {
-    User client = new User();
-
-    // Attempt to log in to the server
-    FormObject user = new FormObject();
-    user.Set("username", "kjh");
-    user.Set("password", "kendalharland");
-    client.LogIn(user);
+    User user = new User();
+    FormObject creds = new FormObject();
+    
+    // Attempt to log in to the server with bad creds
+    creds.Set("username", "kjhd");
+    creds.Set("password", "kendalharland");
+    System.out.println("Logging in as kjhd...");
+    user.LogIn(creds);
+    
+    if(user.IsLoggedIn())
+      System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
+    else 
+      System.out.println("User credentials are invalid");
+    
+    System.out.println("Logging in as kjh...");
+    creds.Set("username", "kjh");
+    user.LogIn(creds);
+    if(user.IsLoggedIn())
+      System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
+    else 
+      System.out.println("User credentials are invalid");
 
     // Test create fake reservation
     FormObject reservation = new FormObject();
@@ -37,10 +51,10 @@ public class UserUnitTests {
     reservation.Set("totalcost",  "4999.99");
     reservation.Set("startmiles", "1000");
     reservation.Set("endmiles",   "2000");
-    client.CreateReservation(reservation);
+    user.CreateReservation(reservation);
 
     // Test retrieve list of vehicles
-    List<JSONObject> vehicles = client.GetVehiclesByLocation(51);
+    List<JSONObject> vehicles = user.GetVehiclesByLocation(51);
     System.out.println("VEHICLES: ");
     for (int i=0; i<vehicles.size(); i++) {
       System.out.println(vehicles.get(i)); // JSON Object prints as unparsed string
