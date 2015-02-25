@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import rentalcar.data.FormObject;
-import rentalcar.web.APIClient;
+import rentalcar.web.User;
 
 /*
   WebUnitTests.java
@@ -18,12 +18,19 @@ import rentalcar.web.APIClient;
   Unit tests for the rentalcar.web package
  */
 
-public class APIClientUnitTests {
+public class UserUnitTests {
   public static void main(String[] args) {
-    APIClient client = new APIClient();
+    User client = new User();
+
+    // Attempt to log in to the server
+    FormObject user = new FormObject();
+    user.Set("username", "kjh");
+    user.Set("password", "kendalharland");
+    client.LogIn(user);
+
     // Test create fake reservation
     FormObject reservation = new FormObject();
-    reservation.Set("vehicleid",  "123456");
+    reservation.Set("vehicleid",  "777777");
     reservation.Set("locationid", "1");
     reservation.Set("customerid", "1");
     reservation.Set("salesid",    "1");
@@ -36,7 +43,7 @@ public class APIClientUnitTests {
     List<JSONObject> vehicles = client.GetVehiclesByLocation(51);
     System.out.println("VEHICLES: ");
     for (int i=0; i<vehicles.size(); i++) {
-      System.out.println(vehicles.get(i); // JSON Object prints as unparsed string
+      System.out.println(vehicles.get(i)); // JSON Object prints as unparsed string
     }
   }
 }

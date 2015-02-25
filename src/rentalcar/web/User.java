@@ -1,13 +1,11 @@
 package rentalcar.web;
 
 /*
-  APIClient.java
+  User.java
   --
   Kendal Harland <kendaljharland@gmail.com>
   --
-  API Client library for the rental car application.
-  The api client exposes the rentalcar application to all of the methods 
-  provided by the rental car app server.
+  User API Client library for the rental car application.
 */
 
 import org.json.JSONObject;
@@ -18,12 +16,29 @@ import rentalcar.web.Request;
 import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 
-public class APIClient {
+public class User {
+
+  private JSONObject user = null;
+
+  /*
+    bool LogIn
+    @desc  Find the user whose credentials match username and password
+    @param user  Form with the user's login credentials
+    @return upon success, a JSONObject representing a user is returned. else
+            an empty JSON object is returned.
+  */
+  public static bool LogIn(FormObject user) {
+    JSONRequest request = new JSONRequest();
+    JSONObject info = request.POST("user/login/", user.ToQueryString());
+    userInfo = info;
+    return true;
+  }
 
   /*
     JSONObject CreateReservation
     @desc  POST the server to create a new vehicle reservation
     @param reservation  The reservation to create
+    @return a JSONObject containing a success or failure message
   */
   public static JSONObject CreateReservation(FormObject reservation) {
     JSONRequest request = new JSONRequest();
@@ -34,6 +49,7 @@ public class APIClient {
     JSONObject GetVehiclesByLocation
     @desc  GET all vehicles in a particular location's inventory
     @param locationid  The ID of the location
+    @return a List of type JSONObject whose elements are vehicles
   */
   public static List<JSONObject> GetVehiclesByLocation(int locationid) {
     Request request = new Request();
