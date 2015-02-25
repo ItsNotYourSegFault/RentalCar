@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
-import rentalcar.web.APIClient;
 
 public class FormObject {
   
