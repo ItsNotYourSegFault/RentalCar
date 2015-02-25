@@ -58,7 +58,6 @@ public class JSONRequest {
   public static JSONObject POST (String url, String params) {
     Request request = new Request();
     String response = request.POST(url, params);
-    System.out.println(response);
     return new JSONObject(new JSONTokener(response));
   }
 };
