@@ -20,8 +20,10 @@ import java.io.IOException;
 
 public class Request {
 
-  private static final String SERVER = "https://rentalcar.herokuapp.com/";
-  //private static final String SERVER = "http://localhost:3000/";
+  final static String EMPTY_RESPONSE = "{}";
+
+  //private static final String SERVER = "https://rentalcar.herokuapp.com/";
+  private static final String SERVER = "http://localhost:3000/";
 
   private static void _handleHTTPError(int code) {
     System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
@@ -33,7 +35,7 @@ public class Request {
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
       conn.setRequestMethod(_method);
       int status = conn.getResponseCode();
-      if (status != 200)
+      if (status != 200) // and exception was not thrown
         _handleHTTPError(status);
       InputStreamReader reader = new InputStreamReader(conn.getInputStream());
       int data;
@@ -44,10 +46,10 @@ public class Request {
       return response;
     } catch (MalformedURLException e) {
       System.out.println("x MalformedURLException: " + e.getMessage());
-      return "";
+      return EMPTY_RESPONSE;
     } catch (IOException e) {
       System.out.println("x IOException: " + e.getMessage());
-      return "";
+      return EMPTY_RESPONSE;
     }
   }
 
@@ -77,8 +79,7 @@ public class Request {
       conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
       conn.setRequestProperty("Content-Length", Integer.toString(params.getBytes().length));
       DataOutputStream ostream = new DataOutputStream(conn.getOutputStream());
-      String reqstr = params;//"foo=bar&bar=baz&baz=foo";
-      System.out.println("Requsting: " + reqstr);
+      String reqstr = params;
       ostream.writeBytes(reqstr);
       ostream.flush();
       ostream.close();
@@ -91,10 +92,10 @@ public class Request {
       return response;
     } catch (MalformedURLException e) {
       System.out.println("x MalformedURLException: " + e.getMessage());
-      return "";
+      return EMPTY_RESPONSE;
     } catch (IOException e) {
       System.out.println("x IOException: " + e.getMessage());
-      return "";
+      return EMPTY_RESPONSE;
     }
   }
 };

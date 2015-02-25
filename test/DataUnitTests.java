@@ -1,5 +1,5 @@
 import rentalcar.web.JSONRequest;
-import rentalcar.data.Reservation;
+import rentalcar.data.FormObject;
 
 /*
   DataUnitTests.java
@@ -17,7 +17,7 @@ import rentalcar.data.Reservation;
   
 public class DataUnitTests {
   public static void main(String[] args) {
-    Reservation res = new Reservation();
+    FormObject res = new FormObject();
     System.out.println(res.ToQueryString());
   }
 }
