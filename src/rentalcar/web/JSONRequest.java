@@ -14,8 +14,6 @@ import org.json.JSONObject;
 
 public class JSONRequest {
 
-  public JSONRequest() {}
-
   /*
     JSONObject GET
     GET a url and return the response as a JSON object 
