@@ -56,6 +56,9 @@ public class CustomerUIMain {
 		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("GPS Reciever? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			GPS = 1;
@@ -69,6 +72,9 @@ public class CustomerUIMain {
 		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("Child Seat? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			childSeat = 1;
@@ -82,6 +88,9 @@ public class CustomerUIMain {
 		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("K-TAG Rental? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			KTAG = 1;
@@ -95,6 +104,9 @@ public class CustomerUIMain {
 		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("Roadside Assistance? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			roadsideAsst = 1;
@@ -108,6 +120,9 @@ public class CustomerUIMain {
 		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("Loss Damage Waiver Insurance? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			lossIns = 1;
@@ -118,9 +133,12 @@ public class CustomerUIMain {
 		
 		
 		//Personal Accident Insurance
-		while((yesOrNo != 'y') && (yesOrNo != 'n')) {
+		while((yesOrNo != 'y') || (yesOrNo != 'n')) {
 			Display.println("Personal Roadside Assistance? (y/n)");
 			yesOrNo = Display.inputChar();
+			if((yesOrNo == 'y') || (yesOrNo == 'n')){
+				break;
+			}
 		}
 		if(yesOrNo == 'y') {
 			personalIns = 1;
@@ -133,14 +151,23 @@ public class CustomerUIMain {
 		while((month < 1) || (month > 12)) {
 			Display.println("Please enter the number of the month for this reservation: ");
 			month = Display.inputInt();
+			if((month < 1) && (month > 12)){
+				break;
+			}
 		}
 		while((day < 1) || (day > 31)) {
 			Display.println("Please enter the number of the day for this reservation: ");
 			day = Display.inputInt();
+			if((day < 1) && (day > 31)){
+				break;
+			}
 		}
 		while((year < 2015) || (month > 2017)) {
-			Display.println("Please enter the number of the month for this reservation: ");
+			Display.println("Please enter the number of the year for this reservation: ");
 			year = Display.inputInt();
+			if((year < 2015) && (month > 2017)){
+				break;
+			}
 		}
 		
 		Display.println(" ");
