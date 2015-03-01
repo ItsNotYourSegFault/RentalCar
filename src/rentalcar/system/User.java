@@ -1,4 +1,4 @@
-package rentalcar.web;
+package rentalcar.system;
 
 /*
   User.java
@@ -27,7 +27,9 @@ public class User {
     @return upon success, a JSONObject representing a user is returned. else
             an empty JSON object is returned.
   */
-  public boolean LogIn(FormObject user) {
+  public boolean LogIn(FormObject user) throws IllegalStateException {
+    if (this.IsLoggedIn())
+      throw new IllegalStateException("User is already logged in.");
     JSONRequest request = new JSONRequest();
     System.out.println(user.ToQueryString());
     JSONObject response = request.POST("user/login/", user.ToQueryString());
@@ -49,7 +51,9 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String FirstName() { 
+  public String FirstName() throws NoSuchFieldException {
+    if (!this.IsLoggedIn())
+      throw new NoSuchFieldException("User is not logged in.");
     return (String)_user.get("firstname"); 
   }
 
@@ -59,7 +63,9 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String LastName() { 
+  public String LastName() throws NoSuchFieldException { 
+    if (!this.IsLoggedIn())
+      throw new NoSuchFieldException("User is not logged in.");
     return (String)_user.get("lastname"); 
   }
 
@@ -69,7 +75,9 @@ public class User {
     @param reservation  The reservation to create
     @return a JSONObject containing a success or failure message
   */
-  public static JSONObject CreateReservation(FormObject reservation) {
+  public JSONObject CreateReservation(FormObject reservation) throws IllegalStateException {
+    if (!this.IsLoggedIn())
+      throw new IllegalStateException("User is not logged in.");
     JSONRequest request = new JSONRequest();
     return request.POST("create/reservation/", reservation.ToQueryString());
   }
@@ -80,7 +88,7 @@ public class User {
     @param locationid  The ID of the location
     @return a List of type JSONObject whose elements are vehicles
   */
-  public static List<JSONObject> GetVehiclesByLocation(int locationid) {
+  public List<JSONObject> GetVehiclesByLocation(int locationid) {
     Request request = new Request();
     List<JSONObject> vehicles = new ArrayList<JSONObject>();
     String response = request.GET("location/vehicles/"+Integer.toString(locationid));

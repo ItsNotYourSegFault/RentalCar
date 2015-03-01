@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import rentalcar.data.FormObject;
-import rentalcar.web.User;
+import rentalcar.system.User;
 
 /*
   WebUnitTests.java
@@ -27,20 +27,32 @@ public class UserUnitTests {
     creds.Set("username", "kjhd");
     creds.Set("password", "kendalharland");
     System.out.println("Logging in as kjhd...");
-    user.LogIn(creds);
-    
-    if(user.IsLoggedIn())
-      System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
-    else 
-      System.out.println("User credentials are invalid");
-    
+    try {
+      user.LogIn(creds);
+      if(user.IsLoggedIn())
+        System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
+      else 
+        System.out.println("User credentials are invalid");
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    } catch (NoSuchFieldException e) {
+      System.out.println(e.getMessage());
+    }
+
+    // Log in with good creds
     System.out.println("Logging in as kjh...");
     creds.Set("username", "kjh");
-    user.LogIn(creds);
-    if(user.IsLoggedIn())
-      System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
-    else 
-      System.out.println("User credentials are invalid");
+    try {
+      user.LogIn(creds);
+      if(user.IsLoggedIn())
+        System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
+      else 
+        System.out.println("User credentials are invalid");
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    } catch (NoSuchFieldException e) {
+      System.out.println(e.getMessage());
+    }
 
     // Test create fake reservation
     FormObject reservation = new FormObject();
