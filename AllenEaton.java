@@ -62,8 +62,8 @@ public class AllenEaton {
 		frame.getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
-		usernamePrompt = new TextPrompt("username", usernameField);
-		passwordPrompt = new TextPrompt("password", passwordField);
+		usernamePrompt = new TextPrompt("user", usernameField);
+		passwordPrompt = new TextPrompt("pass", passwordField);
 		
 		usernamePrompt.changeAlpha(0.5f);
 		passwordPrompt.changeAlpha(0.5f);
