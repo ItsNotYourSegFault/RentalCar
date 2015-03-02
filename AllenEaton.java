@@ -51,14 +51,14 @@ public class AllenEaton {
 		
 		passwordField = new JTextField();
 		passwordField.setText("");
-		passwordField.setBounds(531, 0, 114, 19);
+		passwordField.setBounds(531, 0, 114, 25);
 		frame.getContentPane().add(passwordField);
 		passwordField.setColumns(10);
 		
 		
 		usernameField = new JTextField();
 		usernameField.setText("");
-		usernameField.setBounds(411, 0, 114, 19);
+		usernameField.setBounds(411, 0, 114, 25);
 		frame.getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
