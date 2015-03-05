@@ -9,8 +9,7 @@ setup: git classpath
 clean:
 	rm -rf src/rentalcar/data/*.class 
 	rm -rf src/rentalcar/ui/*.class 
-	rm -rf src/rentalcar/web/*class 
-	rm -rf lib/org/json/*.class
+	rm -rf src/rentalcar/web/*class
 	rm -rf test/*.class
 
 restore: clean
