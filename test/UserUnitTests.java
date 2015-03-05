@@ -35,8 +35,6 @@ public class UserUnitTests {
         System.out.println("User credentials are invalid");
     } catch (IllegalStateException e) {
       System.out.println(e.getMessage());
-    } catch (NoSuchFieldException e) {
-      System.out.println(e.getMessage());
     }
 
     // Log in with good creds
@@ -49,8 +47,6 @@ public class UserUnitTests {
       else 
         System.out.println("User credentials are invalid");
     } catch (IllegalStateException e) {
-      System.out.println(e.getMessage());
-    } catch (NoSuchFieldException e) {
       System.out.println(e.getMessage());
     }
 

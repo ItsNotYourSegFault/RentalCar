@@ -51,9 +51,9 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String FirstName() throws NoSuchFieldException {
+  public String FirstName() throws IllegalStateException {
     if (!this.IsLoggedIn())
-      throw new NoSuchFieldException("User is not logged in.");
+      throw new IllegalStateException("User is not logged in.");
     return (String)_user.get("firstname"); 
   }
 
@@ -63,10 +63,19 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String LastName() throws NoSuchFieldException { 
+  public String LastName() throws IllegalStateException { 
     if (!this.IsLoggedIn())
-      throw new NoSuchFieldException("User is not logged in.");
-    return (String)_user.get("lastname"); 
+      throw new IllegalStateException("User is not logged in.");
+    return (String)_user.get("lastname");
+  }
+
+  /*
+   String Email
+   */
+  public String Email() throws IllegalStateException {
+    if (!this.IsLoggedIn())
+      throw new IllegalStateException("User is not logged in.");
+    return (String)_user.get("email");
   }
 
   /*
