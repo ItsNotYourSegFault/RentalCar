@@ -31,7 +31,6 @@ public class User {
     if (this.IsLoggedIn())
       throw new IllegalStateException("User is already logged in.");
     JSONRequest request = new JSONRequest();
-    System.out.println(user.ToQueryString());
     JSONObject response = request.POST("user/login/", user.ToQueryString());
     if (response.length() == 0)
       return false;
