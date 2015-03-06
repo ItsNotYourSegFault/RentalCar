@@ -14,7 +14,7 @@ import rentalcar.system.User;
 import rentalcar.data.FormObject;
 
 public class AllenEaton {
-	
+
 	User user;
 	private JFrame frame;
 	private JTextField passwordField;
@@ -56,7 +56,7 @@ public class AllenEaton {
 		SetLoggedOutBanner(false);
 		//DisplayAuthenticationError("Invalid username/password combination", false);
 		SetLoggedInBanner(true);
-		
+
 		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +67,7 @@ public class AllenEaton {
 		frame.getContentPane().add(btnBrowse);
 
 	}
-	
+
 	public void AttemptLogin() {
 		user = new User();
 		FormObject credentials = new FormObject();
@@ -82,7 +82,7 @@ public class AllenEaton {
 			DisplayAuthenticationError("Invalid username/password combination", true);
 		}
 	}
-	
+
 	public void AttemptLogout() {
 		//user.LogOut();
 		if (!user.IsLoggedIn()) {
@@ -135,13 +135,18 @@ public class AllenEaton {
 	}
 
 	public void SetLoggedInBanner(boolean bool) {
-		
+
 		//The upper banner
-		JLabel welMessage = new JLabel("Welcome, " /*user.getFirstName*/);
+		JLabel welMessage = null;
+		try{
+			welMessage= new JLabel("Welcome, " + user.FirstName());
+		}catch(NoSuchFieldException e){
+			DisplayAuthenticationError(e.getMessage(), true);
+		}
 		welMessage.setBounds(475, 0, 150, 20);
 		frame.getContentPane().add(welMessage);
 		welMessage.setVisible(bool);
-		
+
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,8 +156,8 @@ public class AllenEaton {
 		btnLogout.setBounds(675, 0, 100, 23);
 		frame.getContentPane().add(btnLogout);
 		btnLogout.setVisible(bool);
-		
-		
+
+
 		//2nd level banner.
 		JButton btnMakeReservation = new JButton("Make Reservation");
 		btnMakeReservation.addActionListener(new ActionListener() {
@@ -174,7 +179,7 @@ public class AllenEaton {
 		btnHistory.setBounds(282, 39, 117, 25);
 		frame.getContentPane().add(btnHistory);
 		btnHistory.setVisible(bool);
-		
+
 	}
 
 
