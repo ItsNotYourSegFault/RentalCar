@@ -1,4 +1,3 @@
-package rentalcar.ui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -14,8 +13,8 @@ import rentalcar.system.User;
 import rentalcar.data.FormObject;
 
 public class AllenEaton {
-	
-	User user;
+
+	User user = new User();
 	private JFrame frame;
 	private JTextField passwordField;
 	private JTextField usernameField;
@@ -45,6 +44,19 @@ public class AllenEaton {
 		initialize();
 	}
 
+  /** 
+   *  Set the top authentication banner
+   */
+  public void SetAuthenticationBanner() {
+    if (user.IsLoggedIn()) {
+      SetLoggedOutBanner(false);
+      SetLoggedInBanner(true);
+    } else {
+      SetLoggedInBanner(false);
+      SetLoggedOutBanner(true);
+    }
+  }
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -52,11 +64,11 @@ public class AllenEaton {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		SetLoggedOutBanner(false);
+		frame.getContentPane().setLayout(null); 
+		SetAuthenticationBanner();
 		//DisplayAuthenticationError("Invalid username/password combination", false);
-		SetLoggedInBanner(true);
-		
+		//SetLoggedInBanner(true);
+
 		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,31 +79,23 @@ public class AllenEaton {
 		frame.getContentPane().add(btnBrowse);
 
 	}
-	
+
 	public void AttemptLogin() {
 		user = new User();
 		FormObject credentials = new FormObject();
 		credentials.Set("username", usernameField.getText());
 		credentials.Set("password", passwordField.getText());
 		user.LogIn(credentials);
-		if (user.IsLoggedIn()) {
-			DisplayAuthenticationError("Invalid username/password combination", false);
-			SetLoggedOutBanner(false);
-			SetLoggedInBanner(true);
-		} else {
+		SetAuthenticationBanner();
+		if (!user.IsLoggedIn()) {
 			DisplayAuthenticationError("Invalid username/password combination", true);
 		}
 	}
-	
+
 	public void AttemptLogout() {
 		//user.LogOut();
-		if (!user.IsLoggedIn()) {
-			DisplayAuthenticationError("Unable to log user out", false);
-			SetLoggedInBanner(false);
-			SetLoggedOutBanner(true);
-		} else {
-			DisplayAuthenticationError("Unable to log user out", true);
-		}
+		//user.LogOut();
+		//setAuthenticationBanner();
 	}
 
 	public void DisplayAuthenticationError(String message, boolean bool) {
@@ -107,6 +111,7 @@ public class AllenEaton {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Login's actions.
+				AttemptLogin();
 			}
 		});
 		btnLogin.setBounds(675, 0, 117, 25);
@@ -135,24 +140,29 @@ public class AllenEaton {
 	}
 
 	public void SetLoggedInBanner(boolean bool) {
-		
 		//The upper banner
-		JLabel welMessage = new JLabel("Welcome, " /*user.getFirstName*/);
+		JLabel welMessage = new JLabel();
+		try{
+			welMessage.setText("Welcome, " + user.FirstName());
+		}catch(IllegalStateException e){
+			DisplayAuthenticationError(e.getMessage(), true);
+		}
 		welMessage.setBounds(475, 0, 150, 20);
 		frame.getContentPane().add(welMessage);
 		welMessage.setVisible(bool);
-		
+
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Logout's actions.
+				
 			}
 		});
 		btnLogout.setBounds(675, 0, 100, 23);
 		frame.getContentPane().add(btnLogout);
 		btnLogout.setVisible(bool);
-		
-		
+
+
 		//2nd level banner.
 		JButton btnMakeReservation = new JButton("Make Reservation");
 		btnMakeReservation.addActionListener(new ActionListener() {
@@ -174,7 +184,7 @@ public class AllenEaton {
 		btnHistory.setBounds(282, 39, 117, 25);
 		frame.getContentPane().add(btnHistory);
 		btnHistory.setVisible(bool);
-		
+
 	}
 
 

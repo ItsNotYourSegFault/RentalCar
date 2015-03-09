@@ -27,7 +27,8 @@ public class UserUnitTests {
     creds.Set("username", "kjhd");
     creds.Set("password", "kendalharland");
     System.out.println("Logging in as kjhd...");
-    try {
+/*
+   try {
       user.LogIn(creds);
       if(user.IsLoggedIn())
         System.out.println("Client logged in as " + user.FirstName() + " " + user.LastName());
@@ -36,7 +37,7 @@ public class UserUnitTests {
     } catch (IllegalStateException e) {
       System.out.println(e.getMessage());
     }
-
+*/
     // Log in with good creds
     System.out.println("Logging in as kjh...");
     creds.Set("username", "kjh");

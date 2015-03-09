@@ -22,8 +22,8 @@ public class Request {
 
   final static String EMPTY_RESPONSE = "{}";
 
-  //private static final String SERVER = "https://rentalcar.herokuapp.com/";
-  private static final String SERVER = "http://localhost:3000/";
+  private static final String SERVER = "https://rentalcar.herokuapp.com/";
+  //private static final String SERVER = "http://localhost:3000/";
 
   private static void _handleHTTPError(int code) {
     System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
