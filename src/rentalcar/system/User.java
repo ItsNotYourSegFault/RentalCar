@@ -77,33 +77,5 @@ public class User {
     return (String)_user.get("email");
   }
 
-  /*
-    JSONObject CreateReservation
-    @desc  POST the server to create a new vehicle reservation
-    @param reservation  The reservation to create
-    @return a JSONObject containing a success or failure message
-  */
-  public JSONObject CreateReservation(FormObject reservation) throws IllegalStateException {
-    if (!this.IsLoggedIn())
-      throw new IllegalStateException("User is not logged in.");
-    JSONRequest request = new JSONRequest();
-    return request.POST("create/reservation/", reservation.ToQueryString());
-  }
 
-  /*
-    JSONObject GetVehiclesByLocation
-    @desc  GET all vehicles in a particular location's inventory
-    @param locationid  The ID of the location
-    @return a List of type JSONObject whose elements are vehicles
-  */
-  public List<JSONObject> GetVehiclesByLocation(int locationid) {
-    Request request = new Request();
-    List<JSONObject> vehicles = new ArrayList<JSONObject>();
-    String response = request.GET("location/vehicles/"+Integer.toString(locationid));
-    JSONArray vehicleStrings = new JSONArray(response);
-    for (int i=0; i<vehicleStrings.length(); i++) {
-      vehicles.add(vehicleStrings.getJSONObject(i));
-    }
-    return vehicles;
-  }
 };
