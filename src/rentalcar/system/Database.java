@@ -44,8 +44,13 @@ public class Database {
   
 
   /** Get the full list of locations */
-  public Set GetLocations() {
-    return Locations.keySet();
+  public String[] GetLocations() {
+    return Locations.keySet().toArray(new String[Locations.size()]);
+  }
+
+  /** Get the location id for a location from the location's name */
+  public Integer GetLocationId(String locationName) {
+    return Locations.get(locationName);
   }
 
   /**
@@ -76,4 +81,13 @@ public class Database {
     return vehicles;
   }
 
+  public String GetReservationClassCountByLocation(int locationid, String startDate, String endDate) {
+    Request request = new Request();
+    String response = request.GET("location/reservations/class/count/"+
+      Integer.toString(locationid)+"/"+
+      startDate+"/"+
+      endDate);
+    JSON
+    return response;
+  }
 }
