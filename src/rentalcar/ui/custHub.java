@@ -1,8 +1,10 @@
+package rentalcar.ui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class custHub extends JFrame implements ActionListener, ItemListener {
+public class custHub extends JFrame implements ActionListener{
 	public JPanel p = new JPanel();
 	public JButton browse = new JButton("Browse Cars");
 	public JButton reserve = new JButton("Make a Reservation");
@@ -17,20 +19,12 @@ public class custHub extends JFrame implements ActionListener, ItemListener {
 		history.addActionListener(this);
 		p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
 		browse.setAlignmentX(CENTER_ALIGNMENT);
-		//browse.setAlignmentY(BOTTOM_ALIGNMENT);
 		reserve.setAlignmentX(CENTER_ALIGNMENT);
-		//reserve.setAlignmentY(BOTTOM_ALIGNMENT);
 		history.setAlignmentX(CENTER_ALIGNMENT);
-		//history.setAlignmentY(BOTTOM_ALIGNMENT);
 		p.add(browse);
 		p.add(reserve);
 		p.add(history);
 		add(p);
-	}
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -38,18 +32,18 @@ public class custHub extends JFrame implements ActionListener, ItemListener {
 		// TODO Auto-generated method stub
 		Object s = e.getSource();
 		if(s == browse){
-			
+			new BrowseModule().setVisible(true);
 		}
 		else if(s == reserve){
-			
+			new ReservationModule().setVisible(true);
 		}
 		else if(s == history){
-			
+			new History().setVisible(true);
 		}
 		
 	}
 
 	public static void main(String[] a) {
-		custHub cust = new custHub();
+		new custHub().setVisible(true);
 	}
 }
