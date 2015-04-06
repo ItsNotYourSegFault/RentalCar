@@ -58,7 +58,7 @@ public class MakeReservationModule extends JFrame {
    */
   public MakeReservationModule() {
     super("RentalCar/Reservation");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setBounds(100, 100, 1000, 601);
     contentPane = new JPanel();
     contentPane.setBackground(Color.WHITE);

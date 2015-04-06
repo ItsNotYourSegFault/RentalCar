@@ -1,5 +1,3 @@
-package rentalcar.ui;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +11,7 @@ public class custHub extends JFrame implements ActionListener{
 		setTitle("Allen Eaton Customer");
 		setSize(500,500);
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		browse.addActionListener(this);
 		reserve.addActionListener(this);
 		history.addActionListener(this);
@@ -29,7 +27,6 @@ public class custHub extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		Object s = e.getSource();
 		if(s == browse){
 			new BrowseModule().setVisible(true);
@@ -38,7 +35,8 @@ public class custHub extends JFrame implements ActionListener{
 			new ReservationModule().setVisible(true);
 		}
 		else if(s == history){
-			new History().setVisible(true);
+			History h = new History();
+			h.createAndShowGUI();
 		}
 		
 	}
@@ -47,3 +45,4 @@ public class custHub extends JFrame implements ActionListener{
 		new custHub().setVisible(true);
 	}
 }
+
