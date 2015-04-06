@@ -46,6 +46,13 @@ public class MakeReservationModule extends JFrame {
   private JLabel  labelTotalPrice;
   private JTextField labelTotalPriceValue;
 
+
+  public getAvailableClasses(HashMap originalClasses, HashMap reservedClasses) {
+    HashMap availableClasses = new HashMap();
+    // logic here
+    return availableClasses
+  }
+
   /**
    * Create the frame.
    */
@@ -104,19 +111,10 @@ public class MakeReservationModule extends JFrame {
     labelVehicle.setFont(new Font("Tahoma", Font.PLAIN, 15));
     labelVehicle.setBounds(77, 198, 118, 20);
     contentPane.add(labelVehicle);
-
-    ArrayList<String> availableClasses = new ArrayList<String>();
-    JSONArray allClasses = dbClient.GetVehicleClassCountsByLocation(1);
-    JSONArray reservedClasses = dbClient.GetReservationClassCountByLocation(1, "2016-01-01", "2015-01-01");
-    /* Figure out what classes are available */
-    // for (class in allClasses) {
-    //     allCount = allClasses[class].count;
-    //     reservedCount = reservedClasses[class].count;
-    //     if (allCount - reservedCount > 0) {
-    //         availableClasses.add(class);
-    //     }
-    // }
-    // done figuring out
+    
+    HashMap originalClasses = dbClient.GetVehicleClassCountsByLocation(1);
+    HashMap reservedClasses = dbClient.GetReservationClassCountByLocation(1, "2016-01-01", "2015-01-01");
+    ArrayList<String> availableClasses = getAvailableClasses(originalClasses, reservedClasses);
     JComboBox comboBox_7 = new JComboBox(availableClasses);
     comboBox_7.setMaximumRowCount(7);
     comboBox_7.setBounds(235, 200, 137, 20);

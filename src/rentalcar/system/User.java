@@ -76,6 +76,4 @@ public class User {
       throw new IllegalStateException("User is not logged in.");
     return (String)_user.get("email");
   }
-
-
 };

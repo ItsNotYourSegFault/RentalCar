@@ -19,6 +19,7 @@ import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONTokener;
 
 public class Database {
 
@@ -81,13 +82,25 @@ public class Database {
     return vehicles;
   }
 
-  public String GetReservationClassCountByLocation(int locationid, String startDate, String endDate) {
+  /** 
+   * Get the full set of vehicle classes and their rental agreement counts at a 
+   * specific location
+   */
+  public HashMap<String, Integer> GetReservationClassCountByLocation(int locationid, String startDate, String endDate) {
     Request request = new Request();
-    String response = request.GET("location/reservations/class/count/"+
-      Integer.toString(locationid)+"/"+
-      startDate+"/"+
-      endDate);
-    JSON
-    return response;
+    String url = "location/reservations/class/count/" + 
+        Integer.toString(locationid) + "/" + 
+        startDate + "/" +
+        endDate;
+    JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
+    HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
+    for (int i=0; i<objects.length(); i++) {
+      JSONObject object = objects.getJSONObject(i);
+      classCounts.put(
+        object.getString("class"),
+        object.getInt("count"));
+    }
+    return classCounts;
   }
 }
+
