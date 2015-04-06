@@ -17,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.*;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.ScrollPane;
 
 public class servicemngrWindow extends JPanel {
 	
@@ -74,11 +75,42 @@ public class servicemngrWindow extends JPanel {
 		chckbxRotatedTires.setBounds(659, 259, 129, 23);
 		frmServiceManager.getContentPane().add(chckbxRotatedTires);
 		
-		table_1 = new JTable(new MyTableModel());
+		String[] columnNames = {"License#",
+                "make",
+                "model",
+                "year",
+                "Mileage",
+                "Location",
+                "Class",
+               // "DateLastOilCh.",
+               // "Mi.LastOilCh.",
+               // "DateLastAirFil.Ch.",
+                //"Mi.LastAirFil.Ch.",
+                //"DateLastTireRot",
+               // "Mi.LastTireRot"
+                };
+		
+		Object[][] data = {
+			    {"1231465", "John Smith",
+			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
+			    {"4561465", "Will Turner",
+			     "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
+			    {"8678865", "Ned Stark",
+			     "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00)},
+			    {"9793465", "Jon Snow",
+			     "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00)},
+			    {"3331465", "Khal Drogo",
+			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00)},
+			    {"5555465", "Tyrion Lannister",
+			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00)}
+			    };
+		
+		table_1 = new JTable(data, columnNames);
 		table_1.setBounds(12, 50, 622, 395);
 		table_1.setPreferredScrollableViewportSize(new Dimension(800, 600));
 		table_1.setFillsViewportHeight(true);
 		table_1.setAutoCreateRowSorter(true);
+		
 		//JScrollPane scrollPane = new JScrollPane(table_1);
 
         //Add the scroll pane to this panel.
@@ -120,6 +152,13 @@ public class servicemngrWindow extends JPanel {
 		});
 		comboBox.setBounds(5, 17, 131, 23);
 		panel_1.add(comboBox);
+		
+		JScrollPane scrollPane = new JScrollPane(table_1);
+		scrollPane.setBounds(12, 50, 622, 395);
+		scrollPane.setColumnHeaderView(table_1.getTableHeader());
+		frmServiceManager.getContentPane().add(scrollPane);
+		
+		
 	
 				
 		
