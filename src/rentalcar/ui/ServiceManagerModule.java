@@ -61,52 +61,52 @@ public class servicemngrWindow extends JPanel {
 	private void initialize() {
 		frmServiceManager = new JFrame();
 		frmServiceManager.setTitle("Service Manager");
-		frmServiceManager.setBounds(100, 100, 816, 484);
+		frmServiceManager.setBounds(400, 150, 1250, 950);
 		frmServiceManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServiceManager.getContentPane().setLayout(null);
-		checkBox.setBounds(659, 313, 122, 31);
+		checkBox.setBounds(1056, 281, 122, 31);
 		frmServiceManager.getContentPane().add(checkBox);
 		
 		JCheckBox chckbxChangedAirFilter = new JCheckBox("Changed Air Filter");
-		chckbxChangedAirFilter.setBounds(659, 286, 152, 23);
+		chckbxChangedAirFilter.setBounds(1056, 209, 152, 23);
 		frmServiceManager.getContentPane().add(chckbxChangedAirFilter);
 		
 		JCheckBox chckbxRotatedTires = new JCheckBox("Rotated Tires");
-		chckbxRotatedTires.setBounds(659, 259, 129, 23);
+		chckbxRotatedTires.setBounds(1056, 249, 129, 23);
 		frmServiceManager.getContentPane().add(chckbxRotatedTires);
 		
 		String[] columnNames = {"License#",
-                "make",
-                "model",
-                "year",
+                //"make",
+                //"model",
+                //"year",
                 "Mileage",
                 "Location",
-                "Class",
-               // "DateLastOilCh.",
-               // "Mi.LastOilCh.",
-               // "DateLastAirFil.Ch.",
-                //"Mi.LastAirFil.Ch.",
-                //"DateLastTireRot",
-               // "Mi.LastTireRot"
+               // "Class",
+                "DateLastOilCh.",
+                "Mi.LastOilCh.",
+                "DateLastAirFil.Ch.",
+                "Mi.LastAirFil.Ch.",
+                "DateLastTireRot",
+                "Mi.LastTireRot"
                 };
 		
 		Object[][] data = {
 			    {"1231465", "John Smith",
-			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
+			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00), 20, 10},
 			    {"4561465", "Will Turner",
-			     "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
+			     "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00), 20, 10},
 			    {"8678865", "Ned Stark",
-			     "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00)},
+			     "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00), 20, 10},
 			    {"9793465", "Jon Snow",
-			     "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00)},
+			     "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00), 20, 10},
 			    {"3331465", "Khal Drogo",
-			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00)},
+			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00), 20, 10},
 			    {"5555465", "Tyrion Lannister",
-			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00)}
+			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00), 20, 10}
 			    };
 		
 		table_1 = new JTable(data, columnNames);
-		table_1.setBounds(12, 50, 622, 395);
+		table_1.setBounds(1, 20, 741, 553);
 		table_1.setPreferredScrollableViewportSize(new Dimension(800, 600));
 		table_1.setFillsViewportHeight(true);
 		table_1.setAutoCreateRowSorter(true);
@@ -119,7 +119,7 @@ public class servicemngrWindow extends JPanel {
 		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Enter Mileage", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(656, 54, 124, 41);
+		panel.setBounds(1056, 40, 124, 41);
 		frmServiceManager.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -130,12 +130,12 @@ public class servicemngrWindow extends JPanel {
 		txtEnterMileage.setColumns(10);
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(663, 379, 117, 25);
+		btnSubmit.setBounds(1056, 475, 117, 25);
 		frmServiceManager.getContentPane().add(btnSubmit);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Vehicle Status", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(654, 153, 141, 45);
+		panel_1.setBounds(1056, 131, 180, 60);
 		frmServiceManager.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -154,7 +154,7 @@ public class servicemngrWindow extends JPanel {
 		panel_1.add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane(table_1);
-		scrollPane.setBounds(12, 50, 622, 395);
+		scrollPane.setBounds(12, 50, 1000, 820);
 		scrollPane.setColumnHeaderView(table_1.getTableHeader());
 		frmServiceManager.getContentPane().add(scrollPane);
 		
