@@ -11,6 +11,7 @@ clean:
 	rm -rf src/rentalcar/ui/*.class 
 	rm -rf src/rentalcar/web/*class
 	rm -rf test/*.class
+	rm -rf *.class
 
 restore: clean
 	git rm -rf $(JSON_LOCAL)
