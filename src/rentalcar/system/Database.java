@@ -86,12 +86,11 @@ public class Database {
    * Get the full set of vehicle classes and their rental agreement counts at a 
    * specific location
    */
-  public HashMap<String, Integer> GetReservationClassCountByLocation(int locationid, String startDate, String endDate) {
+  public HashMap<String, Integer> GetReservationClassCountByLocation(
+      int locationid, String startDate, String endDate) {
     Request request = new Request();
-    String url = "location/reservations/class/count/" + 
-        Integer.toString(locationid) + "/" + 
-        startDate + "/" +
-        endDate;
+    String url = "location/reservations/class/count/" + Integer.toString(locationid) + "/" + 
+      startDate + "/" + endDate;
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
     for (int i=0; i<objects.length(); i++) {
