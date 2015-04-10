@@ -3,7 +3,9 @@ package rentalcar.ui;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Date;
-import java.util.Calendar;;
+import java.util.Calendar;
+import java.util.Vector;
+import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,28 +13,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
-import java.awt.EventQueue
+import java.awt.event.*;
+import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import org.jdesktop.swingx.JXDatePicker;
 
+import rentalcar.web.Request;
 import rentalcar.system.Database;
 import rentalcar.system.User;
 
 public class MakeReservationModule extends JFrame {
  
-  /* App user */
   private User user = new User();
-
-  /* Database client */
   private Database dbClient = new Database();
 
-  private JPanel contentPane;
+  private Boolean locationSelected = false;
+  private Boolean startDateSelected = false;
+  private Boolean endDateSelected = false;
+
+  private JPanel  contentPane;
   private JLabel  labelLocation;
   private JLabel  labelDate;
   private JLabel  labelStart;
@@ -46,10 +52,24 @@ public class MakeReservationModule extends JFrame {
   private JLabel  labelTotalPrice;
   private JTextField labelTotalPriceValue;
 
+  JComboBox<String> locationsComboBox;
+  JXDatePicker startPicker;
+  JXDatePicker endPicker;
+  JComboBox comboBox_7;
 
-  public getAvailableClasses(HashMap originalClasses, HashMap reservedClasses) {
-    ArrayList<String> availableClasses = new ArrayList<String>();
-
+  public Vector<String> getAvailableClasses(HashMap<String, Integer> totalClasses, 
+        HashMap<String, Integer> reservedClasses) {
+    Vector<String> availableClasses = new Vector<String>();
+    Iterator<String> classIterator = totalClasses.keySet().iterator();
+    String _class;
+    while(classIterator.hasNext()) {
+        _class = classIterator.next();
+        if (reservedClasses.get(_class) == null || 
+            reservedClasses.get(_class) < totalClasses.get(_class)) 
+        {
+                availableClasses.add(_class);
+        } 
+    }
     return availableClasses;
   }
 
@@ -75,7 +95,7 @@ public class MakeReservationModule extends JFrame {
     contentPane.add(labelLocation);
     
     String[] locations = dbClient.GetLocations();
-    JComboBox locationsComboBox = new JComboBox(locations);
+    locationsComboBox = new JComboBox<String>(locations);
     locationsComboBox.setMaximumRowCount(12);
     locationsComboBox.setBounds(235, 44, 172, 20);
     contentPane.add(locationsComboBox);
@@ -94,13 +114,13 @@ public class MakeReservationModule extends JFrame {
     labelEnd.setBounds(77, 156, 58, 20);
     contentPane.add(labelEnd);
     
-    JXDatePicker startPicker = new JXDatePicker();
+    startPicker = new JXDatePicker();
     startPicker.setDate(Calendar.getInstance().getTime());
     startPicker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
     startPicker.setBounds(256, 114, 118, 20);
     contentPane.add(startPicker);
 
-    JXDatePicker endPicker = new JXDatePicker();
+    endPicker = new JXDatePicker();
     endPicker.setDate(Calendar.getInstance().getTime());
     endPicker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
     endPicker.setBounds(256, 156, 118, 20);
@@ -111,12 +131,13 @@ public class MakeReservationModule extends JFrame {
     labelVehicle.setFont(new Font("Tahoma", Font.PLAIN, 15));
     labelVehicle.setBounds(77, 198, 118, 20);
     contentPane.add(labelVehicle);
-    
-    HashMap originalClasses = dbClient.GetVehicleClassCounts(1);
-    HashMap reservedClasses = dbClient.GetReservationClassCount(1, "2016-01-01", "2015-01-01");
-    String[] availableClasses = getAvailableClasses(originalClasses, reservedClasses);
-    JComboBox comboBox_7 = new JComboBox(availableClasses);
-    comboBox_7.setMaximumRowCount(7);
+
+    int location = 1; 
+    HashMap<String, Integer> totalClasses = dbClient.GetVehicleClassCount(location);
+    HashMap<String, Integer> reservedClasses = dbClient.GetReservedVehicleClassCount(location, "2016-01-01", "2015-01-01");
+    Vector<String> availableClasses = getAvailableClasses(totalClasses, reservedClasses);
+    comboBox_7 = new JComboBox();
+    comboBox_7.setModel(new DefaultComboBoxModel(availableClasses));
     comboBox_7.setBounds(235, 200, 137, 20);
     contentPane.add(comboBox_7);
     
