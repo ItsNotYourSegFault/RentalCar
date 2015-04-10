@@ -1,7 +1,9 @@
 package rentalcar.ui;
 
 import java.util.Set;
-import java.awt.EventQueue;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.Calendar;;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -9,15 +11,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
 import javax.swing.SpinnerNumberModel;
+import java.awt.EventQueue
+import java.awt.Color;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -48,9 +48,9 @@ public class MakeReservationModule extends JFrame {
 
 
   public getAvailableClasses(HashMap originalClasses, HashMap reservedClasses) {
-    HashMap availableClasses = new HashMap();
-    // logic here
-    return availableClasses
+    ArrayList<String> availableClasses = new ArrayList<String>();
+
+    return availableClasses;
   }
 
   /**
@@ -112,9 +112,9 @@ public class MakeReservationModule extends JFrame {
     labelVehicle.setBounds(77, 198, 118, 20);
     contentPane.add(labelVehicle);
     
-    HashMap originalClasses = dbClient.GetVehicleClassCountsByLocation(1);
-    HashMap reservedClasses = dbClient.GetReservationClassCountByLocation(1, "2016-01-01", "2015-01-01");
-    ArrayList<String> availableClasses = getAvailableClasses(originalClasses, reservedClasses);
+    HashMap originalClasses = dbClient.GetVehicleClassCounts(1);
+    HashMap reservedClasses = dbClient.GetReservationClassCount(1, "2016-01-01", "2015-01-01");
+    String[] availableClasses = getAvailableClasses(originalClasses, reservedClasses);
     JComboBox comboBox_7 = new JComboBox(availableClasses);
     comboBox_7.setMaximumRowCount(7);
     comboBox_7.setBounds(235, 200, 137, 20);
