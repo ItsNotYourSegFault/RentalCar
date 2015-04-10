@@ -27,6 +27,7 @@ public class DataUnitTests {
      */
     
     // Fetch the list of classes and their vehicle counts
-    System.out.println(db.GetReservationClassCountByLocation(1, "2016-01-01", "2015-01-01"));
+    System.out.println(db.GetReservationClassCount(1, "2016-01-01", "2015-01-01"));
+    System.out.println(db.GetVehicleClassCount(1));
   }
 }

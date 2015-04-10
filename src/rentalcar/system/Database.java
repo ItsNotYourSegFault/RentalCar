@@ -73,7 +73,7 @@ public class Database {
   */
   public List<JSONObject> GetVehiclesByLocation(int locationid) {
     Request request = new Request();
-    List<JSONObject> vehicles = new ArrayList<JSONObject>();
+    List<JSONObject> vehicles = new ArrayList <JSONObject>();
     String response = request.GET("location/vehicles/"+Integer.toString(locationid));
     JSONArray vehicleStrings = new JSONArray(response);
     for (int i=0; i<vehicleStrings.length(); i++) {
@@ -86,12 +86,11 @@ public class Database {
    * Get the full set of vehicle classes and their rental agreement counts at a 
    * specific location
    */
-  public HashMap<String, Integer> GetReservationClassCountByLocation(int locationid, String startDate, String endDate) {
+  public HashMap<String, Integer> GetReservedVehicleClassCount(
+      int locationid, String startDate, String endDate) {
     Request request = new Request();
-    String url = "location/reservations/class/count/" + 
-        Integer.toString(locationid) + "/" + 
-        startDate + "/" +
-        endDate;
+    String url = "location/reservations/class/count/" + Integer.toString(locationid) + "/" + 
+      startDate + "/" + endDate;
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
     for (int i=0; i<objects.length(); i++) {
@@ -102,5 +101,25 @@ public class Database {
     }
     return classCounts;
   }
+
+  /** 
+   * Get the full set of vehicle classes and their quantities  at a 
+   * specific location
+   */
+  public HashMap<String, Integer> GetVehicleClassCount(int locationid) {
+    Request request = new Request();
+    String url = "location/vehicles/class/count/" + Integer.toString(locationid);
+    JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
+    HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
+    for (int i=0; i<objects.length(); i++) {
+      JSONObject object = objects.getJSONObject(i);
+      classCounts.put(
+        object.getString("class"),
+        object.getInt("count"));
+    }
+    return classCounts;
+  }
+
+   
 }
 
