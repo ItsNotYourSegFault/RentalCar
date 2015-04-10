@@ -141,11 +141,11 @@ public class History extends JPanel {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    static void createAndShowGUI() {
         //Create and set up the window.
 
         JFrame frame = new JFrame("History");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //frame.setSize(800,600);
         frame.setBounds(100, 100, 800, 600);
         
