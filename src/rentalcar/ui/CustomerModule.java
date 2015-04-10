@@ -37,6 +37,10 @@ public class CustomerModule extends JFrame implements ActionListener{
 		user = u;
 	}
 
+	User getUser() {
+		return user;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object s = e.getSource();
