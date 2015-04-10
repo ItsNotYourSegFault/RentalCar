@@ -37,7 +37,7 @@ public class CustomerModule extends JFrame implements ActionListener{
 		user = u;
 	}
 
-	User getUser() {
+	public User getUser() {
 		return user;
 	}
 
