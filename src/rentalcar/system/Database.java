@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
 
+
 public class Database {
 
   public static final Map<String, Integer> Locations;
@@ -84,7 +85,7 @@ public class Database {
 
   /** 
    * Get the full set of vehicle classes and their rental agreement counts at a 
-   * specific location
+   * specific location.
    */
   public HashMap<String, Integer> GetReservedVehicleClassCount(
       int locationid, String startDate, String endDate) {
