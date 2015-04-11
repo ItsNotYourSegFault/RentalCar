@@ -15,13 +15,14 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 import rentalcar.web.Request;
 import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
-
 
 public class Database {
 
@@ -57,13 +58,27 @@ public class Database {
 
   public JSONObject CreateReservation(FormObject reservation) {
     JSONRequest request = new JSONRequest();
-    return request.POST("create/reservation/", reservation.ToQueryString());
+    return request.POST("/create/reservation/", reservation.ToQueryString());
+  }
+
+
+  public HashMap<String, Double> GetVehicleClassRates(String className) {
+    JSONRequest request = new JSONRequest();
+    JSONObject response = request.GET("/vehicle/class/rates/" + className);
+    Iterator<String> it = response.keySet().iterator();
+    HashMap<String, Double> vehicleClass = new HashMap<String, Double>();
+    while (it.hasNext()) {
+      String key = it.next();
+      if (!key.equals("name"))
+        vehicleClass.put(key, response.getDouble(key));
+    }
+    return vehicleClass;
   }
 
 
   public Double GetTaxRate(int locationId) {
     JSONRequest request = new JSONRequest();
-    JSONObject response = request.GET("location/taxRate/" + Integer.toString(locationId));
+    JSONObject response = request.GET("/location/taxRate/" + Integer.toString(locationId));
     return response.getDouble("rate");
   }
 
@@ -90,7 +105,7 @@ public class Database {
   public HashMap<String, Integer> GetReservedVehicleClassCount(
       int locationId, String startDate, String endDate) {
     Request request = new Request();
-    String url = "location/reservations/class/count/" + Integer.toString(locationId) + "/" + 
+    String url = "/location/reservations/class/count/" + Integer.toString(locationId) + "/" + 
       startDate + "/" + endDate;
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
@@ -106,7 +121,7 @@ public class Database {
 
   public HashMap<String, Integer> GetVehicleClassCount(int locationId) {
     Request request = new Request();
-    String url = "location/vehicles/class/count/" + Integer.toString(locationId);
+    String url = "/location/vehicles/class/count/" + Integer.toString(locationId);
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
     for (int i=0; i<objects.length(); i++) {
@@ -116,8 +131,5 @@ public class Database {
         object.getInt("count"));
     }
     return classCounts;
-  }
-
-   
+  }  
 }
-
