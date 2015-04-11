@@ -10,6 +10,7 @@ package rentalcar.system;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
@@ -72,13 +73,20 @@ public class Database {
     @param locationid  The ID of the location
     @return a List of type JSONObject whose elements are vehicles
   */
-  public List<JSONObject> GetVehiclesByLocation(int locationid) {
+  public List<HashMap<String, String>> GetVehiclesByLocation(int locationid) {
     Request request = new Request();
-    List<JSONObject> vehicles = new ArrayList <JSONObject>();
     String response = request.GET("location/vehicles/"+Integer.toString(locationid));
     JSONArray vehicleStrings = new JSONArray(response);
+    List<HashMap<String, String>> vehicles = new ArrayList<HashMap<String, String>>();
     for (int i=0; i<vehicleStrings.length(); i++) {
-      vehicles.add(vehicleStrings.getJSONObject(i));
+      JSONObject obj = vehicleStrings.getJSONObject(i);
+      HashMap<String, String> map = new HashMap<String, String>();
+      Iterator<String> it = obj.keySet().iterator();
+      while (it.hasNext()) {
+        String key = it.next();
+        map.put(key, obj.get(key).toString());
+      }
+      vehicles.add(map);
     }
     return vehicles;
   }
