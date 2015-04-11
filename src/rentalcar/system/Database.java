@@ -45,37 +45,32 @@ public class Database {
     Locations = Collections.unmodifiableMap(nonConstLocations);
   }
   
-
-  /** Get the full list of locations */
   public String[] GetLocations() {
     return Locations.keySet().toArray(new String[Locations.size()]);
   }
 
-  /** Get the location id for a location from the location's name */
+
   public Integer GetLocationId(String locationName) {
     return Locations.get(locationName);
   }
 
-  /**
-    JSONObject CreateReservation
-    @desc  POST the server to create a new vehicle reservation
-    @param reservation  The reservation to create
-    @return a JSONObject containing a success or failure message
-  */
+
   public JSONObject CreateReservation(FormObject reservation) {
     JSONRequest request = new JSONRequest();
     return request.POST("create/reservation/", reservation.ToQueryString());
   }
 
-  /**
-    JSONObject GetVehiclesByLocation
-    @desc  GET all vehicles in a particular location's inventory
-    @param locationid  The ID of the location
-    @return a List of type JSONObject whose elements are vehicles
-  */
-  public List<HashMap<String, String>> GetVehiclesByLocation(int locationid) {
+
+  public Double GetTaxRate(int locationId) {
+    JSONRequest request = new JSONRequest();
+    JSONObject response = request.GET("location/taxRate/" + Integer.toString(locationId));
+    return response.getDouble("rate");
+  }
+
+
+  public List<HashMap<String, String>> GetVehicles(int locationId) {
     Request request = new Request();
-    String response = request.GET("location/vehicles/"+Integer.toString(locationid));
+    String response = request.GET("location/vehicles/"+Integer.toString(locationId));
     JSONArray vehicleStrings = new JSONArray(response);
     List<HashMap<String, String>> vehicles = new ArrayList<HashMap<String, String>>();
     for (int i=0; i<vehicleStrings.length(); i++) {
@@ -91,14 +86,11 @@ public class Database {
     return vehicles;
   }
 
-  /** 
-   * Get the full set of vehicle classes and their rental agreement counts at a 
-   * specific location.
-   */
+
   public HashMap<String, Integer> GetReservedVehicleClassCount(
-      int locationid, String startDate, String endDate) {
+      int locationId, String startDate, String endDate) {
     Request request = new Request();
-    String url = "location/reservations/class/count/" + Integer.toString(locationid) + "/" + 
+    String url = "location/reservations/class/count/" + Integer.toString(locationId) + "/" + 
       startDate + "/" + endDate;
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
@@ -111,13 +103,10 @@ public class Database {
     return classCounts;
   }
 
-  /** 
-   * Get the full set of vehicle classes and their quantities  at a 
-   * specific location
-   */
-  public HashMap<String, Integer> GetVehicleClassCount(int locationid) {
+
+  public HashMap<String, Integer> GetVehicleClassCount(int locationId) {
     Request request = new Request();
-    String url = "location/vehicles/class/count/" + Integer.toString(locationid);
+    String url = "location/vehicles/class/count/" + Integer.toString(locationId);
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
     HashMap<String, Integer> classCounts = new HashMap<String, Integer>();
     for (int i=0; i<objects.length(); i++) {
