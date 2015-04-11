@@ -10,25 +10,22 @@ import org.json.JSONArray;
 
 public class DataUnitTests {
   public static void main(String[] args) {
+
+    // Instantiate a database client
     Database db = new Database();
-    String location;
-    int locationId;
+
+    /// Get a list of available locations (unstable)
     String[] locations = db.GetLocations();
     
-    // location = locations[5];
-
-    /**
-     * Example of iterating over the vehicle class names and the number of
-     * vehicles for that class at a location
-     */
     
-    //Fetch the list of classes and their vehicle counts
-    System.out.println(db.GetReservedVehicleClassCount(1, "2016-01-01", "2015-01-01"));
-    System.out.println(db.GetVehicleClassCount(1));
-
-      HashMap<String, Integer> countsV = db.GetVehicleClassCount(1);
-      HashMap<String, Integer> countsR = db.GetReservedVehicleClassCount(1, "2016-01-01", "2015-01-01");
-      Iterator<String> it = countsV.keySet().iterator();
+    /** 
+     * Compare the number of vehicles at a location with a specific class to
+     * the number of reserved vehicles in the same class at the same location
+     * (location with location id of 1)
+     */
+    HashMap<String, Integer> countsV = db.GetVehicleClassCount(1);
+    HashMap<String, Integer> countsR = db.GetReservedVehicleClassCount(1, "2016-01-01", "2015-01-01");
+    Iterator<String> it = countsV.keySet().iterator();
       while (it.hasNext()) {
         String nextKey = it.next();
         System.out.print(nextKey+": Total ");
@@ -37,8 +34,10 @@ public class DataUnitTests {
       System.out.println(countsR.get(nextKey));
     }
 
-    // System.out.println(db.GetVehicles(1));
+    /// Print the tax rate for location 1
     System.out.println(db.GetTaxRate(1));
+
+    /// Print the price for a Standard SUV rental
     System.out.println("vehicle class rates: " + db.GetVehicleClassRates("Standard SUV").toString());
   }
 }
