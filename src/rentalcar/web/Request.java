@@ -25,14 +25,14 @@ public class Request {
   final static String EMPTY_RESPONSE = "{}";
 
   /** LocalHost configuration */
-  final static String PROTOCOL = "http";
-  final static String HOST = "localhost";
-  final static int PORT = 3000;
+  // final static String PROTOCOL = "http";
+  // final static String HOST = "localhost";
+  // final static int PORT = 3000;
 
   /** Heroku configuration */
-  // final static String PROTOCOL = "https";
-  // final static String HOST = "rentalcar.herokuapp.com";
-  // final static int PORT = null;
+  final static String PROTOCOL = "https";
+  final static String HOST = "rentalcar.herokuapp.com";
+  final static int PORT = 443;
 
   private static void _handleHTTPError(int code) {
     System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
