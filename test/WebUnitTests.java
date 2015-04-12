@@ -1,3 +1,5 @@
+package test;
+
 import src.rentalcar.web.Request;
 import src.rentalcar.web.JSONRequest;
 
