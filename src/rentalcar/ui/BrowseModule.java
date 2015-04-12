@@ -137,7 +137,7 @@ public class BrowseModule extends JFrame implements ListSelectionListener {
 	}
 	
 	public String findVehicleString(String v) {
-		if(v == "Economy") {
+		if(v.equals("Economy")) {
 			return(VehicleListStr[0]);
 		} else if(v.equals("Compact")) {
 			return(VehicleListStr[1]);
@@ -151,8 +151,10 @@ public class BrowseModule extends JFrame implements ListSelectionListener {
 			return(VehicleListStr[5]);
 		} else if(v.equals("Std SUV")) {
 			return(VehicleListStr[5]);
-		} else {
+		} else if (v.equals("Minivan")){
 			return(VehicleListStr[6]);
+		} else {
+			return(" ");
 		}
 	}
 	
