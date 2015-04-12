@@ -76,7 +76,7 @@ public class BrowseModule extends JFrame implements ListSelectionListener {
 	 * Create the frame.
 	 */
 	public BrowseModule() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -169,7 +169,7 @@ public class BrowseModule extends JFrame implements ListSelectionListener {
 		
 		while(it.hasNext()) {
 			String nextKey = it.next();
-			System.out.println(nextKey+"   "+countsV.get(nextKey));
+			//System.out.println(nextKey+"   "+countsV.get(nextKey));
 			newModel.addElement(findVehicleString(nextKey));
 		}
 		
