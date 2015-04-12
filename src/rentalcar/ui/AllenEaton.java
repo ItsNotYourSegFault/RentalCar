@@ -1,4 +1,5 @@
-package rentalcar.ui;
+package src.entalcar.ui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;

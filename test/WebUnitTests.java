@@ -1,5 +1,5 @@
-import rentalcar.web.Request;
-import rentalcar.web.JSONRequest;
+import src.rentalcar.web.Request;
+import src.rentalcar.web.JSONRequest;
 
 /*
   WebUnitTests.java

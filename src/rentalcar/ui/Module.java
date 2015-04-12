@@ -1,5 +1,5 @@
 /** Utility class that represents a module */
-package rentalcar.ui;
+package src.rentalcar.ui;
 import java.awt.Container;
 
 public class Module {

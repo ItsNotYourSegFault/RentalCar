@@ -1,4 +1,4 @@
-package rentalcar.ui;
+package src.rentalcar.ui;
 
 import java.util.Set;
 import java.util.HashMap;

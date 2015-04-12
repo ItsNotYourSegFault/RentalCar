@@ -1,4 +1,4 @@
-package rentalcar.ui;
+package src.rentalcar.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

@@ -1,4 +1,4 @@
-package rentalcar.data;
+package src.rentalcar.data;
 
 /*
   FormObject.java

@@ -1,4 +1,4 @@
-package rentalcar.ui;
+package src.rentalcar.ui;
 
 import javax.swing.*;
 import java.awt.*;
