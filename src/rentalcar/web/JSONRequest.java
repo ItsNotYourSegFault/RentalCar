@@ -1,4 +1,4 @@
-package src.rentalcar.web;
+package rentalcar.web;
 
 /*
   JSONRequest.java
@@ -8,9 +8,9 @@ package src.rentalcar.web;
   Wrapper for rentalcar.web.Request that parses a response into a JSON object.
 */
 
-import src.rentalcar.web.Request;
-import src.org.json.JSONTokener;
-import src.org.json.JSONObject;
+import rentalcar.web.Request;
+import org.json.JSONTokener;
+import org.json.JSONObject;
 
 public class JSONRequest {
 

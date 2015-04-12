@@ -1,4 +1,4 @@
-package src.rentalcar.web;
+package rentalcar.web;
 
 /*
   Request.java

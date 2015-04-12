@@ -1,4 +1,4 @@
-package src.rentalcar.ui;
+package rentalcar.ui;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

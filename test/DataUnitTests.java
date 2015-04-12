@@ -1,14 +1,14 @@
-package test;
+
 
 import java.util.Set;
 import java.util.Iterator;
 import java.util.HashMap;
 
-import src.rentalcar.web.JSONRequest;
-import src.rentalcar.system.Database;
-import src.rentalcar.data.FormObject;
-import src.org.json.JSONObject;
-import src.org.json.JSONArray;
+import rentalcar.web.JSONRequest;
+import rentalcar.system.Database;
+import rentalcar.data.FormObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class DataUnitTests {
   public static void main(String[] args) {

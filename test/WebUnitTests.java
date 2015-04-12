@@ -1,7 +1,7 @@
-package test;
 
-import src.rentalcar.web.Request;
-import src.rentalcar.web.JSONRequest;
+
+import rentalcar.web.Request;
+import rentalcar.web.JSONRequest;
 
 /*
   WebUnitTests.java

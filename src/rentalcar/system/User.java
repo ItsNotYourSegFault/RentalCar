@@ -1,4 +1,4 @@
-package src.rentalcar.system;
+package rentalcar.system;
 
 /*
   User.java
@@ -10,11 +10,11 @@ package src.rentalcar.system;
 
 import java.util.List;
 import java.util.ArrayList;
-import src.rentalcar.web.Request;
-import src.rentalcar.web.JSONRequest;
-import src.entalcar.data.FormObject;
-import src.org.json.JSONObject;
-import src.org.json.JSONArray;
+import rentalcar.web.Request;
+import rentalcar.web.JSONRequest;
+import rentalcar.data.FormObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class User {
 

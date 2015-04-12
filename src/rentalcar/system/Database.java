@@ -1,4 +1,4 @@
-package src.rentalcar.system;
+package rentalcar.system;
 
 /*
   User.java
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.net.URLEncoder;
 import java.io.UnsupportedEncodingException;
-import src.rentalcar.web.Request;
-import src.rentalcar.web.JSONRequest;
-import src.rentalcar.data.FormObject;
-import src.org.json.JSONObject;
-import src.org.json.JSONArray;
-import src.org.json.JSONTokener;
+import rentalcar.web.Request;
+import rentalcar.web.JSONRequest;
+import rentalcar.data.FormObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONTokener;
 
 public class Database {
 
