@@ -1,17 +1,15 @@
 package rentalcar.ui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import javax.swing.JList;
-import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
+import rentalcar.util.SpringUtilities;
 
 /** 
  * History is just like SimpleHistory, except that it
@@ -19,22 +17,97 @@ import javax.swing.border.TitledBorder;
  */
 public class History extends JPanel {
     private boolean DEBUG = false;
+    private JTable table;
+    private JTextField filterText;
+    private JTextField statusText;
+    private TableRowSorter<MyTableModel> sorter;
+
+    /** 
+     * Update the row filter regular expression from the expression in
+     * the text box.
+     */
+    private void newFilter() {
+        RowFilter<MyTableModel, Object> rf = null;
+        //If current expression doesn't parse, don't update.
+        try {
+            rf = RowFilter.regexFilter(filterText.getText());
+        } catch (java.util.regex.PatternSyntaxException e) {
+            return;
+        }
+        sorter.setRowFilter(rf);
+    }
 
     public History() {
 
           
-        super(new GridLayout(1,0));
+        super();
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JTable table = new JTable(new MyTableModel());
+        MyTableModel model = new MyTableModel();
+        sorter = new TableRowSorter<MyTableModel>(model);
+
+        table = new JTable(model);
         table.setPreferredScrollableViewportSize(new Dimension(800, 600));
         table.setFillsViewportHeight(true);
-        table.setAutoCreateRowSorter(true);
+        table.setRowSorter(sorter);
+
+        //We have a single selection for our model.
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+ 
+        //When selection changes, provide user with row numbers for
+        //both view and model.
+        table.getSelectionModel().addListSelectionListener(
+                new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent event) {
+                        int viewRow = table.getSelectedRow();
+                        if (viewRow < 0) {
+                            //Selection got filtered away.
+                            statusText.setText("");
+                        } else {
+                            int modelRow = 
+                                table.convertRowIndexToModel(viewRow);
+                            statusText.setText(
+                                String.format("Selected Row in view: %d. " +
+                                    "Selected Row in model: %d.", 
+                                    viewRow, modelRow));
+                        }
+                    }
+                }
+        );
 
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
 
         //Add the scroll pane to this panel.
         add(scrollPane);
+
+        //Create a separate form for filterText and statusText
+        JPanel form = new JPanel(new SpringLayout());
+        JLabel l1 = new JLabel("Filter Text:", SwingConstants.TRAILING);
+        form.add(l1);
+        filterText = new JTextField();
+        //Whenever filterText changes, invoke newFilter.
+        filterText.getDocument().addDocumentListener(
+                new DocumentListener() {
+                    public void changedUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                    public void insertUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                    public void removeUpdate(DocumentEvent e) {
+                        newFilter();
+                    }
+                });
+        l1.setLabelFor(filterText);
+        form.add(filterText);
+        JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
+        form.add(l2);
+        statusText = new JTextField();
+        l2.setLabelFor(statusText);
+        form.add(statusText);
+        SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
+        add(form);
     }
 
     class MyTableModel extends AbstractTableModel {
@@ -141,11 +214,11 @@ public class History extends JPanel {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    static void createAndShowGUI() {
+    private static void createAndShowGUI() {
         //Create and set up the window.
 
         JFrame frame = new JFrame("History");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setSize(800,600);
         frame.setBounds(100, 100, 800, 600);
         
@@ -164,7 +237,7 @@ public class History extends JPanel {
         frame.setVisible(true);
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -173,5 +246,5 @@ public class History extends JPanel {
                 createAndShowGUI();
             }
         });
-    }*/
+    }
 }
