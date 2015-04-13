@@ -132,4 +132,22 @@ public class Database {
     }
     return classCounts;
   }  
+
+  public List<HashMap<String, String>> GetReservations(int userId) {
+    Request request = new Request();
+    String url = "/user/reservations/" + Integer.toString(userId);
+    JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
+    List<HashMap<String, String>> reservations = new ArrayList<HashMap<String, String>>();
+    for (int i=0; i<objects.length(); i++) {
+      HashMap<String, String> map = new HashMap<String, String>();
+      JSONObject object = objects.getJSONObject(i);
+      Iterator<String> it = object.keys();
+      while (it.hasNext()) {
+        String key = it.next();
+        map.put(key, object.getString(key));
+      }
+      reservations.add(map);
+    }
+    return reservations;
+  }
 }
