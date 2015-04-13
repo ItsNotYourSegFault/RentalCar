@@ -49,7 +49,7 @@ public class CustomerModule extends JFrame implements ActionListener{
 			br.setVisible(true);
 		}
 		else if(s == reserve){
-			ReservationModule res = new ReservationModule();
+			MakeReservationModule res = new MakeReservationModule();
 			res.setVisible(true);
 		}
 		else if(s == history){
@@ -62,8 +62,8 @@ public class CustomerModule extends JFrame implements ActionListener{
 		
 	}
 
-	public static void main(String[] a) {
+	/*public static void main(String[] a) {
 		new CustomerModule().setVisible(true);
-	}
+	}*/
 }
 
