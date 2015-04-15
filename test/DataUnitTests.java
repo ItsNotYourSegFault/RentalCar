@@ -1,3 +1,5 @@
+
+
 import java.util.Set;
 import java.util.Iterator;
 import java.util.HashMap;
@@ -17,7 +19,6 @@ public class DataUnitTests {
 
     /// Get a list of available locations (unstable)
     String[] locations = db.GetLocations();
-    
     
     /** 
      * Compare the number of vehicles at a location with a specific class to
@@ -40,5 +41,8 @@ public class DataUnitTests {
 
     /// Print the price for a Standard SUV rental
     System.out.println("vehicle class rates: " + db.GetVehicleClassRates("Standard SUV").toString());
+
+    /// Print the reservations for the user with userid 1
+    System.out.println(db.GetReservations(1));
   }
 }

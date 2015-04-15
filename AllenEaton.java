@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import rentalcar.ui.MakeReservationModule;
+import rentalcar.ui.CustomerModule;
 //import rentalcar.system.User;
 //import rentalcar.data.FormObject;
 
@@ -25,8 +25,10 @@ public class AllenEaton {
 		* Launch the application.
 		*/
 		try {
-			MakeReservationModule MRModule = new MakeReservationModule();
-			MRModule.setVisible(true);
+			CustomerModule customerModule = new CustomerModule();
+			customerModule.setVisible(true);
+			/*MakeReservationModule MRModule = new MakeReservationModule();
+			MRModule.setVisible(true);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
