@@ -38,7 +38,9 @@ public class User {
       return false;
     _user = response;
     return true;
-    }catch(JSONException e){}
+    }catch(JSONException e){
+      e.printStackTrace();
+    }
   }
 
   /*
