@@ -23,6 +23,7 @@ import rentalcar.data.FormObject;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONTokener;
+import org.json.JSONException;
 
 public class Database {
 
@@ -56,16 +57,16 @@ public class Database {
   }
 
 
-  public JSONObject CreateReservation(FormObject reservation) {
+  public JSONObject CreateReservation(FormObject reservation) throws JSONException {
     JSONRequest request = new JSONRequest();
     return request.POST("/create/reservation/", reservation.ToQueryString());
   }
 
 
-  public HashMap<String, Double> GetVehicleClassRates(String className) {
+  public HashMap<String, Double> GetVehicleClassRates(String className) throws JSONException {
     JSONRequest request = new JSONRequest();
     JSONObject response = request.GET("/vehicle/class/rates/" + className);
-    Iterator<String> it = response.keySet().iterator();
+    Iterator<String> it = response.keys();
     HashMap<String, Double> vehicleClass = new HashMap<String, Double>();
     while (it.hasNext()) {
       String key = it.next();
@@ -76,14 +77,14 @@ public class Database {
   }
 
 
-  public Double GetTaxRate(int locationId) {
+  public Double GetTaxRate(int locationId) throws JSONException {
     JSONRequest request = new JSONRequest();
     JSONObject response = request.GET("/location/taxRate/" + Integer.toString(locationId));
     return response.getDouble("rate");
   }
 
 
-  public List<HashMap<String, String>> GetVehicles(int locationId) {
+  public List<HashMap<String, String>> GetVehicles(int locationId) throws JSONException {
     Request request = new Request();
     String response = request.GET("location/vehicles/"+Integer.toString(locationId));
     JSONArray vehicleStrings = new JSONArray(response);
@@ -91,7 +92,7 @@ public class Database {
     for (int i=0; i<vehicleStrings.length(); i++) {
       JSONObject obj = vehicleStrings.getJSONObject(i);
       HashMap<String, String> map = new HashMap<String, String>();
-      Iterator<String> it = obj.keySet().iterator();
+      Iterator<String> it = obj.keys();
       while (it.hasNext()) {
         String key = it.next();
         map.put(key, obj.get(key).toString());
@@ -102,8 +103,7 @@ public class Database {
   }
 
 
-  public HashMap<String, Integer> GetReservedVehicleClassCount(
-      int locationId, String startDate, String endDate) {
+  public HashMap<String, Integer> GetReservedVehicleClassCount(int locationId, String startDate, String endDate) throws JSONException {
     Request request = new Request();
     String url = "/location/reservations/class/count/" + Integer.toString(locationId) + "/" + 
       startDate + "/" + endDate;
@@ -119,7 +119,7 @@ public class Database {
   }
 
 
-  public HashMap<String, Integer> GetVehicleClassCount(int locationId) {
+  public HashMap<String, Integer> GetVehicleClassCount(int locationId) throws JSONException {
     Request request = new Request();
     String url = "/location/vehicles/class/count/" + Integer.toString(locationId);
     JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));

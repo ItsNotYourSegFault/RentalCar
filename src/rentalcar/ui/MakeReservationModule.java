@@ -1,11 +1,13 @@
 package rentalcar.ui;
 
+import java.util.*;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.Vector;
 import java.util.Iterator;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -18,20 +20,22 @@ import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import java.awt.*;
 import java.awt.event.*;
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import org.jdesktop.swingx.JXDatePicker;
+import org.json.JSONException;
 
 import rentalcar.web.Request;
 import rentalcar.system.Database;
-import rentalcar.system.User;
+//import rentalcar.system.User;
 
-public class MakeReservationModule extends JFrame {
+public class MakeReservationModule extends JFrame implements ActionListener{
  
-  private User user = new User();
+  //private User user = new User();
   private Database dbClient = new Database();
 
   private Boolean locationSelected = false;
@@ -52,13 +56,13 @@ public class MakeReservationModule extends JFrame {
   private JLabel  labelTotalPrice;
   private JTextField labelTotalPriceValue;
 
-  JComboBox<String> locationsComboBox;
-  JXDatePicker startPicker;
-  JXDatePicker endPicker;
-  JComboBox comboBox_7;
+  private JComboBox<String> locationsComboBox;
+  private JComboBox comboBox_7;
+  private JXDatePicker startPicker;
+  private JXDatePicker endPicker;
+  
 
-  public Vector<String> getAvailableClasses(HashMap<String, Integer> totalClasses, 
-        HashMap<String, Integer> reservedClasses) {
+  public Vector<String> getAvailableClasses(HashMap<String, Integer> totalClasses, HashMap<String, Integer> reservedClasses) {
     Vector<String> availableClasses = new Vector<String>();
     Iterator<String> classIterator = totalClasses.keySet().iterator();
     String _class;
@@ -72,11 +76,11 @@ public class MakeReservationModule extends JFrame {
     }
     return availableClasses;
   }
-
+   
   /**
    * Create the frame.
    */
-  public MakeReservationModule() {
+  public MakeReservationModule() {    
     super("RentalCar/Reservation");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setBounds(100, 100, 1000, 601);
@@ -99,7 +103,12 @@ public class MakeReservationModule extends JFrame {
     locationsComboBox.setMaximumRowCount(12);
     locationsComboBox.setBounds(235, 44, 172, 20);
     contentPane.add(locationsComboBox);
-    
+    locationsComboBox.addActionListener(this);
+
+    comboBox_7 = new JComboBox<String>();
+    comboBox_7.setBounds(235, 200, 137, 20);
+    contentPane.add(comboBox_7);
+
     /** Select the Date */
 
     labelStart = new JLabel ();
@@ -118,12 +127,14 @@ public class MakeReservationModule extends JFrame {
     startPicker.setDate(Calendar.getInstance().getTime());
     startPicker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
     startPicker.setBounds(256, 114, 118, 20);
+    startPicker.addActionListener(this);
     contentPane.add(startPicker);
 
     endPicker = new JXDatePicker();
     endPicker.setDate(Calendar.getInstance().getTime());
     endPicker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
     endPicker.setBounds(256, 156, 118, 20);
+    endPicker.addActionListener(this);
     contentPane.add(endPicker);
 
     labelVehicle = new JLabel ();
@@ -131,15 +142,6 @@ public class MakeReservationModule extends JFrame {
     labelVehicle.setFont(new Font("Tahoma", Font.PLAIN, 15));
     labelVehicle.setBounds(77, 198, 118, 20);
     contentPane.add(labelVehicle);
-
-    int location = 1; 
-    HashMap<String, Integer> totalClasses = dbClient.GetVehicleClassCount(location);
-    HashMap<String, Integer> reservedClasses = dbClient.GetReservedVehicleClassCount(location, "2016-01-01", "2015-01-01");
-    Vector<String> availableClasses = getAvailableClasses(totalClasses, reservedClasses);
-    comboBox_7 = new JComboBox();
-    comboBox_7.setModel(new DefaultComboBoxModel(availableClasses));
-    comboBox_7.setBounds(235, 200, 137, 20);
-    contentPane.add(comboBox_7);
     
     labelOptionalServicesequipments = new JLabel ();
     labelOptionalServicesequipments.setText("Optional Services/Equipments");
@@ -204,5 +206,39 @@ public class MakeReservationModule extends JFrame {
     JCheckBox chckbxNewCheckBox_4 = new JCheckBox("K-Tag");
     chckbxNewCheckBox_4.setBounds(392, 332, 82, 23);
     contentPane.add(chckbxNewCheckBox_4);    
+  }
+
+  public void actionPerformed(ActionEvent e){
+    int Locationid = 0;
+    String sDate = null;
+    String eDate = null;
+
+    if(e.getSource() == locationsComboBox){
+        String mylocation = (String)locationsComboBox.getSelectedItem();
+        Locationid = dbClient.GetLocationId(mylocation);
+        locationSelected = true;
+    }
+    if(e.getSource() == startPicker){
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        sDate = df.format(startPicker.getDate());
+        startDateSelected = true;
+    }
+    if(e.getSource() == endPicker){
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        eDate = df.format(endPicker.getDate());
+        endDateSelected = true;
+    }
+    try{
+        HashMap<String, Integer> totalClasses = dbClient.GetVehicleClassCount(Locationid);
+        HashMap<String, Integer> reservedClasses = dbClient.GetReservedVehicleClassCount(Locationid, sDate, eDate);
+        Vector<String> availableClasses = getAvailableClasses(totalClasses, reservedClasses);
+        if(locationSelected == true && startDateSelected == true && endDateSelected == true){
+            if(availableClasses == null){
+                comboBox_7.setModel(new DefaultComboBoxModel());
+            }else{
+                comboBox_7.setModel(new DefaultComboBoxModel(availableClasses));
+            }
+        }   
+    }catch(JSONException a){}
   }
 }
