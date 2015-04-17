@@ -9,9 +9,10 @@ import rentalcar.system.Database;
 import rentalcar.data.FormObject;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class DataUnitTests {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws JSONException {
 
     // Instantiate a database client
     Database db = new Database();
@@ -24,8 +25,8 @@ public class DataUnitTests {
      * the number of reserved vehicles in the same class at the same location
      * (location with location id of 1)
      */
-    HashMap<String, Integer> countsV = db.GetVehicleClassCount(1);
-    HashMap<String, Integer> countsR = db.GetReservedVehicleClassCount(1, "2016-01-01", "2015-01-01");
+    HashMap<String, Integer> countsV = db.GetVehicleClassCount(41);
+    HashMap<String, Integer> countsR = db.GetReservedVehicleClassCount(41, "2016-01-01", "2015-01-01");
     Iterator<String> it = countsV.keySet().iterator();
       while (it.hasNext()) {
         String nextKey = it.next();
@@ -36,7 +37,7 @@ public class DataUnitTests {
     }
 
     /// Print the tax rate for location 1
-    System.out.println(db.GetTaxRate(1));
+    System.out.println("Tax rate: " + db.GetTaxRate(1));
 
     /// Print the price for a Standard SUV rental
     System.out.println("vehicle class rates: " + db.GetVehicleClassRates("Standard SUV").toString());

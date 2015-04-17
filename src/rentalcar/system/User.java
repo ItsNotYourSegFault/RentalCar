@@ -15,6 +15,7 @@ import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class User {
 
@@ -30,13 +31,12 @@ public class User {
   public boolean LogIn(String username, String password) {
     JSONRequest request = new JSONRequest();
     String params = "username="+username+"&password="+password;
-    System.out.println(params);
     JSONObject response = request.POST("/user/login/", params);
     if (response.length() == 0)
       return false;
     _user = response;
     return true;
-  }
+	}
 
   /*
     boolean IsLoggedIn
