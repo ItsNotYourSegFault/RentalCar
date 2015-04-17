@@ -25,14 +25,14 @@ public class Request {
   final static String EMPTY_RESPONSE = "{}";
 
   /** LocalHost configuration */
-  // final static String PROTOCOL = "http";
-  // final static String HOST = "localhost";
-  // final static int PORT = 3000;
+  final static String PROTOCOL = "http";
+  final static String HOST = "localhost";
+  final static int PORT = 3000;
 
   /** Heroku configuration */
-  final static String PROTOCOL = "https";
-  final static String HOST = "rentalcar.herokuapp.com";
-  final static int PORT = 443;
+  // final static String PROTOCOL = "https";
+  // final static String HOST = "rentalcar.herokuapp.com";
+  // final static int PORT = 443;
 
   private static void _handleHTTPError(int code) {
     System.out.println("x A web request failed with code " + code + ". Implement _handleHTTPError");
@@ -84,7 +84,7 @@ public class Request {
   
   public static String POST (String path, String params) {
     try {
-      URL url = new URL(HOST + path);
+      URL url = new URI(PROTOCOL, null, HOST, PORT, path, null, null).toURL();
       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
       conn.setDoOutput(true);
       conn.setRequestMethod("POST");
@@ -107,6 +107,9 @@ public class Request {
       return EMPTY_RESPONSE;
     } catch (IOException e) {
       System.out.println("x IOException: " + e.getMessage());
+      return EMPTY_RESPONSE;
+    } catch (URISyntaxException e) {
+      System.out.println("x URISyntaxException: " + e.getMessage());
       return EMPTY_RESPONSE;
     }
   }

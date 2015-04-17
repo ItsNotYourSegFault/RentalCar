@@ -27,11 +27,11 @@ public class User {
     @return upon success, a JSONObject representing a user is returned. else
             an empty JSON object is returned.
   */
-  public boolean LogIn(FormObject user) throws IllegalStateException {
-    if (this.IsLoggedIn())
-      throw new IllegalStateException("User is already logged in.");
+  public boolean LogIn(String username, String password) {
     JSONRequest request = new JSONRequest();
-    JSONObject response = request.POST("user/login/", user.ToQueryString());
+    String params = "username="+username+"&password="+password;
+    System.out.println(params);
+    JSONObject response = request.POST("/user/login/", params);
     if (response.length() == 0)
       return false;
     _user = response;
@@ -50,9 +50,7 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String FirstName() throws IllegalStateException {
-    if (!this.IsLoggedIn())
-      throw new IllegalStateException("User is not logged in.");
+  public String FirstName() {
     return (String)_user.get("firstname"); 
   }
 
@@ -62,16 +60,18 @@ public class User {
     @param key  The name of the property
     @return upon success, the value associated with key. else the empty string
   */
-  public String LastName() throws IllegalStateException { 
-    if (!this.IsLoggedIn())
-      throw new IllegalStateException("User is not logged in.");
+  public String LastName() { 
     return (String)_user.get("lastname");
   }
 
   /*
+  */
+  public String Type() 
+
+  /*
    String Email
    */
-  public String Email() throws IllegalStateException {
+  public String Email()  {
     if (!this.IsLoggedIn())
       throw new IllegalStateException("User is not logged in.");
     return (String)_user.get("email");

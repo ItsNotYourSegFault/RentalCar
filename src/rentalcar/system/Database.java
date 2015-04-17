@@ -101,6 +101,23 @@ public class Database {
     return vehicles;
   }
 
+  public List<HashMap<String, String>> GetAllVehicles() {
+    Request request = new Request();
+    String response = request.GET("/vehicles");
+    JSONArray vehicleStrings = new JSONArray(response);
+    List<HashMap<String, String>> vehicles = new ArrayList<HashMap<String, String>>();
+    for (int i=0; i<vehicleStrings.length(); i++) {
+      JSONObject obj = vehicleStrings.getJSONObject(i);
+      HashMap<String, String> map = new HashMap<String, String>();
+      Iterator<String> it = obj.keySet().iterator();
+      while (it.hasNext()) {
+        String key = it.next();
+        map.put(key, obj.get(key).toString());
+      }
+      vehicles.add(map);
+    }
+    return vehicles;
+  }
 
   public HashMap<String, Integer> GetReservedVehicleClassCount(
       int locationId, String startDate, String endDate) {

@@ -43,5 +43,8 @@ public class DataUnitTests {
 
     /// Print the reservations for the user with userid 1
     System.out.println(db.GetReservations(1));
+
+    /// Print all vehicles
+    System.out.println(db.GetAllVehicles());
   }
 }
