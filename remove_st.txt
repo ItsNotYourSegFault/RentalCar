@@ -1,1 +1,0 @@
-rm *.class src/rentalcar/ui/*.class src/rentalcar/system/*.class src/rentalcar/util/*.class src/rentalcar/web/*.class src/rentalcar/data/*.class test/*.class 
