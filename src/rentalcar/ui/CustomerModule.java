@@ -17,7 +17,6 @@ public class CustomerModule extends JFrame implements ActionListener{
 		_user = user;
 		setTitle("Allen Eaton Customer");
 		setSize(500,500);
-		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		logout.addActionListener(this);
 		browse.addActionListener(this);
