@@ -6,14 +6,15 @@ import java.awt.event.*;
 import rentalcar.system.User;
 
 public class CustomerModule extends JFrame implements ActionListener{
-	private User user = new User();
+	public User user;
 	public JPanel hub = new JPanel();
 	public JButton browse = new JButton("Browse Cars");
 	public JButton reserve = new JButton("Make a Reservation");
 	public JButton history = new JButton("View my Rental History");
 	public JButton logout = new JButton("Logout");
 	
-	public CustomerModule(){
+	public CustomerModule(User user){
+		_user = user;
 		setTitle("Allen Eaton Customer");
 		setSize(500,500);
 		setVisible(true);
@@ -32,14 +33,6 @@ public class CustomerModule extends JFrame implements ActionListener{
 		hub.add(reserve);
 		hub.add(history);
 		add(hub);
-	}
-
-	public void setUser(User u) {
-		user = u;
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 	@Override
