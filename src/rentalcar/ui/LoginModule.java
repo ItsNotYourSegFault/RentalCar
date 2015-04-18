@@ -17,7 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import rentalcar.ui.CustomerModule;
-import rentalcar.ui.servicemngrWindow;
+import rentalcar.ui.ServiceManagerModule;
 import rentalcar.system.User;
 
 public class LoginModule extends JFrame {
@@ -34,14 +34,15 @@ public class LoginModule extends JFrame {
       if (type.equals("customer")) {
         CustomerModule customerMod = new CustomerModule(user);
         customerMod.setVisible(true);
-        this.close();
       } else if (type.equals("service_manager")) {
-
+        ServiceManagerModule serviceManagerMod = new ServiceManagerModule(user);
+        customerMod.setVisible(true);
       } else if (type.equals("admin")) {
-
+        // wtf do we do for an admin
       }
+      this.dispose(); // close this window
     }
-    
+
     public LoginModule() {
     	loginButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent evt) {
