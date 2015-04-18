@@ -239,7 +239,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
                 comboBox_7.setModel(new DefaultComboBoxModel(availableClasses));
             }
         }   
-    }catch(JSONException a){
+    }catch(JSONException e){
         e.printStackTrace();
     }
   }
