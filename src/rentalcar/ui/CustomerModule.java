@@ -13,8 +13,8 @@ public class CustomerModule extends JFrame implements ActionListener{
 	public JButton history = new JButton("View my Rental History");
 	public JButton logout = new JButton("Logout");
 	
-	public CustomerModule(User user){
-		_user = user;
+	public CustomerModule(User _user){
+		user = user;
 		setTitle("Allen Eaton Customer");
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

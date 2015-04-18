@@ -228,7 +228,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
         eDate = df.format(endPicker.getDate());
         endDateSelected = true;
     }
-    try{
+    try {
         HashMap<String, Integer> totalClasses = dbClient.GetVehicleClassCount(Locationid);
         HashMap<String, Integer> reservedClasses = dbClient.GetReservedVehicleClassCount(Locationid, sDate, eDate);
         Vector<String> availableClasses = getAvailableClasses(totalClasses, reservedClasses);
@@ -239,8 +239,8 @@ public class MakeReservationModule extends JFrame implements ActionListener{
                 comboBox_7.setModel(new DefaultComboBoxModel(availableClasses));
             }
         }   
-    }catch(JSONException e){
-        e.printStackTrace();
+    } catch (JSONException error ) {
+        error.printStackTrace();
     }
   }
 }
