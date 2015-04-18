@@ -43,7 +43,9 @@ public class DataUnitTests {
     System.out.println("vehicle class rates: " + db.GetVehicleClassRates("Standard SUV").toString());
 
     /// Print the reservations for the user with userid 1
-    System.out.println(db.GetReservations(1));
+    System.out.println("Printing all reservations....");
+
+    System.out.println(db.GetReservations(1) + "\n");
 
     /// Print all vehicles
     System.out.println(db.GetAllVehicles());

@@ -65,6 +65,16 @@ public class User {
   }
 
   /*
+    String getCustomerId
+    @desc Get the User's Id
+    @param key  The name of the property
+    @return upon success, the value associated with key. else the empty string
+  */
+  public int getCustomerId() { 
+    return (Integer)_user.get("userid");
+  }
+
+  /*
   */
   public String Type() {
     return _user.getString("type");

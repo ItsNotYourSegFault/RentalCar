@@ -14,9 +14,10 @@ public class CustomerModule extends JFrame implements ActionListener{
 	public JButton logout = new JButton("Logout");
 	
 	public CustomerModule(User _user){
-		user = user;
+		this.user = _user;
 		setTitle("Allen Eaton Customer");
-		setSize(500,500);
+		//setSize(500,500);
+		setBounds(400, 400, 600, 601);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		logout.addActionListener(this);
 		browse.addActionListener(this);
@@ -46,8 +47,9 @@ public class CustomerModule extends JFrame implements ActionListener{
 			res.setVisible(true);
 		}
 		else if(s == history){
-			History h = new History();
-			h.createAndShowGUI();
+						
+			History h = new History(user);
+			h.setVisible(true);;
 		}
 		else if(s == logout){
 			dispose();

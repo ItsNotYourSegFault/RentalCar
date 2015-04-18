@@ -11,16 +11,23 @@ import java.awt.BorderLayout;
 import javax.swing.border.TitledBorder;
 import rentalcar.util.SpringUtilities;
 
+import rentalcar.system.User;
+import rentalcar.system.Database;
+
 /** 
  * History is just like SimpleHistory, except that it
  * uses a custom TableModel.
  */
-public class History extends JPanel {
+public class History extends JFrame {
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
     private JTextField statusText;
     private TableRowSorter<MyTableModel> sorter;
+    private JPanel contentPane;
+
+        
+    private static User user;
 
     /** 
      * Update the row filter regular expression from the expression in
@@ -37,12 +44,17 @@ public class History extends JPanel {
         sorter.setRowFilter(rf);
     }
 
-    public History() {
+    public History(User loggedInUser) {
 
-          
-        super();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        
+        this.user = loggedInUser;
+        contentPane = new JPanel();
+        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        setBounds(100, 100, 800, 600);
+        
+        
         MyTableModel model = new MyTableModel();
         sorter = new TableRowSorter<MyTableModel>(model);
 
@@ -79,13 +91,14 @@ public class History extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
 
         //Add the scroll pane to this panel.
-        add(scrollPane);
+        contentPane.add(scrollPane);
 
         //Create a separate form for filterText and statusText
         JPanel form = new JPanel(new SpringLayout());
         JLabel l1 = new JLabel("Filter Text:", SwingConstants.TRAILING);
         form.add(l1);
         filterText = new JTextField();
+
         //Whenever filterText changes, invoke newFilter.
         filterText.getDocument().addDocumentListener(
                 new DocumentListener() {
@@ -107,10 +120,36 @@ public class History extends JPanel {
         l2.setLabelFor(statusText);
         form.add(statusText);
         SpringUtilities.makeCompactGrid(form, 2, 2, 6, 6, 6, 6);
-        add(form);
+        //add(form);
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.add(contentPane);
+        container.add(form);
+
+        setContentPane(container);
+        pack();
+
+        Database db = new Database();
+
+        int userID = user.getCustomerId();
+
+        System.out.println(db.GetReservations(1) + "\n");
+        
+        /*public void showData()
+        {
+            
+        }
+
+        showData();*/
     }
 
-    class MyTableModel extends AbstractTableModel {
+        class MyTableModel extends AbstractTableModel {
+
+        //User user = new User();
+        
+
+        
+
         private String[] columnNames = {"Reservation ID",
                                         "Customer Name",
                                         "Class",
@@ -118,8 +157,10 @@ public class History extends JPanel {
                                         "Start Date",
                                         "End Date",
                                         "Total Amount"};
-        private Object[][] data = {
-	    {"1231465", "John Smith",
+        private Object[][] data = 
+        {
+	    
+        {"1231465", "John Smith",
 	     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
 	    {"4561465", "Will Turner",
          "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
@@ -209,43 +250,4 @@ public class History extends JPanel {
         }
     }
 
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
-    static void createAndShowGUI() {
-        //Create and set up the window.
-
-        JFrame frame = new JFrame("History");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setSize(800,600);
-        frame.setBounds(100, 100, 800, 600);
-        
-        JPanel contentPane = new JPanel();
-        //Create and set up the content pane.
-        History newContentPane = new History();
-        
-        newContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        newContentPane.setOpaque(true); //content panes must be opaque
-        contentPane.add(newContentPane);
-        frame.setContentPane(contentPane);
-        //java.awt.Dimension.preferredSize(800,600);
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    /*public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-
-                createAndShowGUI();
-            }
-        });
-    }*/
 }

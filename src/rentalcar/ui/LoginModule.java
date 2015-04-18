@@ -53,7 +53,7 @@ public class LoginModule extends JFrame {
     		}
     	});
     	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	    setBounds(100, 100, 200, 201);
+	    setBounds(200, 200, 300, 301);
 			contentPane.add(usernameLabel);
 			contentPane.add(username);
 			contentPane.add(passwordLabel);
