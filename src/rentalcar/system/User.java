@@ -66,7 +66,9 @@ public class User {
 
   /*
   */
-  public String Type() 
+  public String Type() {
+    return _user.getString("type");
+  } 
 
   /*
    String Email
