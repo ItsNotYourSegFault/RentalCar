@@ -19,7 +19,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.ScrollPane;
 
-public class ServiceManagerModule extends JPanel {
+public class servicemngrWindow extends JPanel {
 	
 	private boolean DEBUG = false;
 
@@ -31,29 +31,28 @@ public class ServiceManagerModule extends JPanel {
 	private JTextField txtEnterMileage;
 	private JPanel panel;
 
-	// /**
-	//  * Launch the application.
-	//  */
-	// public static void main(String[] args) {
-	// 	EventQueue.invokeLater(new Runnable() {
-	// 		public void run() {
-	// 			try {
-
-	// 				//createAndShowGUI();
-	// 			} catch (Exception e) {
-	// 				e.printStackTrace();
-	// 			}
-	// 		}
-	// 	});
-	// }
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					servicemngrWindow window = new servicemngrWindow();
+					window.frmServiceManager.setVisible(true);
+					//createAndShowGUI();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
 	 */
-	public ServiceManagerModule() {
-		/* initialize() is the only function called in this constructor, shouldn't 
-		   all of the code in initialize() be inside this constructor instead? */
-		initialize(); 
+	public servicemngrWindow() {
+		initialize();
 	}
 
 	/**
@@ -278,7 +277,7 @@ public class ServiceManagerModule extends JPanel {
 	    
 	    JPanel contentPane = new JPanel();
 	    //Create and set up the content pane.
-	    ServiceManagerModule newContentPane = new ServiceManagerModule();
+	    servicemngrWindow newContentPane = new servicemngrWindow();
 	    
 	    newContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	    newContentPane.setOpaque(true); //content panes must be opaque
