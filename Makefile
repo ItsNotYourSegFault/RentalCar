@@ -1,9 +1,9 @@
-.PHONY: all clean git setup restore classpath
+.PHONY: all clean git setup restore jar
 
 JSON_REMOTE=https://github.com/douglascrockford/JSON-java
 JSON_LOCAL=./src/org/json
 
-setup: git classpath
+setup: git
 	@echo "> Done!"
 
 clean:
@@ -20,3 +20,7 @@ git:
 	-git submodule add $(JSON_REMOTE) $(JSON_LOCAL)
 	git submodule init
 	git submodule update
+
+jar: setup git clean
+	javac AllenEaton.java
+	jar cvfm AllenEaton.jar manifest.txt AllenEaton.class src/org/json/*.class src/rentalcar/*/*.class
