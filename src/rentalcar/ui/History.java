@@ -34,11 +34,10 @@ public class History extends JFrame
     private JTextField statusText;
     private TableRowSorter<MyTableModel> sorter;
     private JPanel contentPane;
-
         
     private static User user;
 
-    void checkUserType(String type) 
+    public void checkUserType(String type) 
     {
       if (type.equals("customer")) 
       {
@@ -47,7 +46,6 @@ public class History extends JFrame
       else if (type.equals("service_manager")) 
       {
         setDataManager();
-        System.out.println("service");
       } 
       else if (type.equals("admin")) 
       {
@@ -64,7 +62,6 @@ public class History extends JFrame
     {
         //TODO: Set Data for ServiceManager
     }
-
     
     /** 
      * Update the row filter regular expression from the expression in
@@ -82,7 +79,6 @@ public class History extends JFrame
         {
             return;
         }
-
         sorter.setRowFilter(rf);
     }
 
@@ -90,12 +86,13 @@ public class History extends JFrame
     {
         this.user = loggedInUser;
         contentPane = new JPanel();
+
+        checkUserType(user.Type());
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         setBounds(100, 100, 800, 600);
-        
-        
+                
         MyTableModel model = new MyTableModel();
         sorter = new TableRowSorter<MyTableModel>(model);
 
@@ -184,10 +181,6 @@ public class History extends JFrame
 
     class MyTableModel extends AbstractTableModel 
     {
-
-        
-        //User user = new User();
-        
         Database db = new Database();
 
         int userID = user.getCustomerId();
