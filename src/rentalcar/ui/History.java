@@ -1,5 +1,13 @@
 package rentalcar.ui;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
@@ -18,7 +26,8 @@ import rentalcar.system.Database;
  * History is just like SimpleHistory, except that it
  * uses a custom TableModel.
  */
-public class History extends JFrame {
+public class History extends JFrame 
+{
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
@@ -29,24 +38,45 @@ public class History extends JFrame {
         
     private static User user;
 
+    void checkUserType(String type) 
+    {
+      if (type.equals("customer")) 
+      {
+        setDataCustomer();
+      } 
+      else if (type.equals("service_manager")) 
+      {
+        setDataManager();
+        System.out.println("service");
+      } 
+      else if (type.equals("admin")) 
+      {
+        setDataManager();
+      }
+    }
+    
     /** 
      * Update the row filter regular expression from the expression in
      * the text box.
      */
-    private void newFilter() {
+    private void newFilter() 
+    {
         RowFilter<MyTableModel, Object> rf = null;
         //If current expression doesn't parse, don't update.
-        try {
+        try 
+        {
             rf = RowFilter.regexFilter(filterText.getText());
-        } catch (java.util.regex.PatternSyntaxException e) {
+        } 
+        catch (java.util.regex.PatternSyntaxException e) 
+        {
             return;
         }
+
         sorter.setRowFilter(rf);
     }
 
-    public History(User loggedInUser) {
-
-        
+    public History(User loggedInUser) 
+    {
         this.user = loggedInUser;
         contentPane = new JPanel();
         
@@ -68,23 +98,27 @@ public class History extends JFrame {
  
         //When selection changes, provide user with row numbers for
         //both view and model.
-        table.getSelectionModel().addListSelectionListener(
-                new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent event) {
-                        int viewRow = table.getSelectedRow();
-                        if (viewRow < 0) {
-                            //Selection got filtered away.
-                            statusText.setText("");
-                        } else {
-                            int modelRow = 
-                                table.convertRowIndexToModel(viewRow);
-                            statusText.setText(
-                                String.format("Selected Row in view: %d. " +
-                                    "Selected Row in model: %d.", 
-                                    viewRow, modelRow));
-                        }
+        table.getSelectionModel().addListSelectionListener
+        (
+            new ListSelectionListener() 
+            {
+                public void valueChanged(ListSelectionEvent event) 
+                {
+                    int viewRow = table.getSelectedRow();
+
+                    if (viewRow < 0) 
+                    {
+                        //Selection got filtered away.
+                        statusText.setText("");
+                    } 
+                    else 
+                    {
+                        int modelRow = table.convertRowIndexToModel(viewRow);
+                        statusText.setText(String.format("Selected Row in view: %d. " 
+                                        + "Selected Row in model: %d.", viewRow, modelRow));
                     }
                 }
+            }
         );
 
         //Create the scroll pane and add the table to it.
@@ -100,18 +134,25 @@ public class History extends JFrame {
         filterText = new JTextField();
 
         //Whenever filterText changes, invoke newFilter.
-        filterText.getDocument().addDocumentListener(
-                new DocumentListener() {
-                    public void changedUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-                    public void insertUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-                    public void removeUpdate(DocumentEvent e) {
-                        newFilter();
-                    }
-                });
+        filterText.getDocument().addDocumentListener
+        (
+            new DocumentListener() 
+            {
+                public void changedUpdate(DocumentEvent e) 
+                {
+                    newFilter();
+                }
+                public void insertUpdate(DocumentEvent e) 
+                {
+                    newFilter();
+                }
+                public void removeUpdate(DocumentEvent e) 
+                {
+                    newFilter();
+                }
+            }
+        );
+
         l1.setLabelFor(filterText);
         form.add(filterText);
         JLabel l2 = new JLabel("Status:", SwingConstants.TRAILING);
@@ -128,65 +169,72 @@ public class History extends JFrame {
 
         setContentPane(container);
         pack();
-
-        Database db = new Database();
-
-        int userID = user.getCustomerId();
-
-        System.out.println(db.GetReservations(1) + "\n");
-        
-        /*public void showData()
-        {
-            
-        }
-
-        showData();*/
     }
 
-        class MyTableModel extends AbstractTableModel {
+    class MyTableModel extends AbstractTableModel 
+    {
+
+        public void setDataCustomer()
+        {
+            //TODO: Set Data for Customer
+        }
+
+        public void setDataManager()
+        {
+            //TODO: Set Data for ServiceManager
+        }
 
         //User user = new User();
         
+        Database db = new Database();
 
+        int userID = user.getCustomerId();
         
 
-        private String[] columnNames = {"Reservation ID",
-                                        "Customer Name",
-                                        "Class",
-                                        "Vehicle",
-                                        "Start Date",
-                                        "End Date",
-                                        "Total Amount"};
-        private Object[][] data = 
+        private String[] columnNames = 
         {
-	    
-        {"1231465", "John Smith",
-	     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
-	    {"4561465", "Will Turner",
-         "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
-	    {"8678865", "Ned Stark",
-         "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00)},
-	    {"9793465", "Jon Snow",
-         "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00)},
-	    {"3331465", "Khal Drogo",
-         "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00)},
-        {"5555465", "Tyrion Lannister",
-         "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00)}
+            "Reservation ID",
+            "Customer Name",
+            "Class",
+            "Vehicle",
+            "Start Date",
+            "End Date",
+            "Total Amount"
         };
 
-        public int getColumnCount() {
+        private Object[][] data = 
+        {
+            {"1231465", "John Smith",
+    	     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
+    	    {"4561465", "Will Turner",
+             "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
+    	    {"8678865", "Ned Stark",
+             "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00)},
+    	    {"9793465", "Jon Snow",
+             "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00)},
+    	    {"3331465", "Khal Drogo",
+             "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00)},
+            {"5555465", "Tyrion Lannister",
+             "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00)}
+        };
+
+        public int getColumnCount() 
+        {
             return columnNames.length;
         }
 
-        public int getRowCount() {
+        public int getRowCount() 
+        {
             return data.length;
         }
 
-        public String getColumnName(int col) {
+        public String getColumnName(int col) 
+        {
             return columnNames[col];
         }
 
-        public Object getValueAt(int row, int col) {
+        public Object getValueAt(int row, int col) 
+        {
             return data[row][col];
         }
 
@@ -196,7 +244,8 @@ public class History extends JFrame {
          * then the last column would contain text ("true"/"false"),
          * rather than a check box.
          */
-        public Class getColumnClass(int c) {
+        public Class getColumnClass(int c) 
+        {
             return getValueAt(0, c).getClass();
         }
 
@@ -204,12 +253,16 @@ public class History extends JFrame {
          * Don't need to implement this method unless your table's
          * editable.
          */
-        public boolean isCellEditable(int row, int col) {
+        public boolean isCellEditable(int row, int col) 
+        {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if (col < 2) {
+            if (col < 2) 
+            {
                 return false;
-            } else {
+            } 
+            else 
+            {
                 return true;
             }
         }
@@ -218,8 +271,10 @@ public class History extends JFrame {
          * Don't need to implement this method unless your table's
          * data can change.
          */
-        public void setValueAt(Object value, int row, int col) {
-            if (DEBUG) {
+        public void setValueAt(Object value, int row, int col) 
+        {
+            if (DEBUG) 
+            {
                 System.out.println("Setting value at " + row + "," + col
                                    + " to " + value
                                    + " (an instance of "
@@ -229,19 +284,24 @@ public class History extends JFrame {
             data[row][col] = value;
             //fireTableCellUpdated(row, col);
 
-            if (DEBUG) {
+            if (DEBUG) 
+            {
                 System.out.println("New value of data:");
                 printDebugData();
             }
         }
 
-        private void printDebugData() {
+        private void printDebugData() 
+        {
             int numRows = getRowCount();
             int numCols = getColumnCount();
 
-            for (int i=0; i < numRows; i++) {
+            for (int i=0; i < numRows; i++) 
+            {
                 System.out.print("    row " + i + ":");
-                for (int j=0; j < numCols; j++) {
+
+                for (int j=0; j < numCols; j++) 
+                {
                     System.out.print("  " + data[i][j]);
                 }
                 System.out.println();
@@ -249,5 +309,4 @@ public class History extends JFrame {
             System.out.println("--------------------------");
         }
     }
-
 }
