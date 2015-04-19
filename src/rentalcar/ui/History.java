@@ -54,6 +54,17 @@ public class History extends JFrame
         setDataManager();
       }
     }
+
+    public void setDataCustomer()
+    {
+        //TODO: Set Data for Customer
+    }
+
+    public void setDataManager()
+    {
+        //TODO: Set Data for ServiceManager
+    }
+
     
     /** 
      * Update the row filter regular expression from the expression in
@@ -174,16 +185,7 @@ public class History extends JFrame
     class MyTableModel extends AbstractTableModel 
     {
 
-        public void setDataCustomer()
-        {
-            //TODO: Set Data for Customer
-        }
-
-        public void setDataManager()
-        {
-            //TODO: Set Data for ServiceManager
-        }
-
+        
         //User user = new User();
         
         Database db = new Database();
