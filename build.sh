@@ -16,14 +16,13 @@ rm -rf src/rentalcar/system/*.class
 rm -rf src/org/json/*.class
 rm -rf test/*.class
 rm -rf *.class
-rm -rf staging
 rm -rf bin
 
 # Set up classpath for compilation
 export CLASSPATH=$(pwd):$(pwd)/test:$(pwd)/src:$(pwd)/src/swingx-all-1.6.4.jar:$(pwd)/src/org/json/java-json.jar:$(pwd)/src/rentalcar/ui
 
 # Create build directories
-mkdir bin staging
+mkdir bin
 
 # Compile class files
 javac AllenEaton.java -d bin

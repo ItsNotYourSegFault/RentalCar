@@ -15,7 +15,7 @@ clean:
 	rm -rf src/org/json/*.class
 	rm -rf test/*.class
 	rm -rf *.class
-	rm -rf staging bin
+	rm -rf bin
 
 restore: clean
 	git rm -rf $(JSON_LOCAL)
