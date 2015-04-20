@@ -28,6 +28,8 @@ public class LoginModule extends JFrame {
 		JButton loginButton = new JButton("login");
 		JTextField username = new JTextField(20);
 		JTextField password = new JTextField(20);
+    JButton browseButton = new JButton("Browse Cars");
+
     
     void redirectByUserType(String type) {
       if (type.equals("customer")) {
@@ -52,6 +54,17 @@ public class LoginModule extends JFrame {
     			}
     		}
     	});
+
+      browseButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          Object s = evt.getSource();
+            if(s == browseButton){
+            BrowseModule br = new BrowseModule();
+                br.setVisible(true);
+                }
+        }
+      });
+
     	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    setBounds(200, 200, 300, 301);
 			contentPane.add(usernameLabel);
@@ -60,6 +73,7 @@ public class LoginModule extends JFrame {
 			contentPane.add(password);
 			contentPane.add(loginButton);
 			contentPane.add(status);
+      contentPane.add(browseButton);
 			setContentPane(contentPane);
 		}
 }
