@@ -182,9 +182,7 @@ public class History extends JFrame
     class MyTableModel extends AbstractTableModel 
     {
         Database db = new Database();
-
-        int userID = user.getCustomerId();
-        
+        int userID = user.getCustomerId();        
 
         private String[] columnNames = 
         {
@@ -200,17 +198,17 @@ public class History extends JFrame
         private Object[][] data = 
         {
             {"1231465", "John Smith",
-    	     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00)},
+    	     "Minivan", "Toyota Sienna", "03-12-2015", "03-15-2015", new Double(255.00)},
     	    {"4561465", "Will Turner",
-             "Std SUV", "Ford Explorer", "04-12-2015",  "05-15-2015", new Double(2225.00)},
+             "Std SUV", "Ford Explorer", "04-12-2015", "05-15-2015", new Double(2225.00)},
     	    {"8678865", "Ned Stark",
-             "Std SUV", "Honda Pilot", "03-22-2015",  "03-25-2015", new Double(225.00)},
+             "Std SUV", "Honda Pilot", "03-22-2015", "03-25-2015", new Double(225.00)},
     	    {"9793465", "Jon Snow",
-             "Sm SUV", "Toyota RAV4", "01-12-2015",  "03-15-2015", new Double(4010.00)},
+             "Sm SUV", "Toyota RAV4", "01-12-2015", "03-15-2015", new Double(4010.00)},
     	    {"3331465", "Khal Drogo",
-             "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00)},
+             "Standard", "Honda Accord", "02-12-2015", "03-15-2015", new Double(1900.00)},
             {"5555465", "Tyrion Lannister",
-             "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00)}
+             "Compact", "Honda Civic", "03-01-2015", "03-15-2015", new Double(700.00)}
         };
 
         public int getColumnCount() 
