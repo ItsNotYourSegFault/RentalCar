@@ -15,7 +15,7 @@ clean:
 	rm -rf src/org/json/*.class
 	rm -rf test/*.class
 	rm -rf *.class
-	rm -rf staging/*
+	rm -rf staging bin
 
 restore: clean
 	git rm -rf $(JSON_LOCAL)
@@ -24,8 +24,3 @@ git:
 	-git submodule add $(JSON_REMOTE) $(JSON_LOCAL)
 	git submodule init
 	git submodule update
-
-prepare-jar: setup git clean
-	rm -rf bin/*
-	javac AllenEaton.java -d bin
-	cp manifest.txt bin
