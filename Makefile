@@ -9,9 +9,13 @@ setup: git
 clean:
 	rm -rf src/rentalcar/data/*.class 
 	rm -rf src/rentalcar/ui/*.class 
-	rm -rf src/rentalcar/web/*class
+	rm -rf src/rentalcar/util/*.class
+	rm -rf src/rentalcar/web/*.class
+	rm -rf src/rentalcar/system/*.class
+	rm -rf src/org/json/*.class
 	rm -rf test/*.class
 	rm -rf *.class
+	rm -rf staging/*
 
 restore: clean
 	git rm -rf $(JSON_LOCAL)
@@ -21,6 +25,7 @@ git:
 	git submodule init
 	git submodule update
 
-jar: setup git clean
-	javac AllenEaton.java
-	jar cvfm AllenEaton.jar manifest.txt AllenEaton.class src/org/json/*.class src/rentalcar/*/*.class
+prepare-jar: setup git clean
+	rm -rf bin/*
+	javac AllenEaton.java -d bin
+	cp manifest.txt bin
