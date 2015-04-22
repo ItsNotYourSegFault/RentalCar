@@ -4,15 +4,22 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import rentalcar.system.User;
 
 public class SalesModule extends JFrame implements ActionListener{
-	public JPanel hub = new JPanel();
-	public JButton view = new JButton("View Reservations");
-	public JButton reserve = new JButton("Make a Reservation");
-	public JButton logout = new JButton("Logout");
-	public SalesModule(){
+
+	private User user = new User();
+	private JPanel hub = new JPanel();
+	private JButton view = new JButton("View Reservations");
+	private JButton reserve = new JButton("Make a Reservation");
+	private JButton logout = new JButton("Logout");
+
+	public SalesModule(User _user){
+
+		this.user = _user;
 		setTitle("Allen Eaton Sales Representative");
-		setSize(500,500);
+		//setSize(500,500);
+		setBounds(200,200,300,301);
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		logout.addActionListener(this);
@@ -36,13 +43,11 @@ public class SalesModule extends JFrame implements ActionListener{
 		else if(s == reserve){
 		}
 		else if(s == logout){
-			new BrowseModule().setVisible(true);
+			new LoginModule().setVisible(true);
 			dispose();
 		}
 		
 	}
 
-	public static void main(String[] a) {
-		new SalesModule().setVisible(true);
-	}
+	
 }
