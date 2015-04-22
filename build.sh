@@ -25,7 +25,7 @@ export CLASSPATH=$(pwd):$(pwd)/test:$(pwd)/src:$(pwd)/src/swingx-all-1.6.4.jar:$
 mkdir bin
 
 # Compile class files
-javac AllenEaton.java -d bin
+javac AllenEaton.java -d bin -Xlint:unchecked
 
 # Copy manifest int build dir
 cp manifest.txt bin
