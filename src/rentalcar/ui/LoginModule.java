@@ -20,15 +20,15 @@ import rentalcar.ui.CustomerModule;
 import rentalcar.system.User;
 
 public class LoginModule extends JFrame {
-		User user = new User();
-		JPanel contentPane = new JPanel();
-		JLabel usernameLabel = new JLabel("Username");
-		JLabel passwordLabel = new JLabel("Password");
-		JLabel status = new JLabel();
-		JButton loginButton = new JButton("login");
-		JTextField username = new JTextField(20);
-		JTextField password = new JTextField(20);
-    JButton browseButton = new JButton("Browse Cars");
+		private User user = new User();
+		private JPanel contentPane = new JPanel();
+		private JLabel usernameLabel = new JLabel("Username");
+		private JLabel passwordLabel = new JLabel("Password");
+		private JLabel status = new JLabel();
+		private JButton loginButton = new JButton("login");
+		private JTextField username = new JTextField(20);
+		private JTextField password = new JTextField(20);
+    private JButton browseButton = new JButton("Browse Cars");
 
     
     void redirectByUserType(String type) {
@@ -37,6 +37,9 @@ public class LoginModule extends JFrame {
         customerMod.setVisible(true);
       } else if (type.equals("service_manager")) {
         System.out.println("service");
+      } else if (type.equals("sales_manager")) {
+        SalesModule salesMod = new SalesModule(user);
+        salesMod.setVisible(true);
       } else if (type.equals("admin")) {
         // wtf do we do for an admin
       }
