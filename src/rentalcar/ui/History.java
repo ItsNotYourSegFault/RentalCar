@@ -91,7 +91,7 @@ public class History extends JFrame
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        setBounds(100, 100, 800, 600);
+        setBounds(200, 200, 800, 600);
                 
         MyTableModel model = new MyTableModel();
         sorter = new TableRowSorter<MyTableModel>(model);
@@ -182,18 +182,21 @@ public class History extends JFrame
     class MyTableModel extends AbstractTableModel 
     {
         Database db = new Database();
-        int userID = user.getCustomerId();        
+        int userID = user.getCustomerId();
 
         private String[] columnNames = 
         {
-            "Reservation ID",
-            "Customer Name",
-            "Class",
-            "Vehicle",
             "Start Date",
+            "Location",
+            "Total Cost",
+            "Reservation ID",
             "End Date",
-            "Total Amount"
+            "Vehicle Class"
         };
+
+        private List<HashMap<String, String>> dataBond = new ArrayList<HashMap<String, String>>();
+
+        //dataBond = db.getReservations(1);
 
         private Object[][] data = 
         {
@@ -219,6 +222,7 @@ public class History extends JFrame
         public int getRowCount() 
         {
             return data.length;
+            //return dataBond.size();
         }
 
         public String getColumnName(int col) 
