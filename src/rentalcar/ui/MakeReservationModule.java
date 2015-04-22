@@ -83,7 +83,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   public MakeReservationModule() {    
     super("RentalCar/Reservation");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setBounds(100, 100, 1000, 601);
+    setBounds(200, 200, 1000, 601);
     contentPane = new JPanel();
     contentPane.setBackground(Color.WHITE);
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
