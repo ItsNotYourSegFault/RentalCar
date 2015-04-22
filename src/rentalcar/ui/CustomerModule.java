@@ -6,12 +6,12 @@ import java.awt.event.*;
 import rentalcar.system.User;
 
 public class CustomerModule extends JFrame implements ActionListener{
-	public User user;
-	public JPanel hub = new JPanel();
-	public JButton browse = new JButton("Browse Cars");
-	public JButton reserve = new JButton("Make a Reservation");
-	public JButton history = new JButton("View my Rental History");
-	public JButton logout = new JButton("Logout");
+	private User user;
+	private JPanel hub = new JPanel();
+	private JButton browse = new JButton("Browse Cars");
+	private JButton reserve = new JButton("Make a Reservation");
+	private JButton history = new JButton("View my Rental History");
+	private JButton logout = new JButton("Logout");
 	
 	public CustomerModule(User _user){
 		this.user = _user;
@@ -49,9 +49,10 @@ public class CustomerModule extends JFrame implements ActionListener{
 		else if(s == history){
 						
 			History h = new History(user);
-			h.setVisible(true);;
+			h.setVisible(true);
 		}
 		else if(s == logout){
+			new LoginModule().setVisible(true);
 			dispose();
 		}
 		
