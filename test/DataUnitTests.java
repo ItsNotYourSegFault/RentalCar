@@ -1,5 +1,6 @@
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.HashMap;
@@ -47,6 +48,11 @@ public class DataUnitTests {
 
     System.out.println(db.GetReservations(1) + "\n");
 
+    List<HashMap<String, String>> dataBond = new ArrayList<HashMap<String, String>>();
+
+    dataBond = db.GetReservations(1);
+
+    //dataBond.
     /// Print all vehicles
     System.out.println(db.GetAllVehicles());
   }
