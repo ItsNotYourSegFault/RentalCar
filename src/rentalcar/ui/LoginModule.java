@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import rentalcar.ui.CustomerModule;
+import rentalcar.ui.servicemngrWindow;
 import rentalcar.system.User;
 
 public class LoginModule extends JFrame {
@@ -36,7 +37,8 @@ public class LoginModule extends JFrame {
         CustomerModule customerMod = new CustomerModule(user);
         customerMod.setVisible(true);
       } else if (type.equals("service_manager")) {
-        System.out.println("service");
+        servicemngrWindow servMod = new servicemngrWindow();
+        servMod.frmServiceManager.setVisible(true);
       } else if (type.equals("sales_manager")) {
         SalesModule salesMod = new SalesModule(user);
         salesMod.setVisible(true);
