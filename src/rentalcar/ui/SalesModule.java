@@ -43,6 +43,7 @@ public class SalesModule extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object s = e.getSource();
 		if(s == view){
+			new History(user).setVisible(true);
 		}
 		else if(s == reserve){
 		}
