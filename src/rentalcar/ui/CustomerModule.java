@@ -16,22 +16,31 @@ public class CustomerModule extends JFrame implements ActionListener{
 	public CustomerModule(User _user){
 		this.user = _user;
 		setTitle("Allen Eaton Customer");
-		//setSize(500,500);
-		setBounds(400, 400, 600, 601);
+		setBounds(800, 400, 250, 200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		logout.addActionListener(this);
 		browse.addActionListener(this);
 		reserve.addActionListener(this);
 		history.addActionListener(this);
-		hub.setLayout(new BoxLayout(hub, BoxLayout.PAGE_AXIS));
-		logout.setAlignmentX(CENTER_ALIGNMENT);
-		browse.setAlignmentX(CENTER_ALIGNMENT);
-		reserve.setAlignmentX(CENTER_ALIGNMENT);
-		history.setAlignmentX(CENTER_ALIGNMENT);
-		hub.add(logout);
-		hub.add(browse);
-		hub.add(reserve);
-		hub.add(history);
+		hub.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.PAGE_START;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+		hub.add(browse, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+		hub.add(reserve, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 5;
+		hub.add(history, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 7;
+		hub.add(logout, gbc);
 		add(hub);
 	}
 

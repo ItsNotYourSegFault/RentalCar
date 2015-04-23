@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import rentalcar.system.User;
 
 public class SalesModule extends JFrame implements ActionListener{
@@ -18,20 +19,23 @@ public class SalesModule extends JFrame implements ActionListener{
 
 		this.user = _user;
 		setTitle("Allen Eaton Sales Representative");
-		//setSize(500,500);
-		setBounds(200,200,300,301);
-		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		logout.addActionListener(this);
-		view.addActionListener(this);
-		reserve.addActionListener(this);
-		hub.setLayout(new BoxLayout(hub, BoxLayout.PAGE_AXIS));
-		logout.setAlignmentX(CENTER_ALIGNMENT);
-		view.setAlignmentX(CENTER_ALIGNMENT);
-		reserve.setAlignmentX(CENTER_ALIGNMENT);
-		hub.add(view);
-		hub.add(reserve);
-		hub.add(logout);
+		setBounds(800,400,250,200);
+		hub.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.PAGE_START;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+		hub.add(view,gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+		hub.add(reserve,gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 5;
+		hub.add(logout,gbc);
 		add(hub);
 	}
 
