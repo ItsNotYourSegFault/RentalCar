@@ -1,3 +1,4 @@
+
 package rentalcar.ui;
 
 import java.awt.EventQueue;
@@ -18,12 +19,15 @@ import javax.swing.*;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.ScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import rentalcar.web.Request;
+import rentalcar.system.Database;
 
 public class servicemngrWindow extends JPanel {
-	
 	private boolean DEBUG = false;
 
-	public JFrame frmServiceManager;
+	private JFrame frmServiceManager;
 	private final JCheckBox checkBox = new JCheckBox("Changed Oil");
 	private JTable table;
 	private JScrollBar scrollBar;
@@ -34,7 +38,7 @@ public class servicemngrWindow extends JPanel {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,7 +50,7 @@ public class servicemngrWindow extends JPanel {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the application.
@@ -67,11 +71,11 @@ public class servicemngrWindow extends JPanel {
 		checkBox.setBounds(1056, 281, 122, 31);
 		frmServiceManager.getContentPane().add(checkBox);
 		
-		JCheckBox chckbxChangedAirFilter = new JCheckBox("Changed Air Filter");
+		final JCheckBox chckbxChangedAirFilter = new JCheckBox("Changed Air Filter");
 		chckbxChangedAirFilter.setBounds(1056, 209, 152, 23);
 		frmServiceManager.getContentPane().add(chckbxChangedAirFilter);
 		
-		JCheckBox chckbxRotatedTires = new JCheckBox("Rotated Tires");
+		final JCheckBox chckbxRotatedTires = new JCheckBox("Rotated Tires");
 		chckbxRotatedTires.setBounds(1056, 249, 129, 23);
 		frmServiceManager.getContentPane().add(chckbxRotatedTires);
 		
@@ -90,7 +94,7 @@ public class servicemngrWindow extends JPanel {
                 "Mi.LastTireRot"
                 };
 		
-		Object[][] data = {
+		/*Object[][] data = {
 			    {"1231465", "John Smith",
 			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00), 20, 10},
 			    {"4561465", "Will Turner",
@@ -103,7 +107,10 @@ public class servicemngrWindow extends JPanel {
 			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00), 20, 10},
 			    {"5555465", "Tyrion Lannister",
 			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00), 20, 10}
-			    };
+			    };*/
+		private Database dbClient = new Database();
+		HashMap<String, String> vehicles = dbClient.GetAllVehicles();
+		Object[][] data = new Object[vehicles.size()][vehicles[0].size()];
 		
 		table_1 = new JTable(data, columnNames);
 		table_1.setBounds(1, 20, 741, 553);
@@ -130,6 +137,16 @@ public class servicemngrWindow extends JPanel {
 		txtEnterMileage.setColumns(10);
 		
 		JButton btnSubmit = new JButton("Submit");
+		
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chckbxChangedAirFilter.setSelected(false);
+				chckbxRotatedTires.setSelected(false);
+				checkBox.setSelected(false);
+				txtEnterMileage.setText("Enter Mileage");
+				
+			}
+		});
 		btnSubmit.setBounds(1056, 475, 117, 25);
 		frmServiceManager.getContentPane().add(btnSubmit);
 		
@@ -262,6 +279,8 @@ public class servicemngrWindow extends JPanel {
 	    }
 	}
 
+	
+	
 	/**
 	 * Create the GUI and show it.  For thread safety,
 	 * this method should be invoked from the
@@ -290,4 +309,3 @@ public class servicemngrWindow extends JPanel {
 	    frame.setVisible(true);
 	}
 	}
-
