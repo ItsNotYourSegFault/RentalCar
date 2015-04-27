@@ -282,11 +282,34 @@ public class RegisterModule {
 			int cardMessInt;
 			int phoneMessInt;
 			try{
+				//Everything works
 				cardMessInt = Integer.parseInt(cardMess);
 				phoneMessInt = Integer.parseInt(phoneMess);
-				clear();
 				
+
+				// Attempting to register
+				//FormObject register = new FormObject();
+				//register.Set("username", userMess);
+				//register.Set("password", passMess);
+				//register.Set("driverlicense", driveMess);
+				//register.Set("address", addressMess);
+				//register.Set("emailaddress", emailMess);
+
+				//register.Set("creditcard", cardMess);
+				//register.Set("firstname", fnameMess);
+				//register.Set("lastname", lnameMess);
+				//register.Set("phonenumber", phoneMess);
+				//register.Set("dateofbirth", birthMess);
+				//user.makeRegistration(register);
+
+				clear();
+				//LoginModule loginMod = new LoginModule();
+				//loginMod.setVisible(true);
+				//dispose();
+
+    			
 			}catch(NumberFormatException num){
+				//Nothing works
 				cardMessInt = 0;
 				phoneMessInt = 0;
 				frame.getContentPane().remove(errMessage);
