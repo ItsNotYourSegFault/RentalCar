@@ -52,5 +52,7 @@ public class DataUnitTests {
     System.out.println(db.GetReservations(1) + "\n");
 
     System.out.println(db.GetAllVehicles());
+
+    System.out.println(db.GetAllReservations());
   }
 }

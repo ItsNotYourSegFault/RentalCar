@@ -62,6 +62,23 @@ public class Database {
     return request.POST("/create/reservation/", reservation.ToQueryString());
   }
 
+  public List<HashMap<String, String>> GetAllReservations() {
+    Request request = new Request();
+    String url = "/reservations";
+    JSONArray objects = new JSONArray(new JSONTokener(request.GET(url)));
+    List<HashMap<String, String>> reservations = new ArrayList<HashMap<String, String>>();
+    for (int i=0; i<objects.length(); i++) {
+      JSONObject obj = objects.getJSONObject(i);
+      HashMap<String, String> map = new HashMap<String, String>();
+      Iterator<String> it = obj.keys();
+      while (it.hasNext()) {
+        String key = it.next();
+        map.put(key, obj.get(key).toString());
+      }
+      reservations.add(map);
+    }
+    return reservations;
+  }
 
   public HashMap<String, Double> GetVehicleClassRates(String className) throws JSONException {
     JSONRequest request = new JSONRequest();
