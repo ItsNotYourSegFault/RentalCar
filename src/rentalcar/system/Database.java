@@ -76,7 +76,6 @@ public class Database {
     return vehicleClass;
   }
 
-
   public Double GetTaxRate(int locationId) throws JSONException {
     JSONRequest request = new JSONRequest();
     JSONObject response = request.GET("/location/taxRate/" + Integer.toString(locationId));

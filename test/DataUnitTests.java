@@ -41,19 +41,16 @@ public class DataUnitTests {
     System.out.println("Tax rate: " + db.GetTaxRate(1));
 
     /// Print the price for a Standard SUV rental
-    System.out.println("vehicle class rates: " + db.GetVehicleClassRates("Standard SUV").toString());
+    HashMap<String, Double> classRates = db.GetVehicleClassRates("Standard SUV");
+    System.out.println("vehicle class rates: ");
+    System.out.println("weekly: " + classRates.get("weeklyprice").toString());
+    System.out.println("daily: " + classRates.get("dailyprice").toString());
 
     /// Print the reservations for the user with userid 1
     System.out.println("Printing all reservations....");
 
     System.out.println(db.GetReservations(1) + "\n");
 
-    List<HashMap<String, String>> dataBond = new ArrayList<HashMap<String, String>>();
-
-    dataBond = db.GetReservations(1);
-
-    //dataBond.
-    /// Print all vehicles
     System.out.println(db.GetAllVehicles());
   }
 }
