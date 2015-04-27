@@ -84,10 +84,18 @@ public class RegisterModule {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, WINDOW_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(operations());
 		frame.getContentPane().setLayout(null);
 
 		registerActions();
+	}
+
+
+	private int operations(){
+		LoginModule loginMod = new LoginModule();
+		loginMod.setVisible(true);
+		return JFrame.DISPOSE_ON_CLOSE;
 	}
 
 
