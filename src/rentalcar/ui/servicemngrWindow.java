@@ -24,6 +24,10 @@ import java.awt.event.ActionEvent;
 import rentalcar.web.Request;
 import rentalcar.system.Database;
 
+import rentalcar.web.JSONRequest;
+import rentalcar.data.FormObject;
+import org.json.*;
+
 public class servicemngrWindow extends JPanel {
 	private boolean DEBUG = false;
 
@@ -108,9 +112,26 @@ public class servicemngrWindow extends JPanel {
 			    {"5555465", "Tyrion Lannister",
 			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00), 20, 10}
 			    };*/
-		private Database dbClient = new Database();
+		Database dbClient = new Database();
 		HashMap<String, String> vehicles = dbClient.GetAllVehicles();
 		Object[][] data = new Object[vehicles.size()][vehicles[0].size()];
+		for(int i=0; i < vehicles.size(); i++)
+		{
+			String licenseNum, licenseSt, license;
+			licenseNum = vehicles[i].get(platenum);
+			licenseSt = vehilces[i].get(platestate);
+			license = licenseNum + " " + licenseSt;
+			data[i][0] = license;
+			data[i][1] = vehicles[i].get("mileage");
+			data[i][2] = vehicles[i].get("location");
+			data[i][3] = vehicles[i].get("oilchangedate");
+			data[i][4] = vehicles[i].get("oilchangemile");
+			data[i][5] = vehicles[i].get("filterdate");
+			data[i][6] = vehicles[i].get("filtermile");
+			data[i][7] = vehicles[i].get("tirerotationdate");
+			data[i][8] = vehicles[i].get("tirerotationmile");
+		}
+
 		
 		table_1 = new JTable(data, columnNames);
 		table_1.setBounds(1, 20, 741, 553);
