@@ -57,11 +57,11 @@ public class DataUnitTests {
 
     FormObject reservation = new FormObject();
     reservation.Set("startDate",    "2015-01-12");
-    reservation.Set("endDate",      "2015-01-12");
+    reservation.Set("endDate",      "2015-08-04");
     reservation.Set("vehicleClass", "Standard SUV");
-    reservation.Set("locationId",   "1");
+    reservation.Set("locationId",   "11");
     reservation.Set("salesrepId",   "12");
-    reservation.Set("customerId",   "1");
+    reservation.Set("customerId",   "2");
     reservation.Set("ccn",          "1111777712122323");
     reservation.Set("gps",          "1");
     reservation.Set("childSeat",    "0");
@@ -69,7 +69,7 @@ public class DataUnitTests {
     reservation.Set("roadside",     "1");
     reservation.Set("waiver",       "1");
     reservation.Set("accident",     "1");
-    reservation.Set("totalCost",    "1320.44");
+    reservation.Set("totalCost",    "1350.44");
     String affectedRows = db.CreateReservation(reservation);
     System.out.println("created "+ affectedRows + " reservation(s)");
   }
