@@ -1,14 +1,6 @@
 
 package rentalcar.ui;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,11 +27,12 @@ import rentalcar.system.Database;
 import rentalcar.web.JSONRequest;
 import rentalcar.data.FormObject;
 import org.json.*;
+import java.util.*;
 
 public class servicemngrWindow extends JPanel {
 	private boolean DEBUG = false;
 
-	public JFrame frmServiceManager;
+	private JFrame frmServiceManager;
 	private final JCheckBox checkBox = new JCheckBox("Changed Oil");
 	private JTable table;
 	private JScrollBar scrollBar;
@@ -50,7 +43,7 @@ public class servicemngrWindow extends JPanel {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -63,7 +56,7 @@ public class servicemngrWindow extends JPanel {
 			}
 		});
 	}
-*/
+
 	/**
 	 * Create the application.
 	 */
@@ -106,7 +99,7 @@ public class servicemngrWindow extends JPanel {
                 "Mi.LastTireRot"
                 };
 		
-		Object[][] data = {
+		/*Object[][] data = {
 			    {"1231465", "John Smith",
 			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00), 20, 10},
 			    {"4561465", "Will Turner",
@@ -119,37 +112,39 @@ public class servicemngrWindow extends JPanel {
 			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00), 20, 10},
 			    {"5555465", "Tyrion Lannister",
 			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00), 20, 10}
-			    };
+			    };*/
+
+		//try{
 		Database dbClient = new Database();
 		List<HashMap<String, String>> vehicles = dbClient.GetAllVehicles();
-
 		
-		//Object[][] data = new Object[vehicles.size()][vehicles[0].size()];
 
-		/*for(int i=0; i < vehicles.size(); i++)
+
+		Object[][] data = new Object[vehicles.size()][vehicles.get(0).size()];
+		for(int i=0; i < vehicles.size(); i++)
 		{
 			String licenseNum, licenseSt, license;
-			licenseNum = vehicles[i].get(platenum);
-			licenseSt = vehicles[i].get(platestate);
+			licenseNum = vehicles.get(i).get("platenum");
+			licenseSt = vehicles.get(i).get("platestate");
 			license = licenseNum + " " + licenseSt;
 			data[i][0] = license;
-			data[i][1] = vehicles[i].get("mileage");
-			data[i][2] = vehicles[i].get("location");
-			data[i][3] = vehicles[i].get("oilchangedate");
-			data[i][4] = vehicles[i].get("oilchangemile");
-			data[i][5] = vehicles[i].get("filterdate");
-			data[i][6] = vehicles[i].get("filtermile");
-			data[i][7] = vehicles[i].get("tirerotationdate");
-			data[i][8] = vehicles[i].get("tirerotationmile");
+			data[i][1] = vehicles.get(i).get("mileage");
+			data[i][2] = vehicles.get(i).get("location");
+			data[i][3] = vehicles.get(i).get("oilchangedate");
+			data[i][4] = vehicles.get(i).get("oilchangemile");
+			data[i][5] = vehicles.get(i).get("filterdate");
+			data[i][6] = vehicles.get(i).get("filtermile");
+			data[i][7] = vehicles.get(i).get("tirerotationdate");
+			data[i][8] = vehicles.get(i).get("tirerotationmile");
 		}
-*/
+		
 		
 		table_1 = new JTable(data, columnNames);
 		table_1.setBounds(1, 20, 741, 553);
 		table_1.setPreferredScrollableViewportSize(new Dimension(800, 600));
 		table_1.setFillsViewportHeight(true);
 		table_1.setAutoCreateRowSorter(true);
-		
+		//}catch(JSONException a){}
 		//JScrollPane scrollPane = new JScrollPane(table_1);
 
         //Add the scroll pane to this panel.
