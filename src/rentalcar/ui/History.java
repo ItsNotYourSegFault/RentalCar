@@ -1,12 +1,15 @@
 package rentalcar.ui;
 
+
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -27,7 +30,27 @@ import rentalcar.system.Database;
  * uses a custom TableModel.
  */
 public class History extends JFrame 
-{
+{   
+
+    private HashMap<Integer, String> nonConstLocations = new HashMap<Integer, String>();
+
+    private void buildMap()
+    {
+        nonConstLocations.put(1, "Atchison");
+        nonConstLocations.put(11, "Belton");
+        nonConstLocations.put(21, "Emporia");
+        nonConstLocations.put(31, "Hiawatha");
+        nonConstLocations.put(41, "Kansas City");
+        nonConstLocations.put(51, "Lawrence");
+        nonConstLocations.put(61, "Leavenworth");
+        nonConstLocations.put(71, "Manhattan");
+        nonConstLocations.put(81, "Platte City");
+        nonConstLocations.put(91, "St Joseph");
+        nonConstLocations.put(101, "Topeka");
+        nonConstLocations.put(111, "Warrensburg");
+    }
+    
+
     private boolean DEBUG = false;
     private JTable table;
     private JTextField filterText;
@@ -37,11 +60,17 @@ public class History extends JFrame
         
     private static User user;
 
-    public void checkUserType(String type) 
+    private Object[][] data;
+    private String[] columnNames;
+
+    private Database db = new Database();
+    private int userID;
+
+    public void checkUserType(String type, int UserID) 
     {
       if (type.equals("customer")) 
       {
-        setDataCustomer();
+        setDataCustomer(UserID);
       } 
       else if (type.equals("service_manager")) 
       {
@@ -53,9 +82,68 @@ public class History extends JFrame
       }
     }
 
-    public void setDataCustomer()
+    public void setDataCustomer(int UserID)
     {
         //TODO: Set Data for Customer
+        String[] tempColumnNames = 
+        {
+            "Vehicle Class",
+            "Start Date",
+            "End Date",
+            "Location",
+            "Reservation ID",
+            "Total Cost($)"
+        };
+        
+        columnNames = tempColumnNames;
+
+        List<HashMap<String, String>> dataBond = db.GetReservations(UserID);
+        data = new Object[dataBond.size()][columnNames.length];
+        
+        for (int i = 0; i < dataBond.size(); i++) 
+        {
+            int iter = 0;
+
+            HashMap<String,String> dataMap = dataBond.get(i);
+
+            for(Entry<String,String> entry : dataMap.entrySet())
+            {
+                System.out.println(entry.getKey() + " : " + entry.getValue());
+            }
+
+            for(Entry<String,String> entry : dataMap.entrySet())
+            {
+                
+                if(entry.getKey().equals(new String("vehicleClass")))
+                {
+                    System.out.println(entry.getValue());
+                    data[i][0] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("startDate")))
+                {
+                    System.out.println(entry.getValue());
+                    data[i][1] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("endDate")))
+                {
+                    data[i][2] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("locationId")))
+                {
+                    data[i][3] = nonConstLocations.get(Integer.parseInt(entry.getValue()));
+                }
+                if(entry.getKey().equals(new String("reservationid")))
+                {
+                    data[i][4] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("totalCost")))
+                {
+                    System.out.println(entry.getValue());
+                    data[i][5] = entry.getValue();
+                }
+                
+            }
+        }
     }
 
     public void setDataManager()
@@ -85,9 +173,13 @@ public class History extends JFrame
     public History(User loggedInUser) 
     {
         this.user = loggedInUser;
+        userID = user.getCustomerId();
+        System.out.println("The user Id is : " + userID);
         contentPane = new JPanel();
 
-        checkUserType(user.Type());
+        buildMap();
+
+        checkUserType(user.Type(), userID);
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -181,25 +273,12 @@ public class History extends JFrame
 
     class MyTableModel extends AbstractTableModel 
     {
-        Database db = new Database();
-        int userID = user.getCustomerId();
-
-        private String[] columnNames = 
-        {
-            "Start Date",
-            "Location",
-            "Total Cost",
-            "Reservation ID",
-            "End Date",
-            "Vehicle Class"
-        };
-
-        private List<HashMap<String, String>> dataBond = new ArrayList<HashMap<String, String>>();
-
+        
+        
         //dataBond = db.getReservations(1);
 
-        private Object[][] data = 
-        {
+        
+        /*{
             {"1231465", "John Smith",
     	     "Minivan", "Toyota Sienna", "03-12-2015", "03-15-2015", new Double(255.00)},
     	    {"4561465", "Will Turner",
@@ -212,7 +291,7 @@ public class History extends JFrame
              "Standard", "Honda Accord", "02-12-2015", "03-15-2015", new Double(1900.00)},
             {"5555465", "Tyrion Lannister",
              "Compact", "Honda Civic", "03-01-2015", "03-15-2015", new Double(700.00)}
-        };
+        };*/
 
         public int getColumnCount() 
         {
@@ -242,9 +321,17 @@ public class History extends JFrame
          * rather than a check box.
          */
         public Class getColumnClass(int c) 
-        {
-            return getValueAt(0, c).getClass();
-        }
+        { 
+            for(int rowIndex = 0; rowIndex < data.length; rowIndex++)
+            { 
+                Object[] row = data[rowIndex]; 
+                if (row[c] != null) 
+                { 
+                    return getValueAt(rowIndex, c).getClass(); 
+                } 
+            } 
+            return String.class; 
+        } 
 
         /*
          * Don't need to implement this method unless your table's
