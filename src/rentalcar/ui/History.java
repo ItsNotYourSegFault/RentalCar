@@ -66,7 +66,7 @@ public class History extends JFrame
     private Database db = new Database();
     private int userID;
 
-    public void checkUserType(String type, int UserID) 
+    private void checkUserType(String type, int UserID) 
     {
       if (type.equals("customer")) 
       {
@@ -82,7 +82,7 @@ public class History extends JFrame
       }
     }
 
-    public void setDataCustomer(int UserID)
+    private void setDataCustomer(int UserID)
     {
         //TODO: Set Data for Customer
         String[] tempColumnNames = 
@@ -96,14 +96,12 @@ public class History extends JFrame
         };
         
         columnNames = tempColumnNames;
-
         List<HashMap<String, String>> dataBond = db.GetReservations(UserID);
         data = new Object[dataBond.size()][columnNames.length];
         
         for (int i = 0; i < dataBond.size(); i++) 
         {
             int iter = 0;
-
             HashMap<String,String> dataMap = dataBond.get(i);
 
             for(Entry<String,String> entry : dataMap.entrySet())
@@ -116,12 +114,10 @@ public class History extends JFrame
                 
                 if(entry.getKey().equals(new String("vehicleClass")))
                 {
-                    System.out.println(entry.getValue());
                     data[i][0] = entry.getValue();
                 }
                 if(entry.getKey().equals(new String("startDate")))
                 {
-                    System.out.println(entry.getValue());
                     data[i][1] = entry.getValue();
                 }
                 if(entry.getKey().equals(new String("endDate")))
@@ -138,7 +134,6 @@ public class History extends JFrame
                 }
                 if(entry.getKey().equals(new String("totalCost")))
                 {
-                    System.out.println(entry.getValue());
                     data[i][5] = entry.getValue();
                 }
                 
@@ -146,7 +141,7 @@ public class History extends JFrame
         }
     }
 
-    public void setDataManager()
+    private void setDataManager()
     {
         //TODO: Set Data for ServiceManager
     }
@@ -274,25 +269,6 @@ public class History extends JFrame
     class MyTableModel extends AbstractTableModel 
     {
         
-        
-        //dataBond = db.getReservations(1);
-
-        
-        /*{
-            {"1231465", "John Smith",
-    	     "Minivan", "Toyota Sienna", "03-12-2015", "03-15-2015", new Double(255.00)},
-    	    {"4561465", "Will Turner",
-             "Std SUV", "Ford Explorer", "04-12-2015", "05-15-2015", new Double(2225.00)},
-    	    {"8678865", "Ned Stark",
-             "Std SUV", "Honda Pilot", "03-22-2015", "03-25-2015", new Double(225.00)},
-    	    {"9793465", "Jon Snow",
-             "Sm SUV", "Toyota RAV4", "01-12-2015", "03-15-2015", new Double(4010.00)},
-    	    {"3331465", "Khal Drogo",
-             "Standard", "Honda Accord", "02-12-2015", "03-15-2015", new Double(1900.00)},
-            {"5555465", "Tyrion Lannister",
-             "Compact", "Honda Civic", "03-01-2015", "03-15-2015", new Double(700.00)}
-        };*/
-
         public int getColumnCount() 
         {
             return columnNames.length;
