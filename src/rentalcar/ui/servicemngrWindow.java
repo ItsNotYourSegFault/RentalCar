@@ -1,6 +1,14 @@
 
 package rentalcar.ui;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,7 +39,7 @@ import org.json.*;
 public class servicemngrWindow extends JPanel {
 	private boolean DEBUG = false;
 
-	private JFrame frmServiceManager;
+	public JFrame frmServiceManager;
 	private final JCheckBox checkBox = new JCheckBox("Changed Oil");
 	private JTable table;
 	private JScrollBar scrollBar;
@@ -42,7 +50,7 @@ public class servicemngrWindow extends JPanel {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -55,7 +63,7 @@ public class servicemngrWindow extends JPanel {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the application.
 	 */
@@ -98,7 +106,7 @@ public class servicemngrWindow extends JPanel {
                 "Mi.LastTireRot"
                 };
 		
-		/*Object[][] data = {
+		Object[][] data = {
 			    {"1231465", "John Smith",
 			     "Minivan", "Toyota Sienna", "03-12-2015",  "03-15-2015", new Double(255.00), 20, 10},
 			    {"4561465", "Will Turner",
@@ -111,15 +119,18 @@ public class servicemngrWindow extends JPanel {
 			     "Standard", "Honda Accord", "02-12-2015",  "03-15-2015", new Double(1900.00), 20, 10},
 			    {"5555465", "Tyrion Lannister",
 			     "Compact", "Honda Civic", "03-01-2015",  "03-15-2015", new Double(700.00), 20, 10}
-			    };*/
+			    };
 		Database dbClient = new Database();
-		HashMap<String, String> vehicles = dbClient.GetAllVehicles();
-		Object[][] data = new Object[vehicles.size()][vehicles[0].size()];
-		for(int i=0; i < vehicles.size(); i++)
+		List<HashMap<String, String>> vehicles = dbClient.GetAllVehicles();
+
+		
+		//Object[][] data = new Object[vehicles.size()][vehicles[0].size()];
+
+		/*for(int i=0; i < vehicles.size(); i++)
 		{
 			String licenseNum, licenseSt, license;
 			licenseNum = vehicles[i].get(platenum);
-			licenseSt = vehilces[i].get(platestate);
+			licenseSt = vehicles[i].get(platestate);
 			license = licenseNum + " " + licenseSt;
 			data[i][0] = license;
 			data[i][1] = vehicles[i].get("mileage");
@@ -131,7 +142,7 @@ public class servicemngrWindow extends JPanel {
 			data[i][7] = vehicles[i].get("tirerotationdate");
 			data[i][8] = vehicles[i].get("tirerotationmile");
 		}
-
+*/
 		
 		table_1 = new JTable(data, columnNames);
 		table_1.setBounds(1, 20, 741, 553);
