@@ -25,11 +25,11 @@ import org.jdesktop.swingx.JXDatePicker;
 import org.json.JSONException;
 import rentalcar.web.Request;
 import rentalcar.system.Database;
-//import rentalcar.system.User;
+import rentalcar.system.User;
 
 public class MakeReservationModule extends JFrame implements ActionListener{
  
-  //private User user = new User();
+  private User user;
   private Database dbClient = new Database();
 
   //flags for checking if the following items are selected
@@ -139,8 +139,10 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   /**
    * Create the frame.
    */
-  public MakeReservationModule() {    
+  public MakeReservationModule(User _user) {   
+
     super("RentalCar/Reservation");
+    this.user = _user;
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setBounds(100, 100, 1000, 601);
     contentPane = new JPanel();

@@ -52,7 +52,7 @@ public class CustomerModule extends JFrame implements ActionListener{
 			br.setVisible(true);
 		}
 		else if(s == reserve){
-			MakeReservationModule res = new MakeReservationModule();
+			MakeReservationModule res = new MakeReservationModule(user);
 			res.setVisible(true);
 		}
 		else if(s == history){
