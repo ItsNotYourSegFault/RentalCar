@@ -106,11 +106,6 @@ public class History extends JFrame
 
             for(Entry<String,String> entry : dataMap.entrySet())
             {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-            }
-
-            for(Entry<String,String> entry : dataMap.entrySet())
-            {
                 
                 if(entry.getKey().equals(new String("vehicleClass")))
                 {
