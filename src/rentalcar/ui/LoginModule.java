@@ -44,7 +44,8 @@ public class LoginModule extends JFrame {
         SalesModule salesMod = new SalesModule(user);
         salesMod.setVisible(true);
       } else if (type.equals("admin")) {
-        // wtf do we do for an admin
+        AdminModule adminMod = new AdminModule(user);
+        adminMod.setVisible(true);
       }
       this.dispose(); // close this window
     }
