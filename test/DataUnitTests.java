@@ -51,8 +51,26 @@ public class DataUnitTests {
 
     System.out.println(db.GetReservations(1) + "\n");
 
-    System.out.println(db.GetAllVehicles());
+    // System.out.println(db.GetAllVehicles());
 
-    System.out.println(db.GetAllReservations());
+    // System.out.println(db.GetAllReservations());
+
+    FormObject reservation = new FormObject();
+    reservation.Set("startDate",    "2015-01-12");
+    reservation.Set("endDate",      "2015-01-12");
+    reservation.Set("vehicleClass", "Standard SUV");
+    reservation.Set("locationId",   "1");
+    reservation.Set("salesrepId",   "12");
+    reservation.Set("customerId",   "1");
+    reservation.Set("ccn",          "1111777712122323");
+    reservation.Set("gps",          "1");
+    reservation.Set("childSeat",    "0");
+    reservation.Set("ktag",         "0");
+    reservation.Set("roadside",     "1");
+    reservation.Set("waiver",       "1");
+    reservation.Set("accident",     "1");
+    reservation.Set("totalCost",    "1320.44");
+    String affectedRows = db.CreateReservation(reservation);
+    System.out.println("created "+ affectedRows + " reservation(s)");
   }
 }

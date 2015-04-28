@@ -51,15 +51,13 @@ public class Database {
     return Locations.keySet().toArray(new String[Locations.size()]);
   }
 
-
   public Integer GetLocationId(String locationName) {
     return Locations.get(locationName);
   }
 
-
-  public JSONObject CreateReservation(FormObject reservation) throws JSONException {
-    JSONRequest request = new JSONRequest();
-    return request.POST("/create/reservation/", reservation.ToQueryString());
+  public String CreateReservation(FormObject reservation) {
+    Request request = new Request();
+    return request.POST("/reservation", reservation.ToQueryString());
   }
 
   public List<HashMap<String, String>> GetAllReservations() {
@@ -80,17 +78,17 @@ public class Database {
     return reservations;
   }
 
-  public HashMap<String, Double> GetVehicleClassRates(String className) throws JSONException {
+  public HashMap<String, Double> GetVehicleClassRates(String vehicleClass) throws JSONException {
     JSONRequest request = new JSONRequest();
-    JSONObject response = request.GET("/vehicle/class/rates/" + className);
+    JSONObject response = request.GET("/vehicle/class/rates/" + vehicleClass);
     Iterator<String> it = response.keys();
-    HashMap<String, Double> vehicleClass = new HashMap<String, Double>();
+    HashMap<String, Double> vehicleClassRates = new HashMap<String, Double>();
     while (it.hasNext()) {
       String key = it.next();
       if (!key.equals("name"))
-        vehicleClass.put(key, response.getDouble(key));
+        vehicleClassRates.put(key, response.getDouble(key));
     }
-    return vehicleClass;
+    return vehicleClassRates;
   }
 
   public Double GetTaxRate(int locationId) throws JSONException {
