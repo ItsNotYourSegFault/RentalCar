@@ -15,7 +15,7 @@ public class CustomerModule extends JFrame implements ActionListener{
 	
 	public CustomerModule(User _user){
 		this.user = _user;
-		JLabel header = new JLabel("Welcome " + user.FirstName());	
+		JLabel header = new JLabel("Welcome " + this.user.FirstName());	
 		setTitle("Allen Eaton Customer");
 		setBounds(800, 400, 250, 200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

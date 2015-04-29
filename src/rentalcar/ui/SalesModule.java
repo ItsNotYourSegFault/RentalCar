@@ -18,7 +18,7 @@ public class SalesModule extends JFrame implements ActionListener{
 	public SalesModule(User _user){
 
 		this.user = _user;
-		JLabel header = new JLabel("Welcome " + user.FirstName());	
+		JLabel header = new JLabel("Welcome " + this.user.FirstName());	
 		setTitle("Allen Eaton Sales Representative");
 		setBounds(800,400,250,200);
 		hub.setLayout(new GridBagLayout());
