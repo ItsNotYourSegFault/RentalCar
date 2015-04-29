@@ -15,6 +15,7 @@ public class CustomerModule extends JFrame implements ActionListener{
 	
 	public CustomerModule(User _user){
 		this.user = _user;
+		JLabel header = new JLabel("Welcome " + user.FirstName());	
 		setTitle("Allen Eaton Customer");
 		setBounds(800, 400, 250, 200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -29,6 +30,10 @@ public class CustomerModule extends JFrame implements ActionListener{
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.gridwidth = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+		hub.add(header, gbc);
         gbc.gridx = 3;
         gbc.gridy = 1;
 		hub.add(browse, gbc);

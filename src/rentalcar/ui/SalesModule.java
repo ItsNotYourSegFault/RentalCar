@@ -18,6 +18,7 @@ public class SalesModule extends JFrame implements ActionListener{
 	public SalesModule(User _user){
 
 		this.user = _user;
+		JLabel header = new JLabel("Welcome " + user.FirstName());	
 		setTitle("Allen Eaton Sales Representative");
 		setBounds(800,400,250,200);
 		hub.setLayout(new GridBagLayout());
@@ -27,6 +28,10 @@ public class SalesModule extends JFrame implements ActionListener{
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.insets = new Insets(2, 2, 2, 2);
+        gbc.gridwidth = 5;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+		hub.add(header, gbc);
         gbc.gridx = 3;
         gbc.gridy = 1;
 		hub.add(view,gbc);
