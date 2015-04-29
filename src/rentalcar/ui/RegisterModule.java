@@ -9,8 +9,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-//import rentalcar.system.User;
-//import rentalcar.data.FormObject;
+import rentalcar.system.User;
+import rentalcar.data.FormObject;
+import rentalcar.system.Database;
 
 
 public class RegisterModule {
@@ -19,7 +20,10 @@ public class RegisterModule {
 	//Declare all components globally
 	//------------------------------
 
+
+
 	//User user;
+	Database db = new Database();
 	private JFrame frame;
 
 
@@ -34,7 +38,7 @@ public class RegisterModule {
 	private JTextField driveField;
 	private JTextField addressField;
 	private JTextField emailField;
-	private JTextField cardField;
+
 	private JTextField fNameField;
 	private JTextField lNameField;
 	private JTextField phoneField;
@@ -87,17 +91,9 @@ public class RegisterModule {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, WINDOW_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//frame.setDefaultCloseOperation(operations());
 		frame.getContentPane().setLayout(null);
 
 		registerActions();
-	}
-
-
-	private int operations(){
-		LoginModule loginMod = new LoginModule();
-		loginMod.setVisible(true);
-		return JFrame.DISPOSE_ON_CLOSE;
 	}
 
 
@@ -108,7 +104,7 @@ public class RegisterModule {
 	public void DisplayAuthenticationError(String message) {
 		// display error next to logged out form fields
 		errMessage = new JLabel(message);
-		errMessage.setBounds(200, 35, 350, 20);
+		errMessage.setBounds(440, 80, 300, 25);
 		frame.getContentPane().add(errMessage);
 	}
 
@@ -186,16 +182,6 @@ public class RegisterModule {
 		//------------------------
 
 
-		//Credit Card Number
-		message = new JLabel("Credit Card Number (1234567812345678):");
-		message.setBounds(RIGHT_SIDE, 80, 300, 25);
-		frame.getContentPane().add(message);
-
-		cardField = new JTextField();
-		cardField.setText("");
-		cardField.setBounds(RIGHT_SIDE, 110, 300, 25);
-		frame.getContentPane().add(cardField);
-
 
 		//First Name
 		message = new JLabel("Please Enter Your First Name:");
@@ -259,12 +245,12 @@ public class RegisterModule {
 	public void submitActions(){
 		if(userField.getText().equalsIgnoreCase("") || passField.getText().equalsIgnoreCase("") ||
 				driveField.getText().equalsIgnoreCase("") || addressField.getText().equalsIgnoreCase("") ||
-				emailField.getText().equalsIgnoreCase("") || cardField.getText().equalsIgnoreCase("") ||
+				emailField.getText().equalsIgnoreCase("") ||
 				fNameField.getText().equalsIgnoreCase("") || lNameField.getText().equalsIgnoreCase("") ||
 				phoneField.getText().equalsIgnoreCase("") || birthField.getText().equalsIgnoreCase(""))
 		{
 			frame.getContentPane().remove(errMessage);
-			DisplayAuthenticationError("Please fill all fields.");
+			DisplayAuthenticationError("Please Fill All Fields.");
 			frame.repaint();
 		}else{
 			//username - string
@@ -272,7 +258,7 @@ public class RegisterModule {
 			//driver's license number - string
 			//address - string
 			//email - string
-			//credit card number - int - e.g. 1234567812345678
+
 			//first name - string
 			//last name - string
 			//phone number - int - e.g. 9137750653
@@ -283,50 +269,33 @@ public class RegisterModule {
 			String addressMess = addressField.getText();
 			String emailMess = emailField.getText();
 
-			String cardMess = cardField.getText();
 			String fNameMess = fNameField.getText();
 			String lNameMess = lNameField.getText();
 			String phoneMess = phoneField.getText();
 			String birthMess = birthField.getText();
 
-			int cardMessInt;
 			int phoneMessInt;
 			try{
 				//Everything works
-				cardMessInt = Integer.parseInt(cardMess);
 				phoneMessInt = Integer.parseInt(phoneMess);
-				
-
-				// Attempting to register
-				//FormObject register = new FormObject();
-				//register.Set("username", userMess);
-				//register.Set("password", passMess);
-				//register.Set("driverlicense", driveMess);
-				//register.Set("address", addressMess);
-				//register.Set("emailaddress", emailMess);
-
-				//register.Set("creditcard", cardMess);
-				//register.Set("firstname", fnameMess);
-				//register.Set("lastname", lnameMess);
-				//register.Set("phonenumber", phoneMess);
-				//register.Set("dateofbirth", birthMess);
-				//user.makeRegistration(register);
 
 
-				//FormObject newUser = new FormObject();
-			    //newUser.Set("username",     "troll3");
-			    //newUser.Set("password",     "yunoencrypt??");
-			    //newUser.Set("address",      "frickin' space. awwwww yeahhhhhhh.");
-			    //newUser.Set("licenseNumber","HAWTDGZ");
-			    //newUser.Set("userType",         "1");
+				FormObject newUser = new FormObject();
+			    newUser.Set("username",     userMess);
+			    newUser.Set("password",     passMess);
+			    newUser.Set("address",      addressMess);
+			    newUser.Set("licenseNumber", driveMess);
+			    newUser.Set("userType",         "2");
 
-			    //newUser.Set("firstname",    "John");
-			    //newUser.Set("lastname",     "Oliver");
-			    //newUser.Set("email",        "john.oliver@lwt.tv");
-			    //newUser.Set("phoneNumber",  "139-319-3913"); 
-			    //newUser.Set("birthdate",    "7-4-1776");
-			    //String affectedRowsUsers = db.CreateUser(newUser);
-			    //System.out.println("created "+ affectedRowsUsers + " user(s)");
+			    newUser.Set("firstname",    fNameMess);
+			    newUser.Set("lastname",     lNameMess);
+			    newUser.Set("email",        emailMess);
+			    newUser.Set("phoneNumber",  phoneMess); 
+			    newUser.Set("birthdate",    birthMess);
+
+			    //Really doesn't like these lines.
+			    String affectedRowsUsers = db.CreateUser(newUser);
+			    System.out.println("created "+ affectedRowsUsers + " user(s)");
 
 
 
@@ -334,17 +303,14 @@ public class RegisterModule {
 
 
 				clear();
-				//LoginModule loginMod = new LoginModule();
-				//loginMod.setVisible(true);
 				frame.dispose();
 
     			
 			}catch(NumberFormatException num){
 				//Nothing works
-				cardMessInt = 0;
 				phoneMessInt = 0;
 				frame.getContentPane().remove(errMessage);
-				DisplayAuthenticationError("Only numbers for Credit Card and Phone Number");
+				DisplayAuthenticationError("Use Only Numbers For Phone Number");
 				frame.repaint();	
 			}
 
