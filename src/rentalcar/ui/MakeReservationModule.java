@@ -468,6 +468,10 @@ public class MakeReservationModule extends JFrame implements ActionListener{
             String affectedRowsResis = dbClient.CreateReservation(reservation);
             System.out.println("created "+ affectedRowsResis + " reservation(s)");
             dispose();
+
+            //TODO: Grant, use the below statements to get a HashMap<String,String> to display the contract details.
+            /*ContractModule contractModule = new ContractModule(rMap);
+            contractModule.setVisible(true);*/
         } 
       }
     }
