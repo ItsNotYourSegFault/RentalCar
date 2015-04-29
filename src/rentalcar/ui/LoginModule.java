@@ -53,9 +53,11 @@ public class LoginModule extends JFrame {
     public LoginModule() {
     	loginButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent evt) {
+
     			user.LogIn(username.getText(), password.getText());
     			if (user.IsLoggedIn()) {
     				redirectByUserType(user.Type());
+            System.out.println(user.Type());
     			} else {
     				status.setText("Error!");
     			}
