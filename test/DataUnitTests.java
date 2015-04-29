@@ -90,6 +90,10 @@ public class DataUnitTests {
     System.out.println("fetching equipment...");
     List<HashMap<String, String>> equipment = db.GetAllEquipment();
     System.out.println("got " + equipment.size() + " instances of equipment...");
-    System.out.println(equipment);
+
+    System.out.println("fetching equipment counts...");
+    List<HashMap<String, String>> equipmentCounts = db.GetEquipmentCounts();
+    System.out.println("got " + equipmentCounts.size() + " instances of equipment...");
+    System.out.println(equipmentCounts);
   }
 }
