@@ -22,6 +22,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import org.jdesktop.swingx.JXDatePicker;
+import rentalcar.data.FormObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 import rentalcar.web.Request;
 import rentalcar.system.Database;
@@ -54,6 +57,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   private JLabel  labelTotalPrice;
   private JTextField labelTotalPriceValue;
 
+  private HashMap<String,String> rMap = new HashMap<String,String>();
   private HashMap<String,Double> maps = new HashMap<String,Double>();
   private HashMap<String,Integer> equipmentCounts = new HashMap<String,Integer>();
   private JComboBox<String> locationsComboBox;
@@ -63,6 +67,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   private JCheckBox chckbxNewCheckBox; 
   private JCheckBox chckbxNewCheckBox_1;
   private JCheckBox chckbxNewCheckBox_2;
+  private JButton btnNewButton;
   private int Locationid = 0;
   private String sDate = null;
   private String eDate = null;
@@ -70,6 +75,7 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   private Double dailyrate = 0.0;
   private Double weeklyrate = 0.0;
   private Double totalcosts = 0.0;
+  private boolean priceSet = false;
 
   // http://en.wikipedia.org/wiki/Julian_day
   public static int julianDay(int year, int month, int day){
@@ -142,6 +148,15 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   public MakeReservationModule(User _user) {   
 
     super("RentalCar/Reservation");
+
+    rMap.put("gps",  "0");
+    rMap.put("childSeat",  "0");
+    rMap.put("ktag",  "0");
+    rMap.put("roadside",  "0");
+    rMap.put("waiver",  "0");
+    rMap.put("accident",  "0");
+    
+
     this.user = _user;
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setBounds(100, 100, 1000, 601);
@@ -266,9 +281,10 @@ public class MakeReservationModule extends JFrame implements ActionListener{
     contentPane.add(labelTotalPriceValue);
     labelTotalPriceValue.addActionListener(this);
     
-    JButton btnNewButton = new JButton("Confirm Reservation");
+    btnNewButton = new JButton("Confirm Reservation");
     btnNewButton.setBounds(327, 498, 161, 23);
     contentPane.add(btnNewButton);
+    btnNewButton.addActionListener(this);
     
     JCheckBox chckbxNewCheckBox_3 = new JCheckBox("GPS");
     chckbxNewCheckBox_3.setBounds(270, 332, 58, 23);
@@ -280,6 +296,8 @@ public class MakeReservationModule extends JFrame implements ActionListener{
   }
 
   public void actionPerformed(ActionEvent e){
+
+    FormObject reservation = new FormObject();
     /**
      * those if statements will check which combobox or checkbox has been clicked
      */
@@ -288,19 +306,24 @@ public class MakeReservationModule extends JFrame implements ActionListener{
         Locationid = dbClient.GetLocationId(mylocation);
       //  equipmentCounts = dbClient.GetEquipmentCount(Locationid);
         locationSelected = true;
+        //reservation.Set("locationId", Integer.toString(Locationid));
+        rMap.put("locationId", Integer.toString(Locationid));
     }
     if(e.getSource() == startPicker){
         SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
         sDate = df.format(startPicker.getDate());
-        
+        Date date;
         //set a lower bound so dates before today cannot be selected
         try{
             DateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-            Date date = format.parse(sDate);
+            date = format.parse(sDate);
             endPicker.getMonthView().setLowerBound(date);
         }catch(Exception a){}
 
+        //reservation.Set("startDate",  sDate);
+        rMap.put("startDate",  sDate);
         startDateSelected = true;
+
     }
     if(e.getSource() == endPicker){
         SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
@@ -313,27 +336,41 @@ public class MakeReservationModule extends JFrame implements ActionListener{
             startPicker.getMonthView().setUpperBound(date);
         }catch(Exception a){}
 
+        //reservation.Set("endDate", eDate);
+        rMap.put("endDate", eDate);
         endDateSelected = true;
     }
     if(e.getSource() == chckbxNewCheckBox){
         if(chckbxNewCheckBox.isSelected() == true){
             boxoneSelected = true;
+            //reservation.Set("roadside",     "1");
+            rMap.put("roadside",     "1");
         }else{
             boxoneSelected = false;
+            //reservation.Set("roadside",     "0");
+            rMap.put("roadside",     "0");
         }
     }
     if(e.getSource() == chckbxNewCheckBox_1){
         if(chckbxNewCheckBox_1.isSelected() == true){
+            //reservation.Set("waiver", "1");
+            rMap.put("waiver", "1");
             boxtwoSelected = true;
         }else{
             boxtwoSelected = false;
+            //reservation.Set("waiver", "0");
+            rMap.put("waiver", "0");
         }
     }
     if(e.getSource() == chckbxNewCheckBox_2){
         if(chckbxNewCheckBox_2.isSelected() == true){
+            //reservation.Set("accident", "1");
+            rMap.put("accident", "1");
             boxthreeSelected = true;
         }else{
             boxthreeSelected = false;
+            //reservation.Set("accident", "0");
+            rMap.put("accident", "0");
         }
     }
     /**
@@ -346,11 +383,11 @@ public class MakeReservationModule extends JFrame implements ActionListener{
      */
     try{
         HashMap<String, Integer> totalClasses = dbClient.GetVehicleClassCount(Locationid);
-        System.out.println(totalClasses.toString());
+        //System.out.println(totalClasses.toString());
         HashMap<String, Integer> reservedClasses = dbClient.GetReservedVehicleClassCount(Locationid, sDate, eDate);
-        System.out.println(reservedClasses.toString());
+        //System.out.println(reservedClasses.toString());
         Vector<String> availableClasses = getAvailableClasses(totalClasses, reservedClasses);
-        System.out.println(availableClasses);
+       // System.out.println(availableClasses);
         final DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(availableClasses);
         if((locationSelected == true) && (startDateSelected == true) && (endDateSelected == true)){    
             if(model.getSize() == 0){
@@ -371,6 +408,8 @@ public class MakeReservationModule extends JFrame implements ActionListener{
     try{
         if(e.getSource() == comboBox_7){
                 String vehicleSelected = (String)comboBox_7.getSelectedItem();
+                //reservation.Set("vehicleClass", vehicleSelected);
+                rMap.put("vehicleClass", vehicleSelected);
                 if(vehicleSelected != "No Classes Available"){
                     maps = dbClient.GetVehicleClassRates(vehicleSelected); 
                     //seperate the weeklyrate and dailyrate
@@ -387,10 +426,55 @@ public class MakeReservationModule extends JFrame implements ActionListener{
             price = "" + 0.0;
         }else{
             
+            priceSet = true;
             totalcosts = getvehicleCost(dailyrate, weeklyrate, Duration(sDate,eDate)) + getserviceCosts(boxoneSelected, boxtwoSelected, boxthreeSelected);
             price = "" + totalcosts;
         }
         labelTotalPriceValue.setText(price);
+        rMap.put("totalCost",price);
     }catch(NullPointerException b){}
+
+    try 
+    {
+      if(e.getSource() == btnNewButton)
+      { 
+        System.out.println("Trying to reserve");
+        if((priceSet == true) && (startDateSelected == true) && (endDateSelected == true)){  
+
+            String customerID = Integer.toString(user.getCustomerId()); 
+            System.out.println("Customer ID : " + customerID);
+
+            //Random rand = new Random();
+
+            // nextInt is normally exclusive of the top value,
+            // so add 1 to make it inclusive
+            //int randomNum = rand.nextInt((900000000 - 100000000) + 1) + 100000000;
+
+
+            reservation.Set("startDate",    rMap.get("startDate"));
+            reservation.Set("endDate",      rMap.get("endDate"));
+            reservation.Set("vehicleClass", rMap.get("vehicleClass"));
+            reservation.Set("locationId",   rMap.get("locationId"));
+            reservation.Set("salesrepId",   "2");
+            reservation.Set("customerId",   customerID);
+            reservation.Set("ccn",          "123456789");
+            reservation.Set("gps",          rMap.get("gps"));
+            reservation.Set("childSeat",    rMap.get("childSeat"));
+            reservation.Set("ktag",         rMap.get("ktag"));
+            reservation.Set("roadside",     rMap.get("roadside"));
+            reservation.Set("waiver",       rMap.get("waiver"));
+            reservation.Set("accident",     rMap.get("accident"));
+            reservation.Set("totalCost",    rMap.get("totalCost"));
+            String affectedRowsResis = dbClient.CreateReservation(reservation);
+            System.out.println("created "+ affectedRowsResis + " reservation(s)");
+            dispose();
+        } 
+      }
+    }
+    catch(JSONException exep)
+    {
+      exep.printStackTrace();
+    }
+    
   }
 }
