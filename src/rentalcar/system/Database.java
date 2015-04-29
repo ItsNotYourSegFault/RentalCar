@@ -1,7 +1,7 @@
 package rentalcar.system;
 
 /*
-  User.java
+  Database.java
   --
   Kendal Harland <kendaljharland@gmail.com>
   --
@@ -55,6 +55,11 @@ public class Database {
     return Locations.get(locationName);
   }
 
+  public String CreateUser(FormObject user) {
+    Request request = new Request();
+    return request.POST("/user", user.ToQueryString());
+  }
+
   public String CreateReservation(FormObject reservation) {
     Request request = new Request();
     return request.POST("/reservation", reservation.ToQueryString());
@@ -78,6 +83,12 @@ public class Database {
     return reservations;
   }
 
+  public Double GetTaxRate(int locationId) throws JSONException {
+    JSONRequest request = new JSONRequest();
+    JSONObject response = request.GET("/location/taxRate/" + Integer.toString(locationId));
+    return response.getDouble("rate");
+  }
+
   public HashMap<String, Double> GetVehicleClassRates(String vehicleClass) throws JSONException {
     JSONRequest request = new JSONRequest();
     JSONObject response = request.GET("/vehicle/class/rates/" + vehicleClass);
@@ -90,13 +101,6 @@ public class Database {
     }
     return vehicleClassRates;
   }
-
-  public Double GetTaxRate(int locationId) throws JSONException {
-    JSONRequest request = new JSONRequest();
-    JSONObject response = request.GET("/location/taxRate/" + Integer.toString(locationId));
-    return response.getDouble("rate");
-  }
-
 
   public List<HashMap<String, String>> GetVehicles(int locationId) throws JSONException {
     Request request = new Request();
