@@ -312,10 +312,31 @@ public class RegisterModule {
 				//register.Set("dateofbirth", birthMess);
 				//user.makeRegistration(register);
 
+
+				//FormObject newUser = new FormObject();
+			    //newUser.Set("username",     "troll3");
+			    //newUser.Set("password",     "yunoencrypt??");
+			    //newUser.Set("address",      "frickin' space. awwwww yeahhhhhhh.");
+			    //newUser.Set("licenseNumber","HAWTDGZ");
+			    //newUser.Set("userType",         "1");
+
+			    //newUser.Set("firstname",    "John");
+			    //newUser.Set("lastname",     "Oliver");
+			    //newUser.Set("email",        "john.oliver@lwt.tv");
+			    //newUser.Set("phoneNumber",  "139-319-3913"); 
+			    //newUser.Set("birthdate",    "7-4-1776");
+			    //String affectedRowsUsers = db.CreateUser(newUser);
+			    //System.out.println("created "+ affectedRowsUsers + " user(s)");
+
+
+
+
+
+
 				clear();
 				//LoginModule loginMod = new LoginModule();
 				//loginMod.setVisible(true);
-				//dispose();
+				frame.dispose();
 
     			
 			}catch(NumberFormatException num){
