@@ -1,9 +1,9 @@
 package rentalcar.ui;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
+
 public class UserUpdateModule extends JFrame implements ActionListener{
 	private JFrame frame;
 	private JLabel message;
@@ -12,7 +12,6 @@ public class UserUpdateModule extends JFrame implements ActionListener{
 	private JTextField driveField;
 	private JTextField addressField;
 	private JTextField emailField;
-	private JTextField cardField;
 	private JTextField fNameField;
 	private JTextField lNameField;
 	private JTextField phoneField;
@@ -110,58 +109,48 @@ public class UserUpdateModule extends JFrame implements ActionListener{
 		//------------------------
 
 
-		//Credit Card Number
-		message = new JLabel("Credit Card Number (1234567812345678):");
-		message.setBounds(RIGHT_SIDE, 80, 300, 25);
-		frame.getContentPane().add(message);
-
-		cardField = new JTextField();
-		cardField.setText("");
-		cardField.setBounds(RIGHT_SIDE, 110, 300, 25);
-		frame.getContentPane().add(cardField);
-
 
 		//First Name
 		message = new JLabel("Please Enter Your First Name:");
-		message.setBounds(RIGHT_SIDE, 150, 300, 25);
+		message.setBounds(RIGHT_SIDE, 80, 300, 25);
 		frame.getContentPane().add(message);
 
 		fNameField = new JTextField();
 		fNameField.setText("");
-		fNameField.setBounds(RIGHT_SIDE, 180, 300, 25);
+		fNameField.setBounds(RIGHT_SIDE, 110, 300, 25);
 		frame.getContentPane().add(fNameField);
 
 
 		//Last Name
 		message = new JLabel("Please Enter Your Last Name:");
-		message.setBounds(RIGHT_SIDE, 220, 300, 25);
+		message.setBounds(RIGHT_SIDE, 150, 300, 25);
 		frame.getContentPane().add(message);
 
 		lNameField = new JTextField();
 		lNameField.setText("");
-		lNameField.setBounds(RIGHT_SIDE, 250, 300, 25);
+		lNameField.setBounds(RIGHT_SIDE, 180, 300, 25);
 		frame.getContentPane().add(lNameField);
 
 
 		//Phone Number
 		message = new JLabel("Please Enter Your Phone Number:");
-		message.setBounds(RIGHT_SIDE, 290, 300, 25);
+		message.setBounds(RIGHT_SIDE, 220, 300, 25);
 		frame.getContentPane().add(message);
 
 		phoneField = new JTextField();
 		phoneField.setText("");
-		phoneField.setBounds(RIGHT_SIDE, 320, 300, 25);
+		phoneField.setBounds(RIGHT_SIDE, 250, 300, 25);
 		frame.getContentPane().add(phoneField);
 
 
 		//Date Of Birth
 		message = new JLabel("Date Of Birth (1991-07-14):");
-		message.setBounds(RIGHT_SIDE, 360, 300, 25);
+		message.setBounds(RIGHT_SIDE, 290, 300, 25);
 		frame.getContentPane().add(message);
 
 		birthField = new JTextField();
 		birthField.setText("");
-		birthField.setBounds(RIGHT_SIDE, 390, 300, 25);
+		birthField.setBounds(RIGHT_SIDE, 320, 300, 25);
 		frame.getContentPane().add(birthField);
 
 
@@ -179,7 +168,4 @@ public class UserUpdateModule extends JFrame implements ActionListener{
 		
 	}
 	
-	/*public static void main(String[] args){
-		new UserUpdateModule();
-	}*/
 }
