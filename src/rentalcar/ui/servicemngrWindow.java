@@ -32,7 +32,7 @@ import java.util.*;
 public class servicemngrWindow extends JPanel {
 	private boolean DEBUG = false;
 
-	private JFrame frmServiceManager;
+	public JFrame frmServiceManager;
 	private final JCheckBox checkBox = new JCheckBox("Changed Oil");
 	private JTable table;
 	private JScrollBar scrollBar;

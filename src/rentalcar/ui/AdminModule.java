@@ -43,10 +43,10 @@ public class AdminModule extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object s = e.getSource();
 		if(s == viewEditReservations){
-			new ManagerHistory(user).setVisible(true);
+			//new ManagerHistory(user).setVisible(true);
 		}
 		else if(s == addRemoveUsers){
-			new UserManagement(user).setVisible(true);
+			//new UserManagement(user).setVisible(true);
 		}
 		else if(s == logout){
 			new LoginModule().setVisible(true);
