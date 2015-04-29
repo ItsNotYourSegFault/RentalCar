@@ -4,57 +4,42 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
-import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import java.util.*;
-
-import rentalcar.web.JSONRequest;
-import rentalcar.system.Database;
-import rentalcar.data.FormObject;
-import org.json.JSONObject;
-import org.json.JSONArray;
-
 
 public class BrowseModule extends JFrame implements ListSelectionListener {
-
 	private static final long serialVersionUID = 1L;
+	
+	private JLabel lblNewLabel;
+	
+	private JList<String> list;
+	
+	private String[] listStr = 
+		{
+			"Economy - $45/day or $300/week",
+			"Compact - $50/day or $325/week",
+			"Standard - $60/day or $400/week",
+			"Premium - $65/day or $435/week",
+			"Small SUV - $70/day or $475/week",
+			"Standard SUV - $75/day or $500/week",
+			"Minivan - $85/day or $575/week"
+		};
+	
+	private ImageIcon[] pics = {new ImageIcon("pics/economy_-_ford_fiesta.jpg"), new ImageIcon("pics/compact_-_honda_civic.jpg"), 
+			new ImageIcon("pics/standard_-_toyota_camry.jpg"), new ImageIcon("pics/premium_-_ford_mustang.jpg"), new ImageIcon("pics/small_suv_-_honda_cr-v.jpg"), 
+			new ImageIcon("pics/standard_suv_-_toyota_highlander.jpg"),new ImageIcon("pics/minivan_-_honda_odyssey.jpg")};
+
 	private JPanel contentPane;
-	private Database db = new Database();
-	private String[] Locations = 
-	{
-		"Atchison",
-		"Belton",
-		"Emporia",
-		"Hiawatha",
-		"Kansas City",
-		"Lawrence",
-		"Leavenworth",
-		"Manhattan",
-		"Platte City",
-		"St. Joseph",
-		"Topeka",
-		"Warrensburg"
-	};
-	private String[] VehicleListStr = 
-	{
-		"Economy - $45/day or $300/week",
-		"Compact - $50/day or $325/week",
-		"Standard - $60/day or $400/week",
-		"Premium - $65/day or $435/week",
-		"Small SUV - $70/day or $475/week",
-		"Standard SUV - $75/day or $500/week",
-		"Minivan - $85/day or $575/week"
-	};
-	private JList<String> VehicleList;
-	private JList<String> LocationsList;
+	private JLabel label;
+	private JPanel panel_2;
 
 	/**
 	 * Launch the application.
@@ -77,105 +62,51 @@ public class BrowseModule extends JFrame implements ListSelectionListener {
 	 */
 	public BrowseModule() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(200, 200, 800, 600);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel LocationsPanel = new JPanel();
-		LocationsPanel.setBorder(new TitledBorder(null, "Locations", 
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		LocationsPanel.setBounds(25, 9, 364, 241);
-		contentPane.add(LocationsPanel);
-		LocationsPanel.setLayout(null);
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Vehicle Selection", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(16, 10, 376, 291);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		LocationsList = new JList<String>(Locations);
-		LocationsList.setBounds(5, 17, 354, 219);
-		LocationsPanel.add(LocationsList);
-		LocationsList.addListSelectionListener(this);
+		list = new JList<String>(listStr);
+		list.setBounds(6, 16, 364, 268);
+		panel.add(list);
+		list.setFont(new Font("Arial",Font.PLAIN,16));
+		list.addListSelectionListener(this);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Vehicle Example", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(399, 10, 381, 291);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
 		
-		JPanel VehicleListPanel = new JPanel();
-		VehicleListPanel.setBorder(new TitledBorder(null, "Available Vehicle Classes", 
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		VehicleListPanel.setBounds(412, 9, 364, 241);
-		contentPane.add(VehicleListPanel);
-		VehicleListPanel.setLayout(null);
+		lblNewLabel = new JLabel();
+		lblNewLabel.setBounds(6, 16, 369, 268);
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setIcon(pics[0]);
 		
-		VehicleList = new JList<String>();
-		VehicleList.setBounds(5, 17, 354, 219);
-		VehicleListPanel.add(VehicleList);
+		panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Additional Equipment/Services", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(122, 316, 512, 198);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
 		
-		JPanel ServicesPanel = new JPanel();
-		ServicesPanel.setBorder(new TitledBorder(null, "Additional Equipment/Services", 
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		ServicesPanel.setBounds(26, 275, 364, 241);
-		contentPane.add(ServicesPanel);
-		ServicesPanel.setLayout(null);
-		
-		JLabel ServicesLabel = new JLabel();
-		ServicesLabel.setBounds(5, 17, 354, 219);
-		ServicesPanel.add(ServicesLabel);
-		ServicesLabel.setText("<HTML>GPS Receiver - $15/day"
-				+ "<BR>Child Seat - $10/day"
-				+ "<BR>K-TAG Rental - $2/day (plus accumulated tolls)"
-				+ "<BR>Roadside Assistance - $7/day"
-				+ "<BR>Loss Damage Waiver Insurance - $25/day"
-				+ "<BR>Personal Accident Insurance - $5/day</HTML>");
-		
-		JPanel VehicleExamplePanel = new JPanel();
-		VehicleExamplePanel.setBorder(new TitledBorder(null, "Vehicle Example", 
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		VehicleExamplePanel.setBounds(415, 275, 364, 241);
-		contentPane.add(VehicleExamplePanel);
-		VehicleExamplePanel.setLayout(null);
-		
-		JLabel VehicleExampleLabel = new JLabel();
-		VehicleExampleLabel.setBounds(5, 17, 354, 219);
-		VehicleExamplePanel.add(VehicleExampleLabel);
+		label = new JLabel();
+		label.setBounds(6, 16, 500, 175);
+		panel_2.add(label);
+		label.setText("<HTML>GPS Receiver - $15/day<BR>Child Seat - $10/day<BR>K-TAG Rental - $2/day (plus accumulated tolls)"
+				+ "<BR>Roadside Assistance - $7/day<BR>Loss Damage Waiver Insurance - $25/day<BR>Personal Accident Insurance - $5/day</HTML>");
 	}
-	
-	public String findVehicleString(String v) {
-		if(v.equals("Economy")) {
-			return(VehicleListStr[0]);
-		} else if(v.equals("Compact")) {
-			return(VehicleListStr[1]);
-		} else if(v.equals("Standard")) {
-			return(VehicleListStr[2]);
-		} else if(v.equals("Premium")) {
-			return(VehicleListStr[3]);
-		} else if(v.equals("Small SUV")) {
-			return(VehicleListStr[4]);
-		} else if(v.equals("Standard SUV")) {
-			return(VehicleListStr[5]);
-		} else if(v.equals("Std SUV")) {
-			return(VehicleListStr[5]);
-		} else if (v.equals("Minivan")){
-			return(VehicleListStr[6]);
-		} else {
-			return(" ");
-		}
-	}
+
 	
 	public void valueChanged(ListSelectionEvent e) {
-		int selectedLocationIndex = LocationsList.getSelectedIndex();
-		int selectedLocationID = (selectedLocationIndex * 10) + 1;
-		HashMap<String, Integer> countsV = db.GetVehicleClassCount(selectedLocationID);
-		HashMap<String, Integer> countsR = db.GetReservedVehicleClassCount(selectedLocationID,
-												"2016-01-01", "2015-01-01");
-		DefaultListModel<String> newModel = new DefaultListModel<String>();
-		Iterator<String> it = countsV.keySet().iterator();
-		
-		while(it.hasNext()) {
-			String nextKey = it.next();
-			//System.out.println(nextKey+"   "+countsV.get(nextKey));
-			newModel.addElement(findVehicleString(nextKey));
-		}
-		
-		VehicleList.setModel(newModel);
-		
-		//lblNewLabel.setIcon(pics[list.getSelectedIndex()]);
+		lblNewLabel.setIcon(pics[list.getSelectedIndex()]);
 		
 	}
 }
