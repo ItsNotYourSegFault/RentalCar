@@ -74,7 +74,7 @@ public class DataUnitTests {
     System.out.println("created "+ affectedRowsResis + " reservation(s)");
 
     FormObject newUser = new FormObject();
-    newUser.Set("username",     "troll2");
+    newUser.Set("username",     "troll3");
     newUser.Set("password",     "yunoencrypt??");
     newUser.Set("address",      "frickin' space. awwwww yeahhhhhhh.");
     newUser.Set("licenseNumber","HAWTDGZ");
@@ -86,5 +86,10 @@ public class DataUnitTests {
     newUser.Set("birthdate",    "7-4-1776");
     String affectedRowsUsers = db.CreateUser(newUser);
     System.out.println("created "+ affectedRowsUsers + " user(s)");
+
+    System.out.println("fetching equipment...");
+    List<HashMap<String, String>> equipment = db.GetAllEquipment();
+    System.out.println("got " + equipment.size() + " instances of equipment...");
+    System.out.println(equipment);
   }
 }

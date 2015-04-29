@@ -185,4 +185,22 @@ public class Database {
     }
     return reservations;
   }
+
+  public List<HashMap<String, String>> GetAllEquipment() {
+    Request request = new Request();
+    String response = request.GET("/equipment");
+    JSONArray equipmentStrings = new JSONArray(response);
+    List<HashMap<String, String>> equipment = new ArrayList<HashMap<String, String>>();
+    for (int i=0; i<equipmentStrings.length(); i++) {
+      JSONObject obj = equipmentStrings.getJSONObject(i);
+      HashMap<String, String> map = new HashMap<String, String>();
+      Iterator<String> it = obj.keySet().iterator();
+      while (it.hasNext()) {
+        String key = it.next();
+        map.put(key, obj.get(key).toString());
+      }
+      equipment.add(map);
+    }
+    return equipment;
+  }
 }
