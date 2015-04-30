@@ -444,13 +444,6 @@ public class MakeReservationModule extends JFrame implements ActionListener{
             String customerID = Integer.toString(user.getCustomerId()); 
             System.out.println("Customer ID : " + customerID);
 
-            //Random rand = new Random();
-
-            // nextInt is normally exclusive of the top value,
-            // so add 1 to make it inclusive
-            //int randomNum = rand.nextInt((900000000 - 100000000) + 1) + 100000000;
-
-
             reservation.Set("startDate",    rMap.get("startDate"));
             reservation.Set("endDate",      rMap.get("endDate"));
             reservation.Set("vehicleClass", rMap.get("vehicleClass"));
@@ -470,8 +463,8 @@ public class MakeReservationModule extends JFrame implements ActionListener{
             dispose();
 
             //TODO: Grant, use the below statements to get a HashMap<String,String> to display the contract details.
-            /*ContractModule contractModule = new ContractModule(rMap);
-            contractModule.setVisible(true);*/
+            ContractModule contractModule = new ContractModule(rMap);
+            contractModule.setVisible(true);
         } 
       }
     }
