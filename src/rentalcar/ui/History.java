@@ -75,6 +75,10 @@ public class History extends JFrame
       else if (type.equals("service_manager")) 
       {
         setDataManager();
+      }
+      else if (type.equals("sales_manager")) 
+      {
+        setDataManager();
       } 
       else if (type.equals("admin")) 
       {
@@ -138,6 +142,55 @@ public class History extends JFrame
 
     private void setDataManager()
     {
+        String[] tempColumnNames = 
+        {
+            "Vehicle Class",
+            "Start Date",
+            "End Date",
+            "Location",
+            "Reservation ID",
+            "Total Cost($)"
+        };
+        
+        columnNames = tempColumnNames;
+        List<HashMap<String, String>> dataBond = db.GetAllReservations();
+        data = new Object[dataBond.size()][columnNames.length];
+        
+        for (int i = 0; i < dataBond.size(); i++) 
+        {
+            int iter = 0;
+            HashMap<String,String> dataMap = dataBond.get(i);
+
+            for(Entry<String,String> entry : dataMap.entrySet())
+            {
+                
+                if(entry.getKey().equals(new String("vehicleClass")))
+                {
+                    data[i][0] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("startDate")))
+                {
+                    data[i][1] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("endDate")))
+                {
+                    data[i][2] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("locationId")))
+                {
+                    data[i][3] = nonConstLocations.get(Integer.parseInt(entry.getValue()));
+                }
+                if(entry.getKey().equals(new String("reservationid")))
+                {
+                    data[i][4] = entry.getValue();
+                }
+                if(entry.getKey().equals(new String("totalCost")))
+                {
+                    data[i][5] = entry.getValue();
+                }
+                
+            }
+        }
         //TODO: Set Data for ServiceManager
     }
     
