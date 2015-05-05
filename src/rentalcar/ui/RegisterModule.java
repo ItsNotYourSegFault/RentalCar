@@ -285,7 +285,7 @@ public class RegisterModule {
 			    newUser.Set("password",     passMess);
 			    newUser.Set("address",      addressMess);
 			    newUser.Set("licenseNumber", driveMess);
-			    newUser.Set("userType",         "2");
+			    newUser.Set("userType",         "customer");
 
 			    newUser.Set("firstname",    fNameMess);
 			    newUser.Set("lastname",     lNameMess);
@@ -296,11 +296,6 @@ public class RegisterModule {
 			    //Really doesn't like these lines.
 			    String affectedRowsUsers = db.CreateUser(newUser);
 			    System.out.println("created "+ affectedRowsUsers + " user(s)");
-
-
-
-
-
 
 				clear();
 				frame.dispose();
